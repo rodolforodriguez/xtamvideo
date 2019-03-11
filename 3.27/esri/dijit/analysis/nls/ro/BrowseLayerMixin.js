@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/ro/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Alege\u0163i stratul tematic de analiz\u0103 din atlasul actualizat",customAnalysisLayerTitle:"Selectare strat tematic de analiz\u0103",searchPlaceholderText:"C\u0103utarea straturilor tematice de analiz\u0103 Living Atlas",searchCustomPlaceholderText:"C\u0103utarea straturi tematice de analiz\u0103",mainActionTitle:"Selectare",customActionName:"Selectare \u0219i ad\u0103ugare la hart\u0103",customeSectionName:"Analiza Grupului Living Atlas",
+Categories:"Categorii",boundaries:"Grani\u0163e",places:"Locuri",boundariesAndPlaces:"Grani\u0163e \u015fi locuri",hexbins:"Hexazecimale",transportation:"Transport",point:"Straturi tematice punct",line:"Straturi tematice polilinie",polygon:"Straturi tematice poligon"});

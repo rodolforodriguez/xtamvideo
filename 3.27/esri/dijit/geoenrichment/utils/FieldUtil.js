@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/geoenrichment/utils/FieldUtil",[],function(){var b={isNumericField:function(a){switch(a&&a.type){case "esriFieldTypeSmallInteger":case "esriFieldTypeInteger":return"i";case "esriFieldTypeSingle":case "esriFieldTypeDouble":return"f"}return!1},isStringField:function(a){return a&&"esriFieldTypeString"==a.type||!1},isDateField:function(a){return a&&"esriFieldTypeDate"==a.type||!1}},e=/^(SHAPE__Area|SHAPE__Length)$/;b.canShowField=function(a,c){if(!a||!a.name||"esriFieldTypeOID"===a.type)return!1;
+if("esriFieldTypeDate"===a.type)return"d";var d=b.isNumericField(a)||b.isStringField(a);if("f"===d&&!1===a.editable&&e.test(a.name))return null;void 0===c&&(c=/^(OBJECTID|OID|FID)$/i);return c&&c.test(a.name)?!1:!0===d?"s":d};return b});

@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/sl/Watershed",{inputLayerLabel:"Izberite sloj s smerjo pretoka",pourPointLayerLabel:"Izberite rastrski ali geoobjektni sloj s to\u010dko litja",pourPointField:"Izberite polje s to\u010dko litja",resultLayerName:"Ime sloja z rezultati",outputLayerName:"Razvodje za ${layername}",itemDescription:"Geoobjektni sloj, ustvarjen z orodjem Povzemi sredi\u0161\u010de in disperzijo za ${layerName}. ",itemTags:"Rezultat analize, Razvodje, ${layername}, ${fieldname}",itemSnippet:"Geoobjektni sloj, ustvarjen z orodjem Razvodje."});

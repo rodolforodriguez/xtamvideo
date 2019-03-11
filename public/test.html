@@ -1,0 +1,28 @@
+<head>
+
+    <script>
+        function show(target) {
+            document.getElementsByClassName(target);
+            x.style.display[0] = "block";
+        }
+
+        function hide(target) {
+            x = document.getElementsByClassName("+target+");
+            x.style.display[0] = "none";
+        }
+    </script>
+</head>
+<a href="#" onclick="show('mydiv')">Open DIV</a>
+<div class="mydiv">
+    <div id="mydiv-container">
+        <div id="mydiv-content">
+
+            <h1>Here's The Popup!</h1>
+
+            <br>Click the link to close.
+            <br>
+            <a href="#" onclick="hide('mydiv')">Close</a>
+
+        </div>
+    </div>
+</div>

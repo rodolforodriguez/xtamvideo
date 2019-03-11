@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/geoenrichment/ReportPlayer/core/infographics/InfographicTypes",["dojo/_base/lang"],function(g){var b={STATIC:"static",ATTACHMENTS:"attachments",AREA_DETAILS:"areaDetails",INTERESTING_FACTS:"interestingFacts",LOCATOR_TABLE:"locatorTable",COMPARISON_TABLE:"comparisonTable"},c={AGE_PYRAMID:"AgePyramid",TAPESTRY:"Tapestry",RELATED_VARS:"RelatedVariables",ONE_VAR:"OneVar"},e={},d;for(d in c)e[c[d]]=!0;g.mixin(b,c);var f={};for(d in b)f[b[d]]=!0;b.isDynamic=function(a){return e[a]};b.isSupported=
+function(a){return f[a]};b.fixTapestryNameToWidget=function(a){return"TapestryNEW"===a?"Tapestry":a};b.fixTapestryNameToData=function(a){return"Tapestry"===a?"TapestryNEW":a};b.supportsMultiFeature=function(a){return a===b.COMPARISON_TABLE||a===b.LOCATOR_TABLE||a===b.ATTACHMENTS||a===b.AREA_DETAILS};b.supportsComparison=function(a){return a===c.ONE_VAR||a===c.AGE_PYRAMID||a===c.RELATED_VARS||a===b.COMPARISON_TABLE};b.isDynamicWithFiltering=function(a){return a===c.ONE_VAR||a===c.AGE_PYRAMID||a===
+c.RELATED_VARS};return b});

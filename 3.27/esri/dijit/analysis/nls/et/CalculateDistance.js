@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/et/CalculateDistance",{inputLayerLabel:"Valige rasterkiht v\u00f5i vektorkiht, et arvutada kaugus",maxDistanceLabel:"Arvutatav maksimumkaugus (valikuline)",outputCellSize:"V\u00e4ljundpiksli suurus (valikuline)",resultDistLayerName:"Kauguse tulemkihi nimi",resultDirectionLayerName:"Suuna tulemkihi nimi (valikuline)",resultAllocationLayerName:"M\u00e4\u00e4ramise tulemkihi nimi (valikuline)",outputLayerName:"Kihi ${layername} arvutatud kaugus",allocationFieldLabel:"Vali paiknemist kirjeldav v\u00e4li (valikuline)",
+itemDescription:"Objektikiht loodi kihi ${layerName} kauguse arvutamise kaudu. ",itemTags:"Anal\u00fc\u00fcsi tulemus, Arvuta kaugus, ${layername} ${fieldname}",itemSnippet:"Objektikiht loodi kauguse arvutamise kaudu."});

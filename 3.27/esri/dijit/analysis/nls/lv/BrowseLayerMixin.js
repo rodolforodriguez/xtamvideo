@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/lv/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Izv\u0113l\u0113ties Living Atlas anal\u012bzes sl\u0101ni",customAnalysisLayerTitle:"Izv\u0113l\u0113ties anal\u012bzes sl\u0101ni",searchPlaceholderText:"Mekl\u0113t Living Atlas anal\u012bzes sl\u0101\u0146us",searchCustomPlaceholderText:"Mekl\u0113t anal\u012bzes sl\u0101\u0146us",mainActionTitle:"Atlas\u012bt",customActionName:"Izv\u0113l\u0113ties un pievienot kartei",customeSectionName:"Living Atlas grupas anal\u012bze",
+Categories:"Kategorijas",boundaries:"Robe\u017eas",places:"Vietas",boundariesAndPlaces:"Robe\u017eas un vietas",hexbins:"Se\u0161st\u016bru laukumi",transportation:"Transports",point:"Punktu sl\u0101\u0146i",line:"L\u012bniju sl\u0101\u0146i",polygon:"Laukumu sl\u0101\u0146i"});

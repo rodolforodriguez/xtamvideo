@@ -1,0 +1,5 @@
+var _mgptl = document.location.protocol;
+(function() {
+	(document.createElement('IMG')).src = _mgptl + '//loadm.exelator.com/load/?p=204&g=1121&j=0&BUID=h49SmidqA8W7';
+	(document.createElement('IMG')).src = _mgptl + '//bcp.crwdcntrl.net/map/c=9380/tp=MGID/tpid=h49SmidqA8W7';
+})()

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/geoenrichment/ReportPlayer/core/conversion/reportingEngine/converters/DocumentConverter",["dojo/_base/lang","../../ConversionUtil","../ReportingEnginePageSizeCompatibilityUtil"],function(e,c,g){var f={buildDocumentTag:function(a){var b=c.pxToPtObj(e.mixin({},a.report.templateJson.documentOptions)),d={name:"HTMLextReport",attributes:{version:"10.1",pagesize:g.getReportingEnginePageSize(b.pagesize,b.orientation),orientation:b.orientation,left:b.left,right:b.right,top:b.top,bottom:b.bottom,
+style:c.composeStyleString(f.buildDocumentStyle(a))},tags:[]};a.addDefaultQuery&&d.tags.push({name:"queries",tags:[{name:"query",attributes:{name:"default",table:"headers"}}]});a.report.isGraphicReport||d.tags.push({name:"def",attributes:{align:b.align,lineSpacing:b.lineSpacing}});return{documentTag:d}},buildDocumentStyle:function(a){a=c.pxToPtObj(e.mixin({},a.report.templateJson.documentOptions));return{fontSize:a.fontSize,fontFamily:a.fontFamily}}};return f});

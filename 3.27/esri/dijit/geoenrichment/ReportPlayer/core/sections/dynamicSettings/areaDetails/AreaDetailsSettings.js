@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/geoenrichment/ReportPlayer/core/sections/dynamicSettings/areaDetails/AreaDetailsSettings",["dojo/_base/declare","dijit/_WidgetBase","dijit/_TemplatedMixin","../RefineFilters","dojo/i18n!esri/nls/jsapi"],function(c,d,e,f,b){b=b.geoenrichment.dijit.ReportPlayer.SectionDynamicSettingsBuilder;return c([d,e],{templateString:"\x3cdiv\x3e\x3c/div\x3e",refineFilters:null,postCreate:function(){var a=this;this.inherited(arguments);this.refineFilters=(new f({hasTitle:!0,hasTextFilter:!0,textFilterPlaceHolder:b.enterAttributeNameOrNoteText,
+onFilterChanged:function(b){a.onAreaDetailsFilterChanged(b)}})).placeAt(this.domNode);this.own(this.refineFilters)},setNumItems:function(a,c){this.refineFilters.setTitle(b.refineYourResults,a,c)},onAreaDetailsFilterChanged:function(a){},setVisualState:function(a){this.refineFilters.setVisualState(a&&a.stackElements[0]&&a.stackElements[0].cells&&a.stackElements[0].cells[0])}})});

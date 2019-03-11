@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/hu/BrowseLayerMixin",{defaultAnaysisLayerTitle:"A Living Atlas eredm\u00e9nyr\u00e9teg kiv\u00e1laszt\u00e1sa",customAnalysisLayerTitle:"Eredm\u00e9nyr\u00e9teg kiv\u00e1laszt\u00e1sa",searchPlaceholderText:"Living Atlas eredm\u00e9nyr\u00e9tegek keres\u00e9se",searchCustomPlaceholderText:"Eredm\u00e9nyr\u00e9tegek keres\u00e9se",mainActionTitle:"Kiv\u00e1laszt\u00e1s",customActionName:"Kiv\u00e1laszt\u00e1s \u00e9s hozz\u00e1ad\u00e1s a t\u00e9rk\u00e9phez",customeSectionName:"Living Atlas eredm\u00e9nycsoport",
+Categories:"Kateg\u00f3ri\u00e1k",boundaries:"Hat\u00e1rok",places:"Helyek",boundariesAndPlaces:"Adminisztrat\u00edv ter\u00fcletek \u00e9s helyek",hexbins:"Hexbinek",transportation:"Sz\u00e1ll\u00edt\u00e1s",point:"Pontr\u00e9tegek",line:"Polyline-r\u00e9tegek",polygon:"Polygonr\u00e9tegek"});

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/sr/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Odaberite Living Atlas sloj za analizu",customAnalysisLayerTitle:"Izaberi sloj za analizu",searchPlaceholderText:"Pretra\u017eite Living Atlas slojeve za analizu",searchCustomPlaceholderText:"Pretra\u017ei slojeve za analizu",mainActionTitle:"Selektujte",customActionName:"Selektujte i dodajte mapi",customeSectionName:"Analiza Living Atlas grupe",Categories:"Kategorije",boundaries:"Granice",places:"Mesta",boundariesAndPlaces:"Svetske granice i mesta",
+hexbins:"Heksagonalno grupisani podaci",transportation:"Transport",point:"Ta\u010dkasti slojevi",line:"Slojevi polilinija",polygon:"Slojevi poligona"});

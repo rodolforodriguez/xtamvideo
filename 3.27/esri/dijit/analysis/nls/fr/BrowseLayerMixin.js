@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/fr/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Choisir une couche d'analyse du Living Atlas",customAnalysisLayerTitle:"Choisir une couche d'analyse",searchPlaceholderText:"Parcourir les couches d\u2019analyse du Living Atlas",searchCustomPlaceholderText:"Parcourir les couches d\u2019analyse",mainActionTitle:"S\u00e9lectionner",customActionName:"S\u00e9lectionner et ajouter \u00e0 la carte",customeSectionName:"Groupe Analyse du Living Atlas",Categories:"Cat\u00e9gories",
+boundaries:"Limites",places:"Lieux",boundariesAndPlaces:"Fronti\u00e8res et lieux",hexbins:"Groupes hexad\u00e9cimaux",transportation:"Transport",point:"Couches de points",line:"Couches de polylignes",polygon:"Couches de polygones"});

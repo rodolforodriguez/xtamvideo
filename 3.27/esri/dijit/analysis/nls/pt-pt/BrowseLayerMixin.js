@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/pt-pt/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Escolher Camada de An\u00e1lise Living Atlas",customAnalysisLayerTitle:"Selecionar Camada de An\u00e1lise",searchPlaceholderText:"Pesquisar camadas de an\u00e1lise do Living Atlas",searchCustomPlaceholderText:"Pesquisar camadas de an\u00e1lise",mainActionTitle:"Seleccionar",customActionName:"Selecionar e adicionar ao mapa",customeSectionName:"Grupo de An\u00e1lise do Living Atlas",Categories:"Categorias",boundaries:"Fronteiras",
+places:"Locais",boundariesAndPlaces:"Limites e Locais",hexbins:"Hexbins",transportation:"Transportes",point:"Camadas de Pontos",line:"Camadas de Polilinhas",polygon:"Camadas de Pol\u00edgonos"});

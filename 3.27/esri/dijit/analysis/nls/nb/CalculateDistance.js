@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/nb/CalculateDistance",{inputLayerLabel:"Velg raster- eller geoobjektslokasjonslaget som skal brukes til \u00e5 beregne avstanden til",maxDistanceLabel:"Maksimum avstand som skal beregnes (valgfritt)",outputCellSize:"Utdatacellest\u00f8rrelse (valgfritt)",resultDistLayerName:"Navn p\u00e5 resulterende avstandslag",resultDirectionLayerName:"Navn p\u00e5 resulterende retningslag (valgfritt)",resultAllocationLayerName:"Navn p\u00e5 resulterende allokeringslag (valgfritt)",
+outputLayerName:"Beregnet avstand for ${layername}",allocationFieldLabel:"Velg tildelingsfelt (valgfritt)",itemDescription:"Geoobjektslag generert ved kj\u00f8ring av Beregn avstand p\u00e5 ${layerName}. ",itemTags:"Analyseresultat, Beregn avstand, ${layername} ${fieldname}",itemSnippet:"Geoobjektslag generert av Beregn avstand"});

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/ca/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Trieu una capa d'an\u00e0lisi del Living Atlas",customAnalysisLayerTitle:"Trieu la capa d'an\u00e0lisi",searchPlaceholderText:"Cerca capes d'an\u00e0lisi del Living Atlas",searchCustomPlaceholderText:"Cerca capes d'an\u00e0lisi",mainActionTitle:"Selecciona",customActionName:"Selecciona i afegeix al mapa",customeSectionName:"Grup d'an\u00e0lisi del Living Atlas",Categories:"Categories",boundaries:"Fronteres",places:"Llocs",
+boundariesAndPlaces:"Fronteres i llocs",hexbins:"Bins hexagonals",transportation:"Transport",point:"Capes de punts",line:"Capes de polil\u00ednies",polygon:"Capes de pol\u00edgons"});

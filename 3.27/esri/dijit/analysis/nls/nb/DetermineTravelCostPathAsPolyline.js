@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/nb/DetermineTravelCostPathAsPolyline",{inputSourceLayerLabel:"Velg raster- eller geoobjektkildelaget det skal beregnes reiseruter fra",inputCostRasterLabel:"Velg rasterlag for reiseutgifter",inputDestinationLayerLabel:"Velg raster- eller geoobjektsm\u00e5llaget det skal beregnes reiseruter til",pathTypeLabel:"Velg reiserutetypen som skal beregnes (valgfritt)",bestSingle:"Beste enkeltforekomst",eachCell:"Til hver celle",eachZone:"Til hver sone",outputPolylineName:"Navn p\u00e5 resulterende polylinje",
+outputLayerName:"Optimale reisekostnader som polylinje for ${layername}",drawDestinationPointLayerName:"M\u00e5lpunkter",drawSourcePointLayerName:"Kildepunkter",itemDescription:"Geoobjektslag generert ved kj\u00f8ring av Fastsett rute for reiseutgifter som polylinje ${layerName}. ",itemTags:"Analyseresultat, Fastsett rute for reiseutgifter som polylinje, ${layername} ${fieldname}",itemSnippet:"Geoobjektslag generert fra Fastsett rute for reiseutgifter som polylinje."});

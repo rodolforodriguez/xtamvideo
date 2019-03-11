@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
+//>>built
+define("esri/dijit/analysis/nls/pl/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Wybierz warstw\u0119 analizy Living Atlas",customAnalysisLayerTitle:"Wybierz warstw\u0119 analizy",searchPlaceholderText:"Wyszukaj warstwy analizy atlasu Living Atlas",searchCustomPlaceholderText:"Wyszukaj warstwy analizy",mainActionTitle:"Zaznacz",customActionName:"Wybierz i dodaj do mapy",customeSectionName:"Analiza grupy atlasu Living Atlas",Categories:"Kategorie",boundaries:"Granice",places:"Miejsca",boundariesAndPlaces:"Granice i miejsca",
+hexbins:"Elementy hexbin",transportation:"Transport",point:"Warstwy punktowe",line:"Warstwy poliliniowe",polygon:"Warstwy poligonowe"});
