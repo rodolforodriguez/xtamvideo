@@ -16,8 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('notification-alert', require('./components/NotificationAlert.vue'));
-Vue.component('notification-alarm', require('./components/NotificationAlarm.vue'));
+//Vue.component('notification-alert', require('./components/NotificationAlert.vue'));
+//Vue.component('notification-alarm', require('./components/NotificationAlarm.vue'));
 Vue.component('notification-map', require('./components/NotificationMap.vue'));
 
 const app = new Vue({

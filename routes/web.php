@@ -17,3 +17,5 @@ Route::get('/admin/Vids','VidsController@index');
 Route::get('/admin/calls','CallsController@index');
 Route::get('/admin/streaming','StreamingsController@index');
 
+Route::get('/admin/maps','MapController@index');
+

@@ -23,6 +23,7 @@
         "esri-loader": "^2.3.0",
         "laravel-echo": "^1.5.3",
         "pusher-js": "^4.4.0",
-        "vue-strap": "github:wffranco/vue-strap"
+        "vue-strap": "github:wffranco/vue-strap",
+        "vue-template-compiler": "^2.6.9"
     }
 }

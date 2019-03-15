@@ -1,10 +1,7 @@
 <template>
-  
-    <body class="claro">
-      
+    <body class="claro">      
       <div id="viewDiv"></div>        
     </body>
-  
 </template>
 <script>
 
@@ -93,11 +90,15 @@ export default {
 
         });
     })
-    
+        this.ShowAllCameras();
     },
   methods:{
             SimpleMarkerSymbol: function(d){
                 return moment(d).fromNow();
+          },
+          ShowAllCameras: function(){
+              
+            
           },
   }
 }
