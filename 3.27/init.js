@@ -572,7 +572,7 @@
     }
 })(function(b) { return b.dojoConfig || b.djConfig || b.require || {} }, {
     async: 0,
-    baseUrl: "http://192.168.2.4/xtamvideo/3.27/dojo",
+    baseUrl: "http://192.168.2.6/xtamvideo/3.27/dojo",
     hasCache: {
         "config-selectorEngine": "acme",
         "config-tlmSiblingOfDojo": 1,

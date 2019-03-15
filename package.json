@@ -12,11 +12,17 @@
     "devDependencies": {
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
-        "vue": "^2.5.7"
+        "popper.js": "^1.12",
+        "vue": "^2.6.9"
+    },
+    "dependencies": {
+        "esri-loader": "^2.3.0",
+        "laravel-echo": "^1.5.3",
+        "pusher-js": "^4.4.0",
+        "vue-strap": "github:wffranco/vue-strap"
     }
 }
