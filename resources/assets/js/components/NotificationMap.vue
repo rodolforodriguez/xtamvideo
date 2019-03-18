@@ -43,38 +43,66 @@ export default {
 
         Echo.channel('channelDemoEvent')
                 .listen('eventTrigger',(e)=>{     
-                console.log('Pintar punto en el mapa')  
+                console.log(e)  
 
                     // First create a point geometry
                 var point = new Point({
-                  longitude: e.notificationLpr.longitud,
-                  latitude: e.notificationLpr.latitud
+                  longitude: e.longitud,
+                  latitude: e.latitud
                 });
 
                 // Create a symbol for drawing the point
-                // Create a symbol for drawing the point
-                // Create a symbol for drawing the point
-                var markerSymbol = new SimpleMarkerSymbol({
-                  color: [226, 119, 40],
-                  size: '20px',
-                  outline: {
-                    color: [255, 255, 255],
-                    width: 1
-                  }
-                });
-
+                if (e.estado == 'P'){
+                  var markerSymbol = new SimpleMarkerSymbol({
+                    color: [255, 0, 0],
+                    size: '24px',
+                    outline: {
+                      color: [255, 255, 255],
+                      width: 1
+                    }
+                  });                  
+                }
+                else if (e.estado == 'E'){
+                  var markerSymbol = new SimpleMarkerSymbol({
+                    color: [255, 255, 0],
+                    size: '24px',
+                    outline: {
+                      color: [255, 255, 255],
+                      width: 1
+                    }
+                  });                  
+                }
+                else{
+                  var markerSymbol = new SimpleMarkerSymbol({
+                    color: [0, 102, 0],
+                    size: '24px',
+                    outline: {
+                      color: [255, 255, 255],
+                      width: 1
+                    }
+                  });                  
+                }
+                
+        var link='../vs/alarm/index.php?lng='+e.longitud+'&lat='+e.latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
         // Create attributes
-        var attributes = {
-          Name: "Placa reportada : " + e.notificationLpr.licensePlateText,  // The name of the pipeline
-          Park: e.notificationLpr.centrocomercial,  // The owner of the pipeline
-          City: e.notificationLpr.descamara,  // The length of the pipeline
-          ira: "/notificationlpr/"+ e.notificationLpr.slug + "/edit"
+         var attributes = {            
+            XCoord:e.longitud, 
+            YCoord:e.latitud,
+            Plant:e.municipio,
+            Link:"<A class='btn btn-success btn-sm' onclick=myFunction('"+link+"')>Ver Cámara</A>",
+            Adresss:e.direccion,
+            Barrio:e.barrio,
+            DesCaso:e.descripcion_caso,
+            Fecha:e.fecha
+            //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'             
         };
         
         // Create popup template
         var popupTemplate = {
-          title: "{Name}",
-          content: "Encontrada en <b>{Park}</b> ubicacion <b>{City}</b>. <a href='{ira}' target='_blank' rel='noopener noreferrer'>Ver...</a>"
+          title: "{Plant}",          
+          content:"<div>" +
+                 "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}"+
+                 '</div>'
         };
 
         // Create a graphic and add the geometry and symbol to it
@@ -90,16 +118,12 @@ export default {
 
         });
     })
-        this.ShowAllCameras();
+        
     },
   methods:{
             SimpleMarkerSymbol: function(d){
                 return moment(d).fromNow();
-          },
-          ShowAllCameras: function(){
-              
-            
-          },
+          },                      
   }
 }
 </script>
