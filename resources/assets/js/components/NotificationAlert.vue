@@ -1,7 +1,7 @@
 <template>
 <alert v-model="showAlert" placement="top-right" duration="20000" type="success" width="400px" dismissable>
   <span class="icon-ok-circled alert-icon-float-left"></span>
-  <strong>Placa reportada! {{ licensePlateText }} </strong>
+  <strong>Alarma reportada! {{ licensePlateText }} </strong>
   <p> {{ description }}.</p>
   <p> {{ centroComercial }}.</p>
   <p> {{ descCentroComercial }}.</p>
@@ -33,15 +33,14 @@
 
         mounted() {
             Echo.channel('channelDemoEvent')
-                .listen('AlarmStatusChanged',(e)=>{     
+                .listen('eventTrigger',(e)=>{     
                     console.log(e)   
                     this.showAlert = true   
-                    this.licensePlateText = e.notificationLpr.licensePlateText
-                    this.description = e.notificationLpr.Description
+                    this.licensePlateText = e.barrio + '-' + e.municipio
+                    this.description = e.descripcion_caso
                     this.NotificationID = e
-                    this.centroComercial =e.notificationLpr.centrocomercial
-                    this.descCentroComercial =e.notificationLpr.descamara
-
+                    this.centroComercial =e.direccion
+                    this.descCentroComercial =e.fecha
                 });
         }
     }

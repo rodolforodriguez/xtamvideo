@@ -51,8 +51,8 @@
                 .listen('eventTrigger',(e)=>{        
                     //console.log(e)
                     this.notifications.unshift({
-                            description: 'Placa: ' + e.notificationLpr.licensePlateText + ' Reportada',
-                            problema: e.notificationLpr.Description,
+                            description: 'Barrio: ' + e.licensePlateText + ' Reportado',
+                            problema: e.Description,
                             url:'/notificationlpr/'+ e.notificationLpr.slug + '/edit',
                             time: new Date() ,
                             centroComercial: e.notificationLpr.centrocomercial,
