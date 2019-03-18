@@ -274,6 +274,8 @@
 	    */
 	    public function hook_before_add(&$postdata) {        
 			//Your code here
+			//Your code here
+			//Your code here
 			$streamserver=$postdata["id_streamserver"];
 			$counts=DB::table("cameras")->where('id_streamserver',$streamserver);
 			$ncam=$counts->count();
