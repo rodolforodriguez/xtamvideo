@@ -69272,7 +69272,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(53)(false);
 // imports
-exports.push([module.i, "@import url(https://js.arcgis.com/4.7/esri/css/main.css);", ""]);
+exports.push([module.i, "@import url(http://xtamvideo.test/4.10/esri/css/main.css);", ""]);
 
 // module
 exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 500px;\r\n  width: 100%;\n}\n.title[data-v-3231e30a]\r\n{\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a]\r\n{\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a]\r\n{\r\n  margin-top: 50px;\n}\r\n", ""]);
@@ -69629,8 +69629,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_esri_loader__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_esri_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_esri_loader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_esri_loader__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_esri_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_esri_loader__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 //
@@ -69647,20 +69649,24 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
   mounted: function mounted() {
     //console.log('map: mounted')
-    Object(__WEBPACK_IMPORTED_MODULE_0_esri_loader__["loadModules"])(['esri/Map', 'esri/views/MapView', 'esri/Graphic', 'esri/geometry/Point', 'esri/symbols/SimpleMarkerSymbol', 'esri/geometry/Polyline', 'esri/symbols/SimpleLineSymbol', 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'dojo/domReady!'], {
+    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(['esri/Map', 'esri/views/MapView', 'esri/Graphic', "esri/layers/GraphicsLayer", "esri/Color", 'esri/geometry/Point', 'esri/symbols/SimpleMarkerSymbol', 'esri/geometry/Polyline', "esri/geometry/Circle", 'esri/symbols/PictureMarkerSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'dojo/domReady!'], {
       // use a specific version instead of latest 4.x
-      url: 'https://js.arcgis.com/4.7/'
+      url: 'http://xtamvideo.test/4.10/init.js'
     }).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 9),
+      var _ref2 = _slicedToArray(_ref, 13),
           EsriMap = _ref2[0],
           MapView = _ref2[1],
           Graphic = _ref2[2],
-          Point = _ref2[3],
-          SimpleMarkerSymbol = _ref2[4],
-          Polyline = _ref2[5],
-          SimpleLineSymbol = _ref2[6],
-          Polygon = _ref2[7],
-          SimpleFillSymbol = _ref2[8];
+          GraphicsLayer = _ref2[3],
+          Color = _ref2[4],
+          Point = _ref2[5],
+          SimpleMarkerSymbol = _ref2[6],
+          Polyline = _ref2[7],
+          Circle = _ref2[8],
+          PictureMarkerSymbol = _ref2[9],
+          SimpleLineSymbol = _ref2[10],
+          Polygon = _ref2[11],
+          SimpleFillSymbol = _ref2[12];
 
       var map;
       map = new EsriMap({
@@ -69670,9 +69676,251 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       var view = new MapView({
         container: "viewDiv", // Reference to the scene div created in step 5
         map: map, // Reference to the map object created before the scene
-        zoom: 18, // Sets zoom level based on level of detail (LOD)
+        zoom: 15, // Sets zoom level based on level of detail (LOD)
         center: [-74.098253, 4.647660] // Sets center point of view using longitude,latitude
       });
+
+      ///// end iconografia
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('http://xtamvideo.test/testvue/ajaxfile.php?n=1').then(function (response) {
+
+        console.log(response);
+
+        var cameras = response.data;
+        var value = cameras.length;
+        console.log(value);
+        //cameras = response.data;
+        ///// cameras recording data base
+
+
+        for (var i = 0; i < value; i++) {
+          //// estados de las camaras
+
+          var tipocamara = '';
+          var n = cameras[i].typecam;
+          switch (n) {
+            case 1:
+              tipocamara += 'publica';
+              break;
+            case 2:
+              tipocamara += 'privada';
+              break;
+            case 3:
+              tipocamara += 'lpr';
+              break;
+            default:
+              tipocamara += 'privada';
+          }
+          var estado = cameras[i].estado;
+          switch (estado) {
+            case 'active':
+              tipocamara += 'a';
+              break;
+            case 'inactive':
+              tipocamara += 'i';
+              break;
+            default:
+              tipocamara += 'i';
+          }
+          //// iconografia alarma y camaras
+          var iconBase = '../includes/img/';
+          var icon = '';
+          if (tipocamara == 'publicaa') {
+            icon = iconBase + 'cam-green.png';
+          } else if (tipocamara == 'publicai') {
+            icon = iconBase + 'cam-red.png';
+          } else if (tipocamara == 'privadaa') {
+            icon = iconBase + 'cam-green.png';
+          } else if (tipocamara == 'privadai') {
+            icon = iconBase + 'cam-red.png';
+          } else if (tipocamara == 'lpra') {
+            icon = iconBase + 'dome-green.png';
+          } else if (tipocamara == 'lpri') {
+            icon = iconBase + 'dome-red.png';
+          } else if (tipocamara == 'alarm') {
+            icon = iconBase + 'alert50_marker.gif';
+          }
+
+          var server = cameras[i].cameraid;
+          var camara = cameras[i].cameraid;
+          if (cliente == 1) {
+            var channel = cameras[i].dcamara;
+          } else {
+            var channel = cameras[i].channelstreamserver;
+          }
+          ///// end estados de las camras 
+          /// puntos de las camaras ene el mapa
+          var point = new Point({
+            longitude: cameras[i].longitud,
+            latitude: cameras[i].latitud
+          });
+
+          // Create a symbol for drawing the point
+          // Create a symbol for drawing the point
+          // Create a symbol for drawing the point
+          /* var markerSymbol = new SimpleMarkerSymbol({
+             color: [226, 119, 40],
+             size: '20px',
+             outline: {
+               color: [255, 255, 226],
+               width: 1
+             }
+           });*/
+
+          var markerSymbol = new PictureMarkerSymbol({
+            // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+            url: icon,
+            width: "24px",
+            height: "24px"
+          });
+
+          /// link a abrir en otra ventana
+          var link = '../vs/streaming.php?ip=' + server + '&state=' + cliente + '&userid=' + userid;
+
+          // Create attributes
+          var attributes = {
+            XCoord: cameras[i].longitud,
+            YCoord: cameras[i].latitud,
+            Plant: cameras[i].descripcion,
+            Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
+            Adresss: cameras[i].direccion,
+            Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + '&state=' + cliente + '&userid=' + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+          };
+
+          // Create popup template
+          var popupTemplate = {
+            title: "{Plant}",
+            content: "<div>" + "Latitude: {YCoord}<br/>Longitude: {XCoord}<br/>Dirección:{Adresss}<br/>Camaras:  {Link}" + '</div>'
+          };
+
+          // Create a graphic and add the geometry and symbol to it
+          if (estado == 'active') {
+            var pointGraphic = new Graphic({
+              geometry: point,
+              symbol: markerSymbol,
+              attributes: attributes,
+              popupTemplate: popupTemplate
+            });
+          } else {
+            var pointGraphic = new Graphic({
+              geometry: point,
+              symbol: markerSymbol,
+              attributes: attributes
+
+            });
+          }
+
+          // Add the graphics to the view's graphics layer
+          view.graphics.add(pointGraphic);
+        }
+        ///// end point cameras
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      /// alarmas no gestionadas
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('http://xtamvideo.test/testvue/ajaxfile.php?n=2').then(function (response) {
+
+        console.log(response);
+
+        var cameras = response.data;
+        var value = cameras.length;
+        console.log(value);
+        //cameras = response.data;
+        ///// cameras recording data base
+
+
+        for (var i = 0; i < value; i++) {
+          //// estados de las camaras
+
+
+          var estado = cameras[i].estado;
+          var caseupdate = "";
+          var colorcase = "";
+          switch (estado) {
+            case 'C':
+              caseupdate = 'Cerrado';
+
+              break;
+            case 'P':
+              caseupdate = 'Pendiente';
+              colorcase = [255, 0, 0, 0.5];
+              break;
+            case 'E':
+              caseupdate = 'En Proceso';
+              colorcase = [255, 255, 0, 0.5];
+              break;
+            default:
+              caseupdate = 'Pendiente';
+              colorcase = [255, 255, 0, 0.5];
+          }
+
+          ///// end estados de las camras 
+          /// puntos de las camaras ene el mapa
+          var point = new Point({
+            longitude: cameras[i].longitud,
+            latitude: cameras[i].latitud
+          });
+
+          // Create a symbol for drawing the point
+
+          var markerSymbol = new SimpleMarkerSymbol({
+            //color: [226, 119, 40],
+            size: '24px',
+            style: "circle",
+            //color: [255,0,0,0.5],
+            color: colorcase,
+            outline: {
+              color: [255, 255, 255],
+              width: 0.5
+            }
+          });
+
+          /// link a abrir en otra ventana
+          var link = '../vs/alarm/index.php?lng=' + point.longitude + '&lat=' + point.latitude + '&dist=' + dist + '&max_cams=' + max_cams + '&state=' + cliente + '&userid=' + userid;
+          //../vs/alarm/index.php?lng='+longitud+'&lat='+latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
+
+          // Create attributes
+          var attributes = {
+            XCoord: cameras[i].longitud,
+            YCoord: cameras[i].latitud,
+            Plant: cameras[i].municipio,
+            Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
+            Adresss: cameras[i].direccion,
+            Barrio: cameras[i].barrio,
+            DesCaso: cameras[i].descripcion_caso,
+            Fecha: cameras[i].fecha
+            //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+          };
+
+          // Create popup template
+          var popupTemplate = {
+            title: "{Plant}",
+            content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + '</div>'
+          };
+
+          // Create a graphic and add the geometry and symbol to it
+
+          var pointGraphic = new Graphic({
+            geometry: point,
+            symbol: markerSymbol,
+            attributes: attributes,
+            popupTemplate: popupTemplate
+          });
+
+          // Add the graphics to the view's graphics layer
+          //if (estado =! "C"){
+          view.graphics.add(pointGraphic);
+          //}
+        }
+        ///// end point cameras
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      ////// end de alarmas
+
 
       Echo.channel('channelDemoEvent').listen('eventTrigger', function (e) {
         console.log(e);
@@ -69995,7 +70243,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("body", { staticClass: "claro" }, [
-      _c("div", { attrs: { id: "viewDiv" } })
+      _c("div", {
+        staticStyle: { height: "80vh", "min-height": "250px" },
+        attrs: { id: "viewDiv" }
+      })
     ])
   }
 ]

@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/analysis/nls/id/CalculateDistance",{inputLayerLabel:"Pilih raster atau feature layer lokasi untuk menghitung jarak ke",maxDistanceLabel:"Jarak maksimum yang akan dihitung (opsional)",outputCellSize:"Ukuran sel output (opsional)",resultDistLayerName:"Hasilkan nama layer jarak",resultDirectionLayerName:"Hasilkan nama layer arah (opsional)",resultAllocationLayerName:"Hasilkan nama layer alokasi (opsional)",outputLayerName:"Jarak yang Dihitung ${layername}",allocationFieldLabel:"Pilih kolom alokasi (opsional)",
-itemDescription:"Feature layer yang dihasilkan dari menjalankan Hitung Jarak pada ${layerName}. ",itemTags:"Hasil Analisis, CalculateDistance, ${layername} ${fieldname}",itemSnippet:"Feature layer yang dihasilkan dari CalculateDistance."});

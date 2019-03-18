@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/charts/utils/ChartFilterUtil",["dojo/_base/lang","./ChartTypes","./builder/utils/ChartDataUtil"],function(l,m,g){return{filterSeriesItems:function(b,c,n,h){var d=0,e={};n.forEach(function(a){e[a.fieldName]=a});if(m.isLineLike(b))b=c.filter(function(a,b){return!a.points.some(function(a){var k=g.getPointValue({point:a,viewModel:h,currentFeatureIndex:b});a=e[a.fieldInfo.name];return k<a.min||k>a.max})}),d=b.length,b.length||(b.__firstSeriesItem=c[0]);
-else{var f={};c.forEach(function(a){a.points.forEach(function(a,b){if(!f[b]){var c=g.getPointValue({point:a,viewModel:h,currentFeatureIndex:b});a=e[a.fieldInfo.name];if(c<a.min||c>a.max)f[b]=!0}})});b=c.map(function(a){a=l.mixin({},a);a.__firstPoint=a.points[0];a.points=a.points.filter(function(a,b){return!f[b]});d=a.points.length;return a})}return{seriesItems:b,numShownAreas:d}},getFirstSeriesPoint:function(b){return b.__firstPoint},getFirstSeriesItem:function(b){return b.__firstSeriesItem}}});

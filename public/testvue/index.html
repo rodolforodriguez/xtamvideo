@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Fetch records from MySQL Database with Vue.js and PHP</title>
+    <script src="vue.js"></script>
+    <script src='axios-master/dist/axios.min.js'></script>
+</head>
+
+<body>
+
+    <div id='myapp'>
+
+        <!-- Select All records -->
+        <input type='button' @click='allRecords()' value='Select All users'>
+        <br><br>
+
+        <!-- Select record by ID -->
+
+        <input type='button' @click='recordByID()' value='Select user by ID'>
+        <br><br>
+
+        <!-- List records -->
+        <table border='1' width='80%' style='border-collapse: collapse;'>
+            <tr>
+                <th>CC</th>
+                <th>lat</th>
+                <th>long</th>
+            </tr>
+
+            <tr v-for='camera in cameras'>
+                <td>{{ camera.centrocomercial }}</td>
+                <td>{{ camera.latitud }}</td>
+                <td>{{ camera.longitud }}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Script -->
+    <script>
+        var app = new Vue({
+            el: '#myapp',
+            data: {
+                cameras: ""
+
+            },
+            mounted: function() {
+                this.allRecords();
+            },
+            methods: {
+                allRecords: function() {
+
+                    axios.get('ajaxfile.php?n=1')
+                        .then(function(response) {
+                            app.cameras = response.data;
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

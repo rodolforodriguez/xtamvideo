@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/analysis/nls/nl/CalculateDistance",{inputLayerLabel:"Kies het raster of de locatie van de objectlaag voor de berekening van de afstand naar",maxDistanceLabel:"Maximumafstand voor de berekening (optioneel)",outputCellSize:"Output celgrootte (optioneel)",resultDistLayerName:"Resultaat afstandslaagnaam",resultDirectionLayerName:"Resultaat richtingslaagnaam (optioneel)",resultAllocationLayerName:"Resultaat allocatielaagnaam (optioneel)",outputLayerName:"Berekende afstand van ${layername}",
-allocationFieldLabel:"Kies een allocatieveld (optioneel)",itemDescription:"Objectlaag gegenereerd via de functie Afstand berekenen op ${layerName}. ",itemTags:"Analyseresultaat, afstand berekenen, ${layername} ${fieldname}",itemSnippet:"Objectlaag gegenereerd via de functie Afstand berekenen."});

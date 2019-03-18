@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/dataProvider/supportClasses/dataCollections/DataCollectionsLoader",["../GEUtil"],function(e){return{_cache:{},canLoad:function(){return e.canMakeRequests()},loadVariables:function(b){var a=b.countryID+";"+b.hierarchy+";"+b.outFields.join(";")+";"+!!b.forceLowerCase;if(!this._cache[a]){var c=b.outFields.slice();-1===c.indexOf("id")&&c.push("id");this._cache[a]=e.getDataCollections(b.countryID,b.hierarchy,{f:"json",outFields:JSON.stringify(c),suppressNullValues:!0,
-AddDerivativeVariables:"all"}).then(function(a){var f={dataCollections:a,idToVariableCache:{},fullNameToVariableCache:{}};a.forEach(function(a){a.data.forEach(function(d){function c(a){return b.forceLowerCase?a.toLowerCase():a}function e(a){var c=0;b.outFields.forEach(function(b){void 0!==a[b]&&c++});return c}var g=f.idToVariableCache[c(d.id)];if(!g||e(d)>e(g))f.idToVariableCache[c(d.id)]=d;f.fullNameToVariableCache[c(a.dataCollectionID+"."+d.id)]=d})});return f})}return this._cache[a]}}});

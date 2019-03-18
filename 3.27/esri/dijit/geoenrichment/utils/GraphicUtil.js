@@ -1,4 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/utils/GraphicUtil",["esri/geometry/jsonUtils","esri/tasks/FeatureSet"],function(g,h){return{createFeatureSetFromGraphics:function(b,c){var e=[];c||(c=function(a){return a});var d=null,f=null;b&&b.forEach(function(a,b){!d&&a.geometry&&(d=a.geometry.spatialReference,f=g.getJsonType(a.geometry));if(a=c(a,b))a.attributes||(a.attributes={}),e.push(a)});b=new h;b.features=e;b.spatialReference=d;b.geometryType=f;return b}}});

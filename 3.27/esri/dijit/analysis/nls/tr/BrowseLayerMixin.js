@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/analysis/nls/tr/BrowseLayerMixin",{defaultAnaysisLayerTitle:"Living Atlas Analiz Katman\u0131 Se\u00e7",customAnalysisLayerTitle:"Analiz Katman\u0131n\u0131 Se\u00e7",searchPlaceholderText:"Living Atlas analiz katmanlar\u0131n\u0131 ara",searchCustomPlaceholderText:"Analiz katmanlar\u0131n\u0131 ara",mainActionTitle:"Se\u00e7",customActionName:"Se\u00e7 ve haritaya ekle",customeSectionName:"Living Atlas Grubu Analizi",Categories:"Kategoriler",boundaries:"S\u0131n\u0131rlar",places:"Yerler",
-boundariesAndPlaces:"S\u0131n\u0131rlar ve Yerler",hexbins:"Alt\u0131gen(Petek) Analizi",transportation:"Ula\u015f\u0131m",point:"Nokta Katmanlar\u0131",line:"\u00c7oklu \u00c7izgi Katmanlar\u0131",polygon:"\u00c7okgen Katmanlar\u0131"});

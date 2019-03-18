@@ -1,7 +1,32 @@
-<script>
-  var cliente=1;
-  var dist=1000;
-  var max_cams=16;
+<?php
+
+  $cliente= $_SERVER['REMOTE_ADDR'];
+  $server= $_SERVER['SERVER_ADDR'];
+  ////// helper que obtiene cliente que esta consumiendo
+///// 1 local - 0 remoto
+  if($server==$cliente){
+    $cliente=1;
+  }else{
+    $cliente=0;
+  }
+  // Database Constants
+  include"includes/connection.php";
+  
+  /// end conexion camaras privadas
+  //$userid=CRUDBooster::myId();
+ 
+  // query of radio of the alarm and numbers of cam's to see
+   $query_parameter =mysqli_query($con,"select * from parameter");
+  $parameter=mysqli_fetch_assoc($query_parameter);
+  $alarm_radio=$parameter['alarm_radio'];
+  $max_cams=$parameter['max_cams'];
+ 
+  /// end conexion alarma y parametros  
+  ?>
+  <script>
+  var cliente=<?php echo $cliente;  ?>;
+  var dist=<?php echo $alarm_radio; ?>;
+  var max_cams=<?php echo $max_cams; ?>;
   var userid=2;
   </script>
   <script>

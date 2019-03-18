@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/sections/dynamicSettings/comparison/_ComparisonSettingsBuilder",["dojo/aspect","dojo/when","../../../infographics/InfographicTypes"],function(d,c,e){return{provideComparisonSettings:function(f){var a=f.getInfographic();return a&&a.getType()===e.COMPARISON_TABLE?c(a.getContentInitPromise(),function(){var b=a.getInnerInfographic();return c(b.getFilterRanges(),function(a){var c={filterRanges:1<b.getNumAreasTotal()&&a,isChartView:b.isChartView(),getNumAreasTotal:function(){return b.getNumAreasTotal()},
-getNumAreasShown:function(){return b.getNumAreasShown()},onContentUpdated:function(){}};d.after(b,"onContentUpdated",function(){c.onContentUpdated()});return c})}):null}}});

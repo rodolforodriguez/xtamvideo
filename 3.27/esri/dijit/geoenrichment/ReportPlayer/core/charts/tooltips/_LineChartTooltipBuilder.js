@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/charts/tooltips/_LineChartTooltipBuilder",["dojo/dom-construct","./_BuilderUtil","dojo/i18n!esri/nls/jsapi"],function(h,a,b){b=b.geoenrichment.dijit.ReportPlayer.ChartTooltip;return{buildLineChartTooltip:function(d,e){var f=[];a.addTitle(e,d.label);var c=h.create("div",{"class":"chartTooltip_row esriGERowHigh"},e);a.addColor(d.color,c);f.push(a.addLabel(a.buildSeriesLabel(d),c));a.addValue(d.valueLabel,c);c=d.isMultiFeature?a.buildStatLabels(d,e,
-b.weightInAreas,b.minValueInAreas,b.maxValueInAreas,b.avgValueInAreas):a.buildStatLabels(d,e,b.weightInSeries,b.minValueInSeries,b.maxValueInSeries,b.avgValueInSeries);f=f.concat(c);d.getGroup().forEach(function(c){if(d!==c){var g=h.create("div",{"class":"chartTooltip_row esriGERowHigh"},e);a.addColor(c.color,g);f.push(a.addLabel(a.buildSeriesLabel(c),g));c.isUnavailableData?a.addValue(b.unavailableData,g):a.addValue(c.valueLabel,g)}});a.formatTable(f)}}});

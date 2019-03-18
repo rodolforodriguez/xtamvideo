@@ -1,6 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/supportClasses/ZoomUtil",["dojo/i18n!esri/nls/jsapi"],function(b){var a={};b=b.geoenrichment.dijit.ReportPlayer.PlayerToolbar;a.FIT_PAGE="fitPage";a.FIT_PAGE_WIDTH="fitPageWidth";a.FIT_PAGE_HEIGHT="fitPageHeight";a.getOptions=function(){return[{value:a.FIT_PAGE,label:b.fitPage},{value:a.FIT_PAGE_WIDTH,label:b.fitPageWidth},{value:a.FIT_PAGE_HEIGHT,label:b.fitPageHeight},{value:0,label:"",isCustomBig:!0},{value:150,label:"150%"},{value:125,label:"125%"},
-{value:100,label:"100%"},{value:90,label:"90%"},{value:80,label:"80%"},{value:70,label:"70%"},{value:60,label:"60%"},{value:50,label:"50%"},{value:0,label:"",isCustomSmall:!0}]};a.getClosestZoomAndUpdateOptions=function(a,b){var c=b.filter(function(a){return a.isCustomBig})[0],d=b.filter(function(a){return a.isCustomSmall})[0];c.value=0;c.hidden=!0;d.value=0;d.hidden=!0;if(50>a)return d.value=a,d.label=Math.round(a)+"%",d.hidden=!1,d.value;if(150<a)return c.value=a,c.label=Math.round(a)+"%",c.hidden=
-!1,c.value;var e=[];b.forEach(function(b){"number"===typeof b.value&&e.push({value:b.value,score:a<b.value?a/b.value:b.value/a})});e.sort(function(a,b){return b.score-a.score});return e[0].value};return a});

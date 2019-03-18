@@ -1,4 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/supportClasses/map/MapLoadTracker",["dojo/Deferred","dojo/when","dojo/on"],function(h,a,k){return{waitForLoad:function(b){function c(a,c){function g(a){d&&d.remove();e&&clearTimeout(e);a?f.resolve():f.reject(Error("The map can't be loaded."))}var f=new h,d,e;d=k.once(b,a,function(){g(!0)});e=setTimeout(function(){g(!1)},c);return f.promise}return a(!b.loaded&&c("load",6E4),function(){return a(b.updating&&c("update-end",6E4),function(){return b})})}}});

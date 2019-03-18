@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/grid/coreUtils/GridFloatingTablesUtil",["dojo/_base/lang","dojo/dom-construct"],function(e,f){return{renderFloatingTables:function(a,c,g,d){d=d?a.backgroundFloatingTablesNode:a.foregroundFloatingTablesNode;f.empty(d);if(!c)return null;var b={"class":"esriGEAbsoluteStretched adjustableGrid_floatingTablesSection"};b.initialWidth=a.getAllowedWidth();b.json=c;b.viewModel=a.viewModel;b.theme=a.theme;b.hasFixedLayout=!1;b.parentWidget=a;b.currentFeatureIndex=
-a.currentFeatureIndex;b.initialViewMode=a.getViewMode();b.initialSpecificViewMode=a.getSpecificViewMode();e.mixin(b,g);c=a.viewModel.layoutBuilder.createElement("section",b,d);c.setResizedHeight(a.getHeight());return c}}});

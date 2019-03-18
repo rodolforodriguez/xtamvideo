@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/analysis/nls/fr/CalculateDistance",{inputLayerLabel:"Choisir la couche raster ou la couche d'entit\u00e9s vers laquelle calculer la distance.",maxDistanceLabel:"Distance maximale \u00e0 calculer (facultatif)",outputCellSize:"Taille de cellule en sortie (facultatif)",resultDistLayerName:"Nom de la couche de distance de r\u00e9sultat",resultDirectionLayerName:"Nom de la couche de direction de r\u00e9sultat (facultatif)",resultAllocationLayerName:"Nom de la couche d\u2019allocation de r\u00e9sultat (facultatif)",
-outputLayerName:"Distance calcul\u00e9e de ${layername}",allocationFieldLabel:"Choisir le champ d\u2019allocation (facultatif)",itemDescription:"Couche d\u2019entit\u00e9s g\u00e9n\u00e9r\u00e9e par l\u2019ex\u00e9cution de la solution Calculer la distance pour ${inputLayername}. ",itemTags:"R\u00e9sultat d\u2019analyse, Calculer la distance, ${layername} ${fieldname}",itemSnippet:"Couche d\u2019entit\u00e9s g\u00e9n\u00e9r\u00e9e avec Calculer la distance."});

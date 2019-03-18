@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/ReportPlayer/core/supportClasses/map/mobile/MobilePanUtil",["dojo/on","dojo/dom-class","dojo/dom-construct"],function(e,g,m){var l={setUpMapPan:function(a,f){if(a.__container){var c=!0,d;e(a.__container,"touchstart",function(b){if(c){var h=b.clientX,k=b.clientY;d=e(a.__container,"touchmove",function(a){var b=a.clientX;a=a.clientY;f(h-b,k-a);h=b;k=a});e.once(a.__container,"touchend, touchcancel",function(a){d.remove()})}});l._createLockButton(a.__container,function(b){(c=
-b)?a.disableMapNavigation():a.enableMapNavigation()})}},_createLockButton:function(a,f){function c(a,c){d=a;g.remove(b,"locked unlocked");g.add(b,d?"locked":"unlocked");c&&f(d)}var d=!0,b=m.create("div",{"class":"mapNavigationLockButton locked"},a);e(b,"touchstart",function(){c(!d,!0)});return{setLocked:function(a){c(a)}}}};return l});

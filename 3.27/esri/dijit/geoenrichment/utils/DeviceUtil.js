@@ -1,4 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.27/esri/copyright.txt for details.
-//>>built
-define("esri/dijit/geoenrichment/utils/DeviceUtil",["dojo/sniff"],function(c){var a={},b=navigator.userAgent&&-1!==navigator.userAgent.indexOf(" Mobile"),d=!b&&c("touch");a.isMobileDevice=function(){return b};a.isPCWithTouchScreen=function(){return d};a.isLandscape=function(){return 90===Math.abs(window.orientation)};a.press=b?"touchstart":"mousedown";a.release=b?"touchend":"mouseup";a.click=b?"touchend":"click";a.clickOrRelease=b?"touchend":"click, mouseup";return a});
