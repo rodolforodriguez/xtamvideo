@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(7);
 var isBuffer = __webpack_require__(20);
 
 /*global toString:true*/
@@ -424,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(9);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(9);
   }
   return adapter;
 }
@@ -502,7 +502,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 3 */
@@ -13578,6 +13578,12 @@ return jQuery;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(19);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -13593,7 +13599,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13783,7 +13789,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13794,7 +13800,7 @@ var settle = __webpack_require__(23);
 var buildURL = __webpack_require__(25);
 var parseHeaders = __webpack_require__(26);
 var isURLSameOrigin = __webpack_require__(27);
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(10);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(28);
 
 module.exports = function xhrAdapter(config) {
@@ -13970,7 +13976,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13995,7 +14001,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14007,7 +14013,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14033,15 +14039,15 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(13);
+__webpack_require__(14);
 module.exports = __webpack_require__(59);
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -14051,7 +14057,7 @@ module.exports = __webpack_require__(59);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(14);
+__webpack_require__(15);
 
 window.Vue = __webpack_require__(39);
 
@@ -14082,14 +14088,14 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(37);
 
-window._ = __webpack_require__(15);
+window._ = __webpack_require__(16);
 window.Popper = __webpack_require__(4).default;
 
 /**
@@ -14101,7 +14107,7 @@ window.Popper = __webpack_require__(4).default;
 try {
     window.$ = window.jQuery = __webpack_require__(5);
 
-    __webpack_require__(17);
+    __webpack_require__(18);
 } catch (e) {}
 
 /**
@@ -14110,7 +14116,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(18);
+window.axios = __webpack_require__(6);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -14145,7 +14151,7 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo__["a" /* default */](
 });
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31257,10 +31263,10 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo__["a" /* default */](
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(17)(module)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -31288,7 +31294,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -35729,12 +35735,6 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(19);
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35742,7 +35742,7 @@ module.exports = __webpack_require__(19);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(7);
 var Axios = __webpack_require__(21);
 var defaults = __webpack_require__(2);
 
@@ -35777,9 +35777,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(11);
+axios.Cancel = __webpack_require__(12);
 axios.CancelToken = __webpack_require__(35);
-axios.isCancel = __webpack_require__(10);
+axios.isCancel = __webpack_require__(11);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -35932,7 +35932,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(10);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -36365,7 +36365,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(32);
-var isCancel = __webpack_require__(10);
+var isCancel = __webpack_require__(11);
 var defaults = __webpack_require__(2);
 var isAbsoluteURL = __webpack_require__(33);
 var combineURLs = __webpack_require__(34);
@@ -36525,7 +36525,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(11);
+var Cancel = __webpack_require__(12);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -58959,7 +58959,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(8)))
 
 /***/ }),
 /* 43 */
@@ -69629,7 +69629,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_esri_loader__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_esri_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_esri_loader__);
@@ -69649,28 +69649,39 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
   mounted: function mounted() {
     //console.log('map: mounted')
-    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(['esri/Map', 'esri/views/MapView', 'esri/Graphic', "esri/layers/GraphicsLayer", "esri/Color", 'esri/geometry/Point', 'esri/symbols/SimpleMarkerSymbol', 'esri/geometry/Polyline', "esri/geometry/Circle", 'esri/symbols/PictureMarkerSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'dojo/domReady!'], {
+    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(['esri/tasks/Locator', 'esri/widgets/Sketch', 'esri/Map', 'esri/views/MapView', 'esri/Graphic', "esri/layers/GraphicsLayer", "esri/Color", 'esri/geometry/Point', 'esri/symbols/SimpleMarkerSymbol', 'esri/geometry/Polyline', "esri/geometry/Circle", 'esri/symbols/PictureMarkerSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'dojo/domReady!'], {
       // use a specific version instead of latest 4.x
       url: 'http://xtamvideo.test/4.10/init.js'
     }).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 13),
-          EsriMap = _ref2[0],
-          MapView = _ref2[1],
-          Graphic = _ref2[2],
-          GraphicsLayer = _ref2[3],
-          Color = _ref2[4],
-          Point = _ref2[5],
-          SimpleMarkerSymbol = _ref2[6],
-          Polyline = _ref2[7],
-          Circle = _ref2[8],
-          PictureMarkerSymbol = _ref2[9],
-          SimpleLineSymbol = _ref2[10],
-          Polygon = _ref2[11],
-          SimpleFillSymbol = _ref2[12];
+      var _ref2 = _slicedToArray(_ref, 15),
+          Locator = _ref2[0],
+          Sketch = _ref2[1],
+          EsriMap = _ref2[2],
+          MapView = _ref2[3],
+          Graphic = _ref2[4],
+          GraphicsLayer = _ref2[5],
+          Color = _ref2[6],
+          Point = _ref2[7],
+          SimpleMarkerSymbol = _ref2[8],
+          Polyline = _ref2[9],
+          Circle = _ref2[10],
+          PictureMarkerSymbol = _ref2[11],
+          SimpleLineSymbol = _ref2[12],
+          Polygon = _ref2[13],
+          SimpleFillSymbol = _ref2[14];
 
-      var map;
+      var layer = new GraphicsLayer();
+      // Create a locator task using the world geocoding service
+      var locatorTask = new Locator({
+        url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+      });
+      var map,
+          coords = "",
+          coordinates = "";
+
       map = new EsriMap({
-        basemap: 'hybrid'
+        basemap: 'hybrid',
+        layers: [layer]
       });
 
       var view = new MapView({
@@ -69678,6 +69689,61 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         map: map, // Reference to the map object created before the scene
         zoom: 15, // Sets zoom level based on level of detail (LOD)
         center: [-74.098253, 4.647660] // Sets center point of view using longitude,latitude
+      });
+
+      view.when(function () {
+
+        var sketch = new Sketch({
+          layer: layer,
+          view: view
+        });
+
+        view.ui.add(sketch, "bottom-left");
+      });
+
+      //popup con cordenadas en el mapa.
+      view.popup.autoOpenEnabled = false;
+      view.on("click", function (event) {
+        // Get the coordinates of the click on the view
+        // around the decimals to 3 decimals
+        var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
+        var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
+        var cordinates = lat + "," + lon + "*";
+      });
+
+      //coordenadas en el mapa 
+      var coordsWidget = document.createElement("div");
+      coordsWidget.id = "coordsWidget";
+      coordsWidget.className = "esri-widget esri-component";
+      coordsWidget.style.padding = "7px 15px 5px";
+
+      var DivButton = document.getElementById("DivButton");
+
+      //ubicacion de Cordenadas en el mapa 
+      view.ui.add(coordsWidget, "bottom-right");
+      // Add widget to the top right corner of the view
+      // view.ui.add(toggle, "top-right");
+
+      //** ADD **//
+      //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
+      function showCoordinates(pt) {
+        coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
+        coordsWidget.innerHTML += coords;
+        var linkGoTo = 'http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20' + coordsWidget.innerHTML + '*)';
+        DivButton.innerHTML = "<a class='btn btn-success btn-sm' href='" + linkGoTo + "'>Ver Cámara</a>";
+      }
+      //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
+      //document.getElementById("info3").innerHTML =url;
+      //** ADD **//
+      /*view.watch(["stationary"], function() {
+          showCoordinates(view.center);
+      });*/
+
+      view.on(["pointer-down"], function (evt) {
+        showCoordinates(view.toMap({
+          x: evt.x,
+          y: evt.y
+        }));
       });
 
       ///// end iconografia

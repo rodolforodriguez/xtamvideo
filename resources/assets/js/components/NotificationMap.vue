@@ -13,6 +13,8 @@ export default {
   mounted () {
     //console.log('map: mounted')
     loadModules([
+      'esri/tasks/Locator',
+      'esri/widgets/Sketch',
       'esri/Map',
       'esri/views/MapView',
       'esri/Graphic',
@@ -30,11 +32,20 @@ export default {
     ], {
       // use a specific version instead of latest 4.x
       url: 'http://xtamvideo.test/4.10/init.js'
-    }).then(([EsriMap, MapView,Graphic,GraphicsLayer,Color,Point,SimpleMarkerSymbol,
+    }).then(([Locator, Sketch,EsriMap, MapView,Graphic,GraphicsLayer,Color,Point,SimpleMarkerSymbol,
               Polyline, Circle,PictureMarkerSymbol, SimpleLineSymbol, Polygon, SimpleFillSymbol]) => {
-        var map 
+        
+        const layer = new GraphicsLayer();
+        // Create a locator task using the world geocoding service
+        var locatorTask = new Locator({
+            url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+        });                
+        var map, coords="", coordinates="" 
+
+
         map = new EsriMap({
-          basemap: 'hybrid'
+          basemap: 'hybrid',
+          layers: [layer]
         });
   
         var view = new MapView({
@@ -42,7 +53,65 @@ export default {
             map: map,  // Reference to the map object created before the scene
             zoom: 15,  // Sets zoom level based on level of detail (LOD)
             center: [-74.098253, 4.647660]  // Sets center point of view using longitude,latitude
-        });   
+        });  
+        
+        view.when(function() {
+
+            const sketch = new Sketch({
+                layer: layer,
+                view: view
+            });
+
+            view.ui.add(sketch, "bottom-left");
+        });
+
+        //popup con cordenadas en el mapa.
+        view.popup.autoOpenEnabled = false;
+        view.on("click", function(event) {
+            // Get the coordinates of the click on the view
+            // around the decimals to 3 decimals
+            var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
+            var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
+            var cordinates = lat + "," + lon + "*";
+           
+        });
+       
+        //coordenadas en el mapa 
+        var coordsWidget = document.createElement("div");
+        coordsWidget.id = "coordsWidget";
+        coordsWidget.className = "esri-widget esri-component";
+        coordsWidget.style.padding = "7px 15px 5px";
+
+      var DivButton =  document.getElementById("DivButton");
+
+        //ubicacion de Cordenadas en el mapa 
+        view.ui.add(coordsWidget, "bottom-right");
+        // Add widget to the top right corner of the view
+       // view.ui.add(toggle, "top-right");
+
+        //** ADD **//
+        //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
+        function showCoordinates(pt) {
+           coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
+            coordsWidget.innerHTML += coords;
+            var linkGoTo = `http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20${coordsWidget.innerHTML}*)`;
+            DivButton.innerHTML = "<a class='btn btn-success btn-sm' href='"+linkGoTo+"'>Ver Cámara</a>";
+        }
+        //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
+        //document.getElementById("info3").innerHTML =url;
+        //** ADD **//
+        /*view.watch(["stationary"], function() {
+            showCoordinates(view.center);
+        });*/
+
+        view.on(["pointer-down"], function(evt) {
+            showCoordinates(view.toMap({
+                x: evt.x,
+                y: evt.y
+            }));
+           
+        });
+
         
          ///// end iconografia
           axios.get('http://xtamvideo.test/testvue/ajaxfile.php?n=1')
