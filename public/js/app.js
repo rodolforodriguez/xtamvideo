@@ -69640,6 +69640,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
 
 
 
@@ -69689,61 +69690,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         map: map, // Reference to the map object created before the scene
         zoom: 15, // Sets zoom level based on level of detail (LOD)
         center: [-74.098253, 4.647660] // Sets center point of view using longitude,latitude
-      });
-
-      view.when(function () {
-
-        var sketch = new Sketch({
-          layer: layer,
-          view: view
-        });
-
-        view.ui.add(sketch, "bottom-left");
-      });
-
-      //popup con cordenadas en el mapa.
-      view.popup.autoOpenEnabled = false;
-      view.on("click", function (event) {
-        // Get the coordinates of the click on the view
-        // around the decimals to 3 decimals
-        var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
-        var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
-        var cordinates = lat + "," + lon + "*";
-      });
-
-      //coordenadas en el mapa 
-      var coordsWidget = document.createElement("div");
-      coordsWidget.id = "coordsWidget";
-      coordsWidget.className = "esri-widget esri-component";
-      coordsWidget.style.padding = "7px 15px 5px";
-
-      var DivButton = document.getElementById("DivButton");
-
-      //ubicacion de Cordenadas en el mapa 
-      view.ui.add(coordsWidget, "bottom-right");
-      // Add widget to the top right corner of the view
-      // view.ui.add(toggle, "top-right");
-
-      //** ADD **//
-      //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
-      function showCoordinates(pt) {
-        coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
-        coordsWidget.innerHTML += coords;
-        var linkGoTo = 'http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20' + coordsWidget.innerHTML + '*)';
-        DivButton.innerHTML = "<a class='btn btn-success btn-sm' href='" + linkGoTo + "'>Ver Cámara</a>";
-      }
-      //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
-      //document.getElementById("info3").innerHTML =url;
-      //** ADD **//
-      /*view.watch(["stationary"], function() {
-          showCoordinates(view.center);
-      });*/
-
-      view.on(["pointer-down"], function (evt) {
-        showCoordinates(view.toMap({
-          x: evt.x,
-          y: evt.y
-        }));
       });
 
       ///// end iconografia
@@ -69987,6 +69933,65 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
       ////// end de alarmas
 
+
+      view.when(function () {
+
+        var sketch = new Sketch({
+          layer: layer,
+          view: view
+        });
+
+        view.ui.add(sketch, "bottom-left");
+      });
+
+      //popup con cordenadas en el mapa.
+      /*view.popup.autoOpenEnabled = false;
+      view.on("click", function(event) {
+          // Get the coordinates of the click on the view
+          // around the decimals to 3 decimals
+          var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
+          var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
+          var cordinates = lat + "," + lon + "*";
+         
+      });*/
+
+      //coordenadas en el mapa 
+      var coordsWidget = document.createElement("div");
+      coordsWidget.id = "coordsWidget";
+      coordsWidget.className = "esri-widget esri-component";
+      coordsWidget.style.padding = "7px 15px 5px";
+
+      var DivButton = document.getElementById("DivButton");
+
+      //ubicacion de Cordenadas en el mapa 
+      //view.ui.add(coordsWidget, "bottom-right");
+      // Add widget to   top right corner of the view
+      // view.ui.add(toggle, "top-right");
+
+      //** ADD **//
+      //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
+      function showCoordinates(pt) {
+        coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
+        coordsWidget.innerHTML += coords;
+        if (coordsWidget.innerHTML != '') {
+          var linkGoTo = 'http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20' + coordsWidget.innerHTML + '*)';
+          var content = '<a class="btn btn-success btn-sm" onclick="myFunction(\'' + linkGoTo + '\')">Ver C\xE1maras</a>';
+          DivButton.innerHTML = content;
+        }
+      }
+      //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
+      //document.getElementById("info3").innerHTML =url;
+      //** ADD **//
+      /*view.watch(["stationary"], function() {
+          showCoordinates(view.center);
+      });*/
+
+      view.on(["pointer-down"], function (evt) {
+        showCoordinates(view.toMap({
+          x: evt.x,
+          y: evt.y
+        }));
+      });
 
       Echo.channel('channelDemoEvent').listen('eventTrigger', function (e) {
         console.log(e);
