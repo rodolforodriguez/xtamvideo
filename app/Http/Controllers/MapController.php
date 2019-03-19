@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MapController extends \crocodicstudio\crudbooster\controllers\CBController 
+class MapController extends \crocodicstudio\crudbooster\controllers\CBController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function cbInit() {
+    public function cbInit()
+    {
 
-        
+
         /* 
         | ---------------------------------------------------------------------- 
         | Sub Module
@@ -55,7 +56,7 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         */
         $this->button_selected = array();
 
-                
+
         /* 
         | ---------------------------------------------------------------------- 
         | Add alert message to this module at overheader
@@ -65,9 +66,9 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         | 
         */
         $this->alert        = array();
-                
 
-        
+
+
         /* 
         | ---------------------------------------------------------------------- 
         | Add more button to header button 
@@ -89,9 +90,9 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         | @color = Default is none. You can use bootstrap success,info,warning,danger,primary.        
         | 
         */
-        $this->table_row_color = array();     	          
+        $this->table_row_color = array();
 
-        
+
         /*
         | ---------------------------------------------------------------------- 
         | You may use this bellow array to add statistic at dashboard 
@@ -111,7 +112,7 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         | $this->script_js = "function() { ... }";
         |
         */
-        $this->script_js = NULL;
+        $this->script_js = null;
 
 
         /*
@@ -123,9 +124,9 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         |
         */
         $this->pre_index_html = null;
-        
-        
-        
+
+
+
         /*
         | ---------------------------------------------------------------------- 
         | Include HTML Code after index table 
@@ -135,9 +136,9 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         |
         */
         $this->post_index_html = null;
-        
-        
-        
+
+
+
         /*
         | ---------------------------------------------------------------------- 
         | Include Javascript File 
@@ -147,9 +148,9 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         |
         */
         $this->load_js = array();
-        
-        
-        
+
+
+
         /*
         | ---------------------------------------------------------------------- 
         | Add css style at body 
@@ -158,10 +159,10 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         | $this->style_css = ".style{....}";
         |
         */
-        $this->style_css = NULL;
-        
-        
-        
+        $this->style_css = null;
+
+
+
         /*
         | ---------------------------------------------------------------------- 
         | Include css File 
@@ -171,12 +172,10 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
         |
         */
         $this->load_css = array();
-        
-        
     }
 
 
-    //Problemas con proyecto de vallejo
+    //Problemas con proyecto de vallejo v2
     public function index()
     {
         return view('maps.index');
