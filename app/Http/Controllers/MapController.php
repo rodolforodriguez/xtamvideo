@@ -175,7 +175,6 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
     }
 
 
-    //Problemas con proyecto de vallejo v2
     public function index()
     {
         return view('maps.index');
