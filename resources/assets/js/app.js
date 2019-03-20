@@ -1,13 +1,12 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,22 +14,24 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('notification-alert', require('./components/NotificationAlert.vue'));
+Vue.component(
+    "example-component",    require("./components/ExampleComponent.vue"));
+Vue.component(
+    "notification-alert",require("./components/NotificationAlert.vue"));
 //Vue.component('notification-alarm', require('./components/NotificationAlarm.vue'));
-Vue.component('notification-map', require('./components/NotificationMap.vue'));
+Vue.component("notification-map", require("./components/NotificationMap.vue"));
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
     //,
     //created()
     //{
-      //  console.log('Inicio...');
-        //alert('alerta de inicio de evento');
-        //Echo.channel('channelDemoEvent')
-        //.listen('AlarmStatusChanged',(e)=>{
-          //  alert('Evento ejecutado');
-            //console.log('Perfecto.....');            
-        //});
+    //  console.log('Inicio...');
+    //alert('alerta de inicio de evento');
+    //Echo.channel('channelDemoEvent')
+    //.listen('AlarmStatusChanged',(e)=>{
+    //  alert('Evento ejecutado');
+    //console.log('Perfecto.....');
+    //});
     //}
 });

@@ -10,20 +10,22 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.18",
+        "axios": "^0.18.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
+        "install-peers": "^1.0.3",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
-        "popper.js": "^1.12",
-        "vue": "^2.6.9"
+        "popper.js": "^1.12"
     },
     "dependencies": {
         "esri-loader": "^2.3.0",
         "laravel-echo": "^1.5.3",
         "pusher-js": "^4.4.0",
+        "update": "^0.7.4",
+        "vue": "^2.6.10",
         "vue-strap": "github:wffranco/vue-strap",
-        "vue-template-compiler": "^2.6.9"
+        "vue-template-compiler": "^2.6.10"
     }
 }

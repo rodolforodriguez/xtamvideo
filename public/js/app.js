@@ -14050,7 +14050,6 @@ module.exports = __webpack_require__(59);
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -14067,24 +14066,24 @@ window.Vue = __webpack_require__(39);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(43));
-Vue.component('notification-alert', __webpack_require__(46));
+Vue.component("example-component", __webpack_require__(43));
+Vue.component("notification-alert", __webpack_require__(46));
 //Vue.component('notification-alarm', require('./components/NotificationAlarm.vue'));
-Vue.component('notification-map', __webpack_require__(50));
+Vue.component("notification-map", __webpack_require__(50));
 
 var app = new Vue({
-  el: '#app'
-  //,
-  //created()
-  //{
-  //  console.log('Inicio...');
-  //alert('alerta de inicio de evento');
-  //Echo.channel('channelDemoEvent')
-  //.listen('AlarmStatusChanged',(e)=>{
-  //  alert('Evento ejecutado');
-  //console.log('Perfecto.....');            
-  //});
-  //}
+    el: "#app"
+    //,
+    //created()
+    //{
+    //  console.log('Inicio...');
+    //alert('alerta de inicio de evento');
+    //Echo.channel('channelDemoEvent')
+    //.listen('AlarmStatusChanged',(e)=>{
+    //  alert('Evento ejecutado');
+    //console.log('Perfecto.....');
+    //});
+    //}
 });
 
 /***/ }),
@@ -46776,7 +46775,7 @@ if (false) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.9
+ * Vue.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -49321,8 +49320,8 @@ function normalizeScopedSlots (
   prevSlots
 ) {
   var res;
-  var isStable = slots ? !!slots.$stable : true;
   var hasNormalSlots = Object.keys(normalSlots).length > 0;
+  var isStable = slots ? !!slots.$stable : !hasNormalSlots;
   var key = slots && slots.$key;
   if (!slots) {
     res = {};
@@ -50406,7 +50405,9 @@ function resolveAsyncComponent (
 
   if (owner && !isDef(factory.owners)) {
     var owners = factory.owners = [owner];
-    var sync = true
+    var sync = true;
+    var timerLoading = null;
+    var timerTimeout = null
 
     ;(owner).$on('hook:destroyed', function () { return remove(owners, owner); });
 
@@ -50417,6 +50418,14 @@ function resolveAsyncComponent (
 
       if (renderCompleted) {
         owners.length = 0;
+        if (timerLoading !== null) {
+          clearTimeout(timerLoading);
+          timerLoading = null;
+        }
+        if (timerTimeout !== null) {
+          clearTimeout(timerTimeout);
+          timerTimeout = null;
+        }
       }
     };
 
@@ -50463,7 +50472,8 @@ function resolveAsyncComponent (
           if (res.delay === 0) {
             factory.loading = true;
           } else {
-            setTimeout(function () {
+            timerLoading = setTimeout(function () {
+              timerLoading = null;
               if (isUndef(factory.resolved) && isUndef(factory.error)) {
                 factory.loading = true;
                 forceRender(false);
@@ -50473,7 +50483,8 @@ function resolveAsyncComponent (
         }
 
         if (isDef(res.timeout)) {
-          setTimeout(function () {
+          timerTimeout = setTimeout(function () {
+            timerTimeout = null;
             if (isUndef(factory.resolved)) {
               reject(
                 "timeout (" + (res.timeout) + "ms)"
@@ -51019,16 +51030,21 @@ var getNow = Date.now;
 // timestamp can either be hi-res (relative to page load) or low-res
 // (relative to UNIX epoch), so in order to compare time we have to use the
 // same timestamp type when saving the flush timestamp.
-if (
-  inBrowser &&
-  window.performance &&
-  typeof performance.now === 'function' &&
-  document.createEvent('Event').timeStamp <= performance.now()
-) {
-  // if the event timestamp is bigger than the hi-res timestamp
-  // (which is evaluated AFTER) it means the event is using a lo-res timestamp,
-  // and we need to use the lo-res version for event listeners as well.
-  getNow = function () { return performance.now(); };
+// All IE versions use low-res event timestamps, and have problematic clock
+// implementations (#9632)
+if (inBrowser && !isIE) {
+  var performance = window.performance;
+  if (
+    performance &&
+    typeof performance.now === 'function' &&
+    getNow() > document.createEvent('Event').timeStamp
+  ) {
+    // if the event timestamp, although evaluated AFTER the Date.now(), is
+    // smaller than it, it means the event is using a hi-res timestamp,
+    // and we need to use the hi-res version for event listener timestamps as
+    // well.
+    getNow = function () { return performance.now(); };
+  }
 }
 
 /**
@@ -52193,7 +52209,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.9';
+Vue.version = '2.6.10';
 
 /*  */
 
@@ -54355,10 +54371,11 @@ function updateDOMProps (oldVnode, vnode) {
   }
 
   for (key in oldProps) {
-    if (isUndef(props[key])) {
+    if (!(key in props)) {
       elm[key] = '';
     }
   }
+
   for (key in props) {
     cur = props[key];
     // ignore children if the node has textContent or innerHTML,
@@ -57475,7 +57492,7 @@ function isDirectChildOfTemplateFor (node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
 var fnInvokeRE = /\([^)]*?\);*$/;
 var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -69275,7 +69292,7 @@ exports = module.exports = __webpack_require__(53)(false);
 exports.push([module.i, "@import url(http://xtamvideo.test/4.10/esri/css/main.css);", ""]);
 
 // module
-exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 500px;\r\n  width: 100%;\n}\n.title[data-v-3231e30a]\r\n{\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a]\r\n{\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a]\r\n{\r\n  margin-top: 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 500px;\r\n  width: 100%;\n}\n.title[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\r\n", ""]);
 
 // exports
 
@@ -69640,19 +69657,17 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-  props: [''],
+  props: [""],
 
   mounted: function mounted() {
     //console.log('map: mounted')
-    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(['esri/tasks/Locator', 'esri/widgets/Sketch', 'esri/Map', 'esri/views/MapView', 'esri/Graphic', "esri/layers/GraphicsLayer", "esri/Color", 'esri/geometry/Point', 'esri/symbols/SimpleMarkerSymbol', 'esri/geometry/Polyline', "esri/geometry/Circle", 'esri/symbols/PictureMarkerSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'dojo/domReady!'], {
+    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
-      url: 'http://xtamvideo.test/4.10/init.js'
+      url: "http://xtamvideo.test/4.10/init.js"
     }).then(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 15),
           Locator = _ref2[0],
@@ -69681,7 +69696,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           coordinates = "";
 
       map = new EsriMap({
-        basemap: 'hybrid',
+        basemap: "hybrid",
         layers: [layer]
       });
 
@@ -69689,12 +69704,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         container: "viewDiv", // Reference to the scene div created in step 5
         map: map, // Reference to the map object created before the scene
         zoom: 15, // Sets zoom level based on level of detail (LOD)
-        center: [-74.098253, 4.647660] // Sets center point of view using longitude,latitude
+        center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
       });
 
       ///// end iconografia
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('http://xtamvideo.test/testvue/ajaxfile.php?n=1').then(function (response) {
-
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
         console.log(response);
 
         var cameras = response.data;
@@ -69703,53 +69717,52 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         //cameras = response.data;
         ///// cameras recording data base
 
-
         for (var i = 0; i < value; i++) {
           //// estados de las camaras
 
-          var tipocamara = '';
+          var tipocamara = "";
           var n = cameras[i].typecam;
           switch (n) {
             case 1:
-              tipocamara += 'publica';
+              tipocamara += "publica";
               break;
             case 2:
-              tipocamara += 'privada';
+              tipocamara += "privada";
               break;
             case 3:
-              tipocamara += 'lpr';
+              tipocamara += "lpr";
               break;
             default:
-              tipocamara += 'privada';
+              tipocamara += "privada";
           }
           var estado = cameras[i].estado;
           switch (estado) {
-            case 'active':
-              tipocamara += 'a';
+            case "active":
+              tipocamara += "a";
               break;
-            case 'inactive':
-              tipocamara += 'i';
+            case "inactive":
+              tipocamara += "i";
               break;
             default:
-              tipocamara += 'i';
+              tipocamara += "i";
           }
           //// iconografia alarma y camaras
-          var iconBase = '../includes/img/';
-          var icon = '';
-          if (tipocamara == 'publicaa') {
-            icon = iconBase + 'cam-green.png';
-          } else if (tipocamara == 'publicai') {
-            icon = iconBase + 'cam-red.png';
-          } else if (tipocamara == 'privadaa') {
-            icon = iconBase + 'cam-green.png';
-          } else if (tipocamara == 'privadai') {
-            icon = iconBase + 'cam-red.png';
-          } else if (tipocamara == 'lpra') {
-            icon = iconBase + 'dome-green.png';
-          } else if (tipocamara == 'lpri') {
-            icon = iconBase + 'dome-red.png';
-          } else if (tipocamara == 'alarm') {
-            icon = iconBase + 'alert50_marker.gif';
+          var iconBase = "../includes/img/";
+          var icon = "";
+          if (tipocamara == "publicaa") {
+            icon = iconBase + "cam-green.png";
+          } else if (tipocamara == "publicai") {
+            icon = iconBase + "cam-red.png";
+          } else if (tipocamara == "privadaa") {
+            icon = iconBase + "cam-green.png";
+          } else if (tipocamara == "privadai") {
+            icon = iconBase + "cam-red.png";
+          } else if (tipocamara == "lpra") {
+            icon = iconBase + "dome-green.png";
+          } else if (tipocamara == "lpri") {
+            icon = iconBase + "dome-red.png";
+          } else if (tipocamara == "alarm") {
+            icon = iconBase + "alert50_marker.gif";
           }
 
           var server = cameras[i].cameraid;
@@ -69759,7 +69772,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           } else {
             var channel = cameras[i].channelstreamserver;
           }
-          ///// end estados de las camras 
+          ///// end estados de las camras
           /// puntos de las camaras ene el mapa
           var point = new Point({
             longitude: cameras[i].longitud,
@@ -69770,13 +69783,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           // Create a symbol for drawing the point
           // Create a symbol for drawing the point
           /* var markerSymbol = new SimpleMarkerSymbol({
-             color: [226, 119, 40],
-             size: '20px',
-             outline: {
-               color: [255, 255, 226],
-               width: 1
-             }
-           });*/
+              color: [226, 119, 40],
+              size: '20px',
+              outline: {
+                color: [255, 255, 226],
+                width: 1
+              }
+            });*/
 
           var markerSymbol = new PictureMarkerSymbol({
             // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
@@ -69786,7 +69799,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           });
 
           /// link a abrir en otra ventana
-          var link = '../vs/streaming.php?ip=' + server + '&state=' + cliente + '&userid=' + userid;
+          var link = "../vs/streaming.php?ip=" + server + "&state=" + cliente + "&userid=" + userid;
 
           // Create attributes
           var attributes = {
@@ -69795,17 +69808,17 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             Plant: cameras[i].descripcion,
             Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
             Adresss: cameras[i].direccion,
-            Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + '&state=' + cliente + '&userid=' + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+            Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + "&state=" + cliente + "&userid=" + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
           };
 
           // Create popup template
           var popupTemplate = {
             title: "{Plant}",
-            content: "<div>" + "Latitude: {YCoord}<br/>Longitude: {XCoord}<br/>Dirección:{Adresss}<br/>Camaras:  {Link}" + '</div>'
+            content: "<div>" + "Latitude: {YCoord}<br/>Longitude: {XCoord}<br/>Dirección:{Adresss}<br/>Camaras:  {Link}" + "</div>"
           };
 
           // Create a graphic and add the geometry and symbol to it
-          if (estado == 'active') {
+          if (estado == "active") {
             var pointGraphic = new Graphic({
               geometry: point,
               symbol: markerSymbol,
@@ -69817,7 +69830,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
               geometry: point,
               symbol: markerSymbol,
               attributes: attributes
-
             });
           }
 
@@ -69825,14 +69837,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           view.graphics.add(pointGraphic);
         }
         ///// end point cameras
-
       }).catch(function (error) {
         console.log(error);
       });
 
       /// alarmas no gestionadas
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('http://xtamvideo.test/testvue/ajaxfile.php?n=2').then(function (response) {
-
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=2").then(function (response) {
         console.log(response);
 
         var cameras = response.data;
@@ -69841,33 +69851,31 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         //cameras = response.data;
         ///// cameras recording data base
 
-
         for (var i = 0; i < value; i++) {
           //// estados de las camaras
-
 
           var estado = cameras[i].estado;
           var caseupdate = "";
           var colorcase = "";
           switch (estado) {
-            case 'C':
-              caseupdate = 'Cerrado';
+            case "C":
+              caseupdate = "Cerrado";
 
               break;
-            case 'P':
-              caseupdate = 'Pendiente';
+            case "P":
+              caseupdate = "Pendiente";
               colorcase = [255, 0, 0, 0.5];
               break;
-            case 'E':
-              caseupdate = 'En Proceso';
+            case "E":
+              caseupdate = "En Proceso";
               colorcase = [255, 255, 0, 0.5];
               break;
             default:
-              caseupdate = 'Pendiente';
+              caseupdate = "Pendiente";
               colorcase = [255, 255, 0, 0.5];
           }
 
-          ///// end estados de las camras 
+          ///// end estados de las camras
           /// puntos de las camaras ene el mapa
           var point = new Point({
             longitude: cameras[i].longitud,
@@ -69878,7 +69886,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
           var markerSymbol = new SimpleMarkerSymbol({
             //color: [226, 119, 40],
-            size: '24px',
+            size: "24px",
             style: "circle",
             //color: [255,0,0,0.5],
             color: colorcase,
@@ -69889,7 +69897,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           });
 
           /// link a abrir en otra ventana
-          var link = '../vs/alarm/index.php?lng=' + point.longitude + '&lat=' + point.latitude + '&dist=' + dist + '&max_cams=' + max_cams + '&state=' + cliente + '&userid=' + userid;
+          var link = "../vs/alarm/index.php?lng=" + point.longitude + "&lat=" + point.latitude + "&dist=" + dist + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
           //../vs/alarm/index.php?lng='+longitud+'&lat='+latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
 
           // Create attributes
@@ -69908,7 +69916,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           // Create popup template
           var popupTemplate = {
             title: "{Plant}",
-            content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + '</div>'
+            content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + "</div>"
           };
 
           // Create a graphic and add the geometry and symbol to it
@@ -69926,16 +69934,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           //}
         }
         ///// end point cameras
-
       }).catch(function (error) {
         console.log(error);
       });
 
       ////// end de alarmas
 
-
       view.when(function () {
-
         var sketch = new Sketch({
           layer: layer,
           view: view
@@ -69955,7 +69960,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
          
       });*/
 
-      //coordenadas en el mapa 
+      //coordenadas en el mapa
       var coordsWidget = document.createElement("div");
       coordsWidget.id = "coordsWidget";
       coordsWidget.className = "esri-widget esri-component";
@@ -69963,7 +69968,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
       var DivButton = document.getElementById("DivButton");
 
-      //ubicacion de Cordenadas en el mapa 
+      //ubicacion de Cordenadas en el mapa
       //view.ui.add(coordsWidget, "bottom-right");
       // Add widget to   top right corner of the view
       // view.ui.add(toggle, "top-right");
@@ -69973,11 +69978,9 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       function showCoordinates(pt) {
         coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
         coordsWidget.innerHTML += coords;
-        if (coordsWidget.innerHTML != '') {
-          var linkGoTo = 'http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20' + coordsWidget.innerHTML + '*)';
-          var content = '<a class="btn btn-success btn-sm" onclick="myFunction(\'' + linkGoTo + '\')">Ver C\xE1maras</a>';
-          DivButton.innerHTML = content;
-        }
+        var linkGoTo = "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" + coordsWidget.innerHTML + "*)";
+        var content = "<a class=\"btn btn-success btn-sm\" onclick=\"myFunction('" + linkGoTo + "')\">Ver C\xE1maras</a>";
+        DivButton.innerHTML = content;
       }
       //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
       //document.getElementById("info3").innerHTML =url;
@@ -69993,7 +69996,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         }));
       });
 
-      Echo.channel('channelDemoEvent').listen('eventTrigger', function (e) {
+      Echo.channel("channelDemoEvent").listen("eventTrigger", function (e) {
         console.log(e);
 
         // First create a point geometry
@@ -70003,19 +70006,19 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         });
 
         // Create a symbol for drawing the point
-        if (e.estado == 'P') {
+        if (e.estado == "P") {
           var markerSymbol = new SimpleMarkerSymbol({
             color: [255, 0, 0],
-            size: '24px',
+            size: "24px",
             outline: {
               color: [255, 255, 255],
               width: 1
             }
           });
-        } else if (e.estado == 'E') {
+        } else if (e.estado == "E") {
           var markerSymbol = new SimpleMarkerSymbol({
             color: [255, 255, 0],
-            size: '24px',
+            size: "24px",
             outline: {
               color: [255, 255, 255],
               width: 1
@@ -70024,7 +70027,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         } else {
           var markerSymbol = new SimpleMarkerSymbol({
             color: [0, 102, 0],
-            size: '24px',
+            size: "24px",
             outline: {
               color: [255, 255, 255],
               width: 1
@@ -70032,7 +70035,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           });
         }
 
-        var link = '../vs/alarm/index.php?lng=' + e.longitud + '&lat=' + e.latitud + '&dist=' + dist + '&max_cams=' + max_cams + '&state=' + cliente + '&userid=' + userid;
+        var link = "../vs/alarm/index.php?lng=" + e.longitud + "&lat=" + e.latitud + "&dist=" + dist + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
         // Create attributes
         var attributes = {
           XCoord: e.longitud,
@@ -70043,13 +70046,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           Barrio: e.barrio,
           DesCaso: e.descripcion_caso,
           Fecha: e.fecha
-          //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'             
+          //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
         };
 
         // Create popup template
         var popupTemplate = {
           title: "{Plant}",
-          content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + '</div>'
+          content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + "</div>"
         };
 
         // Create a graphic and add the geometry and symbol to it
