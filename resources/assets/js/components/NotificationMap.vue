@@ -1,5 +1,6 @@
 <template>
     <body class="claro">      
+      <!--Comentarios-->
       <div id="viewDiv" style="height: 80vh;min-height: 250px;"></div>  
       
     </body>
