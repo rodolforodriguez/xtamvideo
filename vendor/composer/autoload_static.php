@@ -7,12 +7,12 @@ namespace Composer\Autoload;
 class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
@@ -20,11 +20,11 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'e94defb743a4d9da5bb973e78c1fa8ff' => __DIR__ . '/..' . '/imanghafoori/laravel-terminator/src/helpers.php',
-        '1374595b22715c0d85ab645d8272fe85' => __DIR__ . '/..' . '/imanghafoori/laravel-widgetize/src/helpers.php',
         '95779e373bd3ef5069868a995b5280ab' => __DIR__ . '/..' . '/imanghafoori/laravel-heyman/src/helpers.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '1374595b22715c0d85ab645d8272fe85' => __DIR__ . '/..' . '/imanghafoori/laravel-widgetize/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -161,8 +161,8 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'crocodicstudio\\crudbooster\\' => 
         array (
@@ -468,6 +468,7 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\AlarmStatusChanged' => __DIR__ . '/../..' . '/app/Events/AlarmStatusChanged.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminCamerasController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCamerasController.php',
         'App\\Http\\Controllers\\AdminCentroComercialController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCentroComercialController.php',
@@ -483,8 +484,10 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
         'App\\Http\\Controllers\\CBHook' => __DIR__ . '/../..' . '/app/Http/Controllers/CBHook.php',
         'App\\Http\\Controllers\\CallsController' => __DIR__ . '/../..' . '/app/Http/Controllers/CallsController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\MapController' => __DIR__ . '/../..' . '/app/Http/Controllers/MapController.php',
         'App\\Http\\Controllers\\RecordsController' => __DIR__ . '/../..' . '/app/Http/Controllers/RecordsController.php',
         'App\\Http\\Controllers\\StreamingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/StreamingsController.php',
+        'App\\Http\\Controllers\\VidsController' => __DIR__ . '/../..' . '/app/Http/Controllers/VidsController.php',
         'App\\Http\\Controllers\\lprMapsController' => __DIR__ . '/../..' . '/app/Http/Controllers/lprMapsController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -493,6 +496,7 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Listeners\\AlarmStatusChangedListener' => __DIR__ . '/../..' . '/app/Listeners/AlarmStatusChangedListener.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -4809,6 +4813,7 @@ class ComposerStaticInit00ef4355d6e1ba013b5b283e598eecff
         'Unisharp\\Laravelfilemanager\\controllers\\RenameController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/controllers/RenameController.php',
         'Unisharp\\Laravelfilemanager\\controllers\\ResizeController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/controllers/ResizeController.php',
         'Unisharp\\Laravelfilemanager\\controllers\\UploadController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/controllers/UploadController.php',
+        'Unisharp\\Laravelfilemanager\\middleware\\MultiUser' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/middleware/MultiUser.php',
         'Unisharp\\Laravelfilemanager\\middlewares\\CreateDefaultFolder' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/middlewares/CreateDefaultFolder.php',
         'Unisharp\\Laravelfilemanager\\middlewares\\MultiUser' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/middlewares/MultiUser.php',
         'Unisharp\\Laravelfilemanager\\traits\\LfmHelpers' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/traits/LfmHelpers.php',

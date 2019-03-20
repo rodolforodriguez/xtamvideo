@@ -8,7 +8,7 @@ use Request;
 use DB;
 use CRUDBooster;
 
-class RecordsController extends \crocodicstudio\crudbooster\controllers\CBController 
+class VidsController extends \crocodicstudio\crudbooster\controllers\CBController 
 {
     /**
      * Display a listing of the resource.
