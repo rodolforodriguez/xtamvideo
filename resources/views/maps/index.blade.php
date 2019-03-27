@@ -15,6 +15,12 @@ include "includes/connection.php";
 /// end conexion camaras privadas
 //$userid=CRUDBooster::myId();
 
+$perms = DB::table('xtam_profile_inst')
+    ->select('idProfile_inst')
+    ->where('profile_StatusChek', '=', '1')
+    ->get();
+$val = substr($perms, 19, -2);
+
 // query of radio of the alarm and numbers of cam's to see
 $query_parameter = mysqli_query($con, "select * from parameter");
 $parameter = mysqli_fetch_assoc($query_parameter);
@@ -24,6 +30,7 @@ $max_cams = $parameter['max_cams'];
 /// end conexion alarma y parametros
 ?>
 <script>
+    var perm = '<?php echo $val;  ?>';
     var cliente = <?php echo $cliente;  ?>;
     var dist = <?php echo $alarm_radio; ?>;
     var max_cams = <?php echo $max_cams; ?>;

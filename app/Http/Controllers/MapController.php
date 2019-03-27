@@ -186,9 +186,7 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
+    { }
 
     /**
      * Store a newly created resource in storage.
