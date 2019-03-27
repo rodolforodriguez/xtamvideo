@@ -59079,7 +59079,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _vm._v(
-                "\n                    I'm an example component.\n                "
+                "\n                    I'm an example component. moi\n                "
               )
             ])
           ])
@@ -69292,7 +69292,7 @@ exports = module.exports = __webpack_require__(53)(false);
 exports.push([module.i, "@import url(http://xtamvideo.test/4.10/esri/css/main.css);", ""]);
 
 // module
-exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 500px;\r\n  width: 100%;\n}\n.title[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\n  height: 500px;\n  width: 100%;\n}\n.title[data-v-3231e30a] {\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\n  font-weight: 300;\n  color: #9aabb1;\n  margin: 0;\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\n  margin-top: 50px;\n}\n", ""]);
 
 // exports
 
@@ -69665,11 +69665,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
   mounted: function mounted() {
     //console.log('map: mounted')
-    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
+    Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "esri/geometry/coordinateFormatter", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
       url: "http://xtamvideo.test/4.10/init.js"
     }).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 15),
+      var _ref2 = _slicedToArray(_ref, 16),
           Locator = _ref2[0],
           Sketch = _ref2[1],
           EsriMap = _ref2[2],
@@ -69684,7 +69684,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           PictureMarkerSymbol = _ref2[11],
           SimpleLineSymbol = _ref2[12],
           Polygon = _ref2[13],
-          SimpleFillSymbol = _ref2[14];
+          SimpleFillSymbol = _ref2[14],
+          coordinateFormatter = _ref2[15];
 
       var layer = new GraphicsLayer();
       // Create a locator task using the world geocoding service
@@ -69957,8 +69958,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
           var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
           var cordinates = lat + "," + lon + "*";
-         
-      });*/
+       });*/
 
       //coordenadas en el mapa
       var coordsWidget = document.createElement("div");
@@ -69967,6 +69967,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       coordsWidget.style.padding = "7px 15px 5px";
 
       var DivButton = document.getElementById("DivButton");
+      //var coordclick = document.getElementById("coordclick");
 
       //ubicacion de Cordenadas en el mapa
       //view.ui.add(coordsWidget, "bottom-right");
@@ -69976,11 +69977,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       //** ADD **//
       //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
       function showCoordinates(pt) {
-        coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
+        coords = pt.latitude.toFixed(8) + "," + pt.longitude.toFixed(8) + "*";
         coordsWidget.innerHTML += coords;
+        //coordclick.innerHTML   += coords;
         var linkGoTo = "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" + coordsWidget.innerHTML + "*)";
-        var content = "<a class=\"btn btn-success btn-sm\" onclick=\"myFunction('" + linkGoTo + "')\">Ver C\xE1maras</a>";
-        DivButton.innerHTML = content;
+        //var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
+        // DivButton.innerHTML = content;
       }
       //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
       //document.getElementById("info3").innerHTML =url;

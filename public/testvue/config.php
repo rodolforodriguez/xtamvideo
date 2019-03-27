@@ -2,7 +2,7 @@
 
 $host = "localhost";    /* Host name */
 $user = "root";         /* User */
-$password = "";         /* Password */
+$password = "123456";         /* Password */
 $dbname = "xtamdb";   /* Database name */
 
 // Create connection

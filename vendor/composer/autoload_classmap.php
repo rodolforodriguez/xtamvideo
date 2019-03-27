@@ -4354,7 +4354,6 @@ return array(
     'Unisharp\\Laravelfilemanager\\controllers\\RenameController' => $vendorDir . '/unisharp/laravel-filemanager/src/controllers/RenameController.php',
     'Unisharp\\Laravelfilemanager\\controllers\\ResizeController' => $vendorDir . '/unisharp/laravel-filemanager/src/controllers/ResizeController.php',
     'Unisharp\\Laravelfilemanager\\controllers\\UploadController' => $vendorDir . '/unisharp/laravel-filemanager/src/controllers/UploadController.php',
-    'Unisharp\\Laravelfilemanager\\middleware\\MultiUser' => $vendorDir . '/unisharp/laravel-filemanager/src/middleware/MultiUser.php',
     'Unisharp\\Laravelfilemanager\\middlewares\\CreateDefaultFolder' => $vendorDir . '/unisharp/laravel-filemanager/src/middlewares/CreateDefaultFolder.php',
     'Unisharp\\Laravelfilemanager\\middlewares\\MultiUser' => $vendorDir . '/unisharp/laravel-filemanager/src/middlewares/MultiUser.php',
     'Unisharp\\Laravelfilemanager\\traits\\LfmHelpers' => $vendorDir . '/unisharp/laravel-filemanager/src/traits/LfmHelpers.php',

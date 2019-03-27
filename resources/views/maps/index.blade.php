@@ -21,7 +21,7 @@ $parameter = mysqli_fetch_assoc($query_parameter);
 $alarm_radio = $parameter['alarm_radio'];
 $max_cams = $parameter['max_cams'];
 
-/// end conexion alarma y parametros  
+/// end conexion alarma y parametros
 ?>
 <script>
     var cliente = <?php echo $cliente;  ?>;
@@ -36,6 +36,8 @@ $max_cams = $parameter['max_cams'];
 </script>
 <!--@extends('crudbooster::admin_template')-->
 @section('content')
+<div id="coordclick"></div>
 <div id="DivButton"></div>
 <notification-map></notification-map>
-@endsection 
+
+@endsection

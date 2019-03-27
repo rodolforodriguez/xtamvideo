@@ -28,6 +28,7 @@ export default {
         "esri/symbols/SimpleLineSymbol",
         "esri/geometry/Polygon",
         "esri/symbols/SimpleFillSymbol",
+        "esri/geometry/coordinateFormatter",
         "dojo/domReady!"
       ],
       {
@@ -50,7 +51,8 @@ export default {
         PictureMarkerSymbol,
         SimpleLineSymbol,
         Polygon,
-        SimpleFillSymbol
+        SimpleFillSymbol,
+        coordinateFormatter
       ]) => {
         const layer = new GraphicsLayer();
         // Create a locator task using the world geocoding service
@@ -366,7 +368,7 @@ export default {
             var lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
             var lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
             var cordinates = lat + "," + lon + "*";
-           
+
         });*/
 
         //coordenadas en el mapa
@@ -376,6 +378,7 @@ export default {
         coordsWidget.style.padding = "7px 15px 5px";
 
         var DivButton = document.getElementById("DivButton");
+        //var coordclick = document.getElementById("coordclick");
 
         //ubicacion de Cordenadas en el mapa
         //view.ui.add(coordsWidget, "bottom-right");
@@ -385,14 +388,16 @@ export default {
         //** ADD **//
         //var url="<a onclick=myFunction('../vs/Pcampoly.php?userid=2&state=1&var=(%20";
         function showCoordinates(pt) {
-          coords = pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
+          coords = pt.latitude.toFixed(8) + "," + pt.longitude.toFixed(8) + "*";
           coordsWidget.innerHTML += coords;
+          //coordclick.innerHTML   += coords;
           var linkGoTo =
             "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" +
             coordsWidget.innerHTML +
             "*)";
-          var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
-          DivButton.innerHTML = content;
+          //var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
+         // DivButton.innerHTML = content;
+
         }
         //url +="style='color:  white;font-size: small;'><img src='../includes/img/icons8-programa-de-televisión-60.png' width='40' height='30'/></a>";
         //document.getElementById("info3").innerHTML =url;
