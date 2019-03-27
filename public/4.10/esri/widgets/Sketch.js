@@ -221,9 +221,9 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
             return [
                 //this.renderPointButton(),
                 this.renderPolylineButton(),
-                this.renderPolygonButton(),
+                this.renderPolygonButton()
                 //this.renderRectangleButton()
-                this.renderCircleButton()
+                //this.renderCircleButton()
             ];
         };
         a.prototype.renderPointButton = function() {
