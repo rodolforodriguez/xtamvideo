@@ -69711,7 +69711,6 @@ var permisos = perm;
 
       switch (permisos) {
         case "1":
-          alert("Xtam video");
           ///// XTAM VIDEO
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
@@ -69872,7 +69871,6 @@ var permisos = perm;
 
           break;
         case "2":
-          alert("Xtam alarmas");
           /// alarmas no gestionadas XTAM ALARMAS
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
@@ -70045,7 +70043,6 @@ var permisos = perm;
           });
           break;
         case "3":
-          alert("Xtam premium");
           ///// XTAM VIDEO
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);

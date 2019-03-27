@@ -78,7 +78,6 @@ export default {
 
         switch (permisos) {
           case "1":
-            alert("Xtam video");
             ///// XTAM VIDEO
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
@@ -264,7 +263,6 @@ export default {
 
             break;
           case "2":
-            alert("Xtam alarmas");
             /// alarmas no gestionadas XTAM ALARMAS
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=2")
@@ -476,7 +474,6 @@ export default {
             });
             break;
           case "3":
-            alert("Xtam premium");
             ///// XTAM VIDEO
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
