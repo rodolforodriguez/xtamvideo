@@ -1,6 +1,6 @@
 <template>
-<body class="claro">
-  <div id="viewDiv" style="height: 80vh;min-height: 250px;"></div>
+<body class="claro" style="height: 80vh;min-height: 500px;">
+  <div id="viewDiv"></div>
 </body>
 </template>
 <script>
@@ -75,10 +75,13 @@ export default {
           zoom: 15, // Sets zoom level based on level of detail (LOD)
           center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
         });
-
+        var x = document.getElementById("myAudio");
+            function playAudio() {
+                x.play();
+            }
         switch (permisos) {
           case "1":
-            alert("Xtam video");
+            //alert("Xtam video");
             ///// XTAM VIDEO
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
@@ -232,39 +235,11 @@ export default {
               view.ui.add(sketch, "bottom-left");
             });
 
-            //coordenadas en el mapa
-            var coordsWidget = document.createElement("div");
-            coordsWidget.id = "coordsWidget";
-            coordsWidget.className = "esri-widget esri-component";
-            coordsWidget.style.padding = "7px 15px 5px";
 
-            var DivButton = document.getElementById("DivButton");
-
-            //ubicacion de Cordenadas en el mapa
-            function showCoordinates(pt) {
-              coords =
-                pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
-              coordsWidget.innerHTML += coords;
-              var linkGoTo =
-                "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" +
-                coordsWidget.innerHTML +
-                "*)";
-              var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
-              DivButton.innerHTML = content;
-            }
-            view.on(["pointer-down"], function(evt) {
-              showCoordinates(
-                view.toMap({
-                  x: evt.x,
-                  y: evt.y
-                })
-              );
-            });
-            // End poligonos
 
             break;
           case "2":
-            alert("Xtam alarmas");
+            //alert("Xtam alarmas");
             /// alarmas no gestionadas XTAM ALARMAS
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=2")
@@ -359,7 +334,7 @@ export default {
                     title: "{Plant}",
                     content:
                       "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
                       "</div>"
                   };
 
@@ -459,7 +434,7 @@ export default {
                 title: "{Plant}",
                 content:
                   "<div>" +
-                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
                   "</div>"
               };
 
@@ -470,14 +445,16 @@ export default {
                 attributes: attributes,
                 popupTemplate: popupTemplate
               });
-
+              /// sonido de notificacion de alarma generada
+                    playAudio();
               // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
             });
             break;
           case "3":
-            alert("Xtam premium");
+            //alert("Xtam premium");
             ///// XTAM VIDEO
+
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
               .then(function(response) {
@@ -630,35 +607,7 @@ export default {
               view.ui.add(sketch, "bottom-left");
             });
 
-            //coordenadas en el mapa
-            var coordsWidget = document.createElement("div");
-            coordsWidget.id = "coordsWidget";
-            coordsWidget.className = "esri-widget esri-component";
-            coordsWidget.style.padding = "7px 15px 5px";
 
-            var DivButton = document.getElementById("DivButton");
-
-            //ubicacion de Cordenadas en el mapa
-            function showCoordinates(pt) {
-              coords =
-                pt.latitude.toFixed(3) + "," + pt.longitude.toFixed(3) + "*";
-              coordsWidget.innerHTML += coords;
-              var linkGoTo =
-                "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" +
-                coordsWidget.innerHTML +
-                "*)";
-              var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
-              DivButton.innerHTML = content;
-            }
-            view.on(["pointer-down"], function(evt) {
-              showCoordinates(
-                view.toMap({
-                  x: evt.x,
-                  y: evt.y
-                })
-              );
-            });
-            // End poligonos
 
             /// alarmas no gestionadas XTAM ALARMAS
             axios
@@ -887,8 +836,8 @@ export default {
 <style scoped>
 @import url("http://xtamvideo.test/4.10/esri/css/main.css");
 #viewDiv {
-  height: 500px;
-  width: 100%;
+  height: 80vh;
+  min-height: 250px;
 }
 .title {
   margin-top: 50px;

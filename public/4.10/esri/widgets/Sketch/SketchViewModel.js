@@ -202,7 +202,8 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                             a = this._setupCreateRectangleOperation(b, d);
                             break;
                         case "circle":
-                            a = this._setupCreateCircleOperation(b, d)
+                            a = this._setupCreateCircleOperation(b, d);
+
                     }
                     coordclick.innerHTML = "";
                     DivButton.innerHTML = "";
@@ -473,6 +474,7 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                     }), c.on("cursor-update", function(c) {
                         var h = c.type;
                         c = c.vertices;
+
                         a._drawSegmentGraphic(b, c, {
                             centered: g,
                             constrained: e
@@ -480,14 +482,25 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                         2 === c.length && a._emitCreateEvent({ graphic: a.createGraphic, state: "active", tool: b, toolEventInfo: { coordinates: c[c.length - 1], type: h } })
                     }), c.on("draw-complete", function(b) {
                         b = b.vertices.slice(0);
-                        var c = null;
                         1 === b.length ? (c = b[0], b.push([c[0] + a._defaultSegmentOffset * a.view.resolution, c[1]]), c = r.createCircle(b, a.view, !0)) : c = e ? r.createEllipse(b, a.view, g) : r.createCircle(b, a.view, g);
                         a.createGraphic ? a.createGraphic.geometry = c : (a._removeCreateGraphic(), a._set("createGraphic", new u(c, a.polygonSymbol)));
                         f && f.complete()
+                            /// definimos variables para enviar parametros de apetura de camaras
+                        var latitude = c.center["latitude"];
+                        var longitude = c.center["longitude"];
+                        var radius = (c.radius / 100).toFixed(3);
+                        /// enviamos coordenadas circunferencia
+                        var linkGoTo =
+                            "http://xtamvideo.test/vs/alarm/index.php?lng=" + longitude + "&lat=" + latitude + "&dist=" + radius + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
+                        var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
+                        DivButton.innerHTML = content;
+                        DivButton.style.visibility = "visible";
+
                     })],
                     l = [this.view.on("pointer-move", function(b) { return a._displayCrosshairCursor() }), this.view.on("key-down", function(d) { "Control" !== d.key || e ? "Alt" === d.key && g ? (g = !1, a._drawSegmentGraphic(b, c.vertices, { centered: g, constrained: e })) : "Escape" === d.key && f && f.cancel() : (e = !0, a._drawSegmentGraphic(b, c.vertices, { centered: g, constrained: e })) }), this.view.on("key-up", function(d) {
                         "Control" === d.key ? (e = !1, a._drawSegmentGraphic(b, c.vertices, { centered: g, constrained: e })) : "Alt" === d.key && (g = !0, a._drawSegmentGraphic(b,
                             c.vertices, { centered: g, constrained: e }))
+
                     })],
                     f = new y({
                         activeComponent: this._draw,
@@ -934,6 +947,7 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                     1 === d.length ? (e = r.createPolygon([d], this.view), this._removeCenterIndicatorGraphic()) : ("rectangle" === b ? e = a ? r.createSquare(d, this.view, c) : r.createRectangle(d, this.view, c) : "circle" === b && (e = a ? r.createEllipse(d, this.view, c) : r.createCircle(d, this.view, c)), e.extent && e.extent.center && this._showCenterIndicatorGraphic(e.extent.center));
                     this.createGraphic ? this.createGraphic.geometry = e : (this._removeCreateGraphic(), this._set("createGraphic", new u(e, this.polygonSymbol)),
                         this._layer.add(this.createGraphic))
+
                 }
             };
             e.prototype._showCenterIndicatorGraphic = function(b) { this._centerIndicatorGraphic ? this._centerIndicatorGraphic.geometry = b : (this._centerIndicatorGraphic = new u(b, this._centerSymbol), this._layer.add(this._centerIndicatorGraphic)) };

@@ -3,11 +3,10 @@ error_reporting(0);
 require_once("../../includes/connection.php");
 $lng=$_REQUEST['lng'];
 $lat=$_REQUEST['lat'];
-$alarm_radio=$_REQUEST['dist'];
+$distance=$_REQUEST['dist'];
 $max_cams=$_REQUEST['max_cams'];
 $state=$_REQUEST['state'];
 $userid=$_REQUEST['userid'];
-$distance=$alarm_radio/100;
 ?>
 
 <!DOCTYPE html>
@@ -16,35 +15,35 @@ $distance=$alarm_radio/100;
 <head>
 	<style>
 		#player{
-        width: 100%;	
+        width: 100%;
        height: 300px;
       }
-	</style>	
+	</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 	<title>Vloxy Security</title>
 	<meta name="keywords" content="rtmp player, rtmp">
 	<meta name="description" content="This page allows you to play RTMP streams online with no installation required.">
 	<script async="" src="../RTMP Player - HLSPlayer_files/beacon.js"></script>
 	<script type="text/javascript" async="" src="../RTMP Player - HLSPlayer_files/ga.js"></script>
-	
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/bootstrap-extend.css">
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-	
+
 	</head>
 <body>
-	
+
 	<div class="container" >
 	  <div class="row">
 			<?php
@@ -52,16 +51,19 @@ $distance=$alarm_radio/100;
 
 			/// consulta en base de datos de las camaras que estan al rededor
 			if($state==1){
-			$radius =mysqli_query($con,"SELECT latitud,longitud,ipserver,dcamara, 
+			$radius =mysqli_query($con,"SELECT latitud,longitud,ipserver,dcamara,direccion, descripcion,
 							( 6371 * acos(cos(radians(".$lat.")) * cos(radians(latitud)) * cos(radians(longitud)
 							- radians(".$lng.")) + sin(radians(".$lat.")) * sin(radians(latitud)))) AS distance
-							FROM cameras inner join centro_comercial cc on cc.id= cameras.id_centrocomercial HAVING distance < ".($distance/10)." ORDER BY distance;");
+                            FROM cameras inner join centro_comercial cc on cc.id= cameras.id_centrocomercial HAVING distance < ".($distance/10)." ORDER BY distance;");
+
 			}else{
-			$radius =mysqli_query($con,"SELECT  c.cameraid, port,latitud,longitud,server as ipserver,channelstreamserver as dcamara, 
+			$radius =mysqli_query($con,"SELECT  c.cameraid, port,latitud,longitud,server as ipserver,channelstreamserver as dcamara,direccion,descripcion,
 							( 6371 * acos(cos(radians(".$lat.")) * cos(radians(latitud)) * cos(radians(longitud)
 							- radians(".$lng.")) + sin(radians(".$lat.")) * sin(radians(latitud)))) AS distance
-							FROM cameras c inner join streamserver ss on c.id_streamserver = ss.id
-							HAVING distance < ".($distance/10)." ORDER BY distance; ");	
+                            FROM cameras c inner join streamserver ss on c.id_streamserver = ss.id
+                            inner join centro_comercial cc on cc.id=c.id_centrocomercial
+                            HAVING distance < ".($distance/10)." ORDER BY distance; ");
+
 			}
 			$numradius=mysqli_num_rows($radius);
 			if($numradius!=0)
@@ -76,24 +78,27 @@ $distance=$alarm_radio/100;
 						$port="1935";
 					}
 					$ip=$rowrad['ipserver'];
-					$channel=$rowrad['dcamara'];
+                    $channel=$rowrad['dcamara'];
+                    $ccomercial=$rowrad['descripcion'];
+					$direccion=$rowrad['direccion'];
 			?>
 			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<div class="text-center">
 					<div id="capa">
-						<div id="player-container" class="player-container" style="background-color: black; width: 100%; height: 100%; position: relative;">
+						<div id="player-container" class="player-container" style="width: 100%; height: 100%; position: relative;">
+                        <span class="label label-success"><?php echo $ccomercial.' '.$direccion ?></span>
 								<object type="application/x-shockwave-flash"
 								id="player" data="../RTMP Player - HLSPlayer_files/GrindPlayer.swf">
 								<param name="allowFullScreen" value="true">
 								<param name="allowScriptAccess" value="always">
-								
+
 								<param name="flashvars" value="autoPlay=true&amp;src=rtmp://<?php echo $ip;?>:<?php echo $port;?>/<?php echo $channel;?>">
 								</object>
-								
-						</div>	
+
+						</div>
 					</div>
 				</div>
-				<hr></hr>				
+				<hr></hr>
 			</div>
 			<?php
 				$contador++;
@@ -103,16 +108,16 @@ $distance=$alarm_radio/100;
 			/// end de la consulta
 			?>
 			<div class="clearfix"></div>
-		
+
 		</div>
 	</div>
-				
+
 </body>
 </html>
 <?php
 function nginx(){
 	require_once("includes/connection.php");
-	
+
 	$querynginx=mysqli_query($con,"select c.id_streamserver, ss.server, ss.port from cameras c inner join streamserver ss
 	on c.id_streamserver = ss.id group by(id_streamserver) order by port;");
 	$numrowsnginx=mysqli_num_rows($querynginx);
@@ -126,29 +131,29 @@ function nginx(){
 	rtmp{
 			";
 		while($rownginx=mysqli_fetch_assoc($querynginx))
-		{  
-			$query_stream=mysqli_query($con,"select c.inuse,cc.ipserver,c.dcamara, ss.server, ss.port, c.channelstreamserver 
+		{
+			$query_stream=mysqli_query($con,"select c.inuse,cc.ipserver,c.dcamara, ss.server, ss.port, c.channelstreamserver
 												from cameras c inner join streamserver ss
 													on c.id_streamserver = ss.id
-														inner join centro_comercial cc on cc.id=c.id_centrocomercial 
+														inner join centro_comercial cc on cc.id=c.id_centrocomercial
 															where id_streamserver=".$rownginx['id_streamserver']."
 																order by port,channelstreamserver");
-															
-			$numchannel=mysqli_num_rows($query_stream);                                                    
-			
+
+			$numchannel=mysqli_num_rows($query_stream);
+
 			$i=1;
 			while($row_stream=mysqli_fetch_assoc($query_stream))
-			{  
+			{
 				if($row_stream['inuse']==1){
-				$pull="pull rtmp://".$row_stream['ipserver'].":1935/".$row_stream['dcamara'].";";   
+				$pull="pull rtmp://".$row_stream['ipserver'].":1935/".$row_stream['dcamara'].";";
 				}else{
-				$pull="";    
+				$pull="";
 				}
 				if ($i==1){
 					$texto.="
 						server {
 						  listen ".$row_stream['port'].";
-				
+
 							application ".$row_stream['channelstreamserver']." {
 								live on;
 								".$pull."
@@ -172,7 +177,7 @@ function nginx(){
 						}
 			$i++;
 			}
-	
+
 		}
 	}
 	$texto.="
@@ -183,17 +188,17 @@ function nginx(){
 	fclose($fh);
 	//echo $texto;
 	//include("startnginx.php");
-	function execInBackground($cmd) { 
-		if (substr(php_uname(), 0, 7) == "Windows"){ 
+	function execInBackground($cmd) {
+		if (substr(php_uname(), 0, 7) == "Windows"){
 			pclose(popen("start ". $cmd, "r"));
-			//echo("entro1");  
-		} 
-		else { 
-			exec($cmd . " > /dev/null &");   
+			//echo("entro1");
+		}
+		else {
+			exec($cmd . " > /dev/null &");
 			//echo("entro2");
-		} 
+		}
 	}
-	$cmd2="c:/nginx_vloxysecurity_V3/reload_nginx.bat";   
+	$cmd2="c:/nginx_vloxysecurity_V3/reload_nginx.bat";
 	execInBackground($cmd2);
 	}
 ?>

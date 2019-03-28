@@ -71,16 +71,13 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                 "vertical" === this.layout ? "esri-sketch--vertical" : null
             );
             return c.tsx(
-                "div",
-                { "aria-label": f.widgetLabel, class: d },
+                "div", { "aria-label": f.widgetLabel, class: d },
                 c.tsx(
-                    "div",
-                    { class: "esri-sketch__panel" },
+                    "div", { class: "esri-sketch__panel" },
                     this.renderTopPanelContents()
                 ),
                 c.tsx(
-                    "div",
-                    {
+                    "div", {
                         class: this.classes(
                             "esri-sketch__panel",
                             "esri-sketch__info-panel"
@@ -93,8 +90,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
         a.prototype.renderTopPanelContents = function() {
             return [
                 c.tsx(
-                    "div",
-                    {
+                    "div", {
                         class: this.classes(
                             "esri-sketch__section",
                             "esri-sketch__tool-section"
@@ -103,8 +99,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                     this.renderNavigationButtons()
                 ),
                 c.tsx(
-                    "div",
-                    {
+                    "div", {
                         class: this.classes(
                             "esri-sketch__section",
                             "esri-sketch__tool-section"
@@ -113,8 +108,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                     this.renderDrawButtons()
                 ),
                 c.tsx(
-                    "div",
-                    {
+                    "div", {
                         class: this.classes(
                             "esri-sketch__section",
                             "esri-sketch__tool-section"
@@ -128,8 +122,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
             if (this.updateGraphics.length)
                 return [
                     c.tsx(
-                        "div",
-                        {
+                        "div", {
                             class: this.classes(
                                 "esri-sketch__section",
                                 "esri-sketch__info-section",
@@ -140,8 +133,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                         this.renderFeatureCount()
                     ),
                     c.tsx(
-                        "div",
-                        {
+                        "div", {
                             class: this.classes(
                                 "esri-sketch__section",
                                 "esri-sketch__info-section"
@@ -155,16 +147,13 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
         a.prototype.renderFeatureCount = function() {
             var d = this.layout,
                 a = this.updateGraphics.length,
-                b = m.substitute(
-                    { count: a },
+                b = m.substitute({ count: a },
                     1 === a ? f.featureCount : f.featuresCount
                 );
             return c.tsx(
-                "div",
-                { class: "esri-sketch__feature-count-badge", "aria-label": b },
+                "div", { class: "esri-sketch__feature-count-badge", "aria-label": b },
                 c.tsx(
-                    "span",
-                    { class: "esri-sketch__feature-count-number" },
+                    "span", { class: "esri-sketch__feature-count-number" },
                     "vertical" === d ? a : b
                 )
             );
@@ -191,7 +180,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                     "move" !== this.activeTool
                 );
             (("ready" === this.state && "transform" === b) || e) &&
-                h.push("esri-sketch__button--selected");
+            h.push("esri-sketch__button--selected");
             return c.tsx("button", {
                 "aria-label": a,
                 bind: this,
@@ -207,7 +196,7 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
                 g = 1 < this.updateGraphics.length;
             (("ready" === this.state && "reshape" === e) ||
                 "reshape" === this.activeTool) &&
-                b.push("esri-sketch__button--selected");
+            b.push("esri-sketch__button--selected");
             return c.tsx("button", {
                 "aria-label": a,
                 bind: this,
@@ -221,9 +210,9 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
             return [
                 //this.renderPointButton(),
                 this.renderPolylineButton(),
-                this.renderPolygonButton()
+                this.renderPolygonButton(),
                 //this.renderRectangleButton()
-                //this.renderCircleButton()
+                this.renderCircleButton()
             ];
         };
         a.prototype.renderPointButton = function() {
@@ -334,17 +323,17 @@ define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport
         };
         a.prototype._onOperationComplete = function(a) {
             ("complete" !== a.state && "cancel" !== a.state) ||
-                this._modifyDefaultUpdateTool("transform");
+            this._modifyDefaultUpdateTool("transform");
         };
         a.prototype._modifyDefaultUpdateTool = function(a) {
             this.viewModel.defaultUpdateOptions &&
                 (this.viewModel.defaultUpdateOptions.tool = a);
         };
         a.prototype._activateTransformTool = function() {
-            "active" !== this.state || this._isUpdateToolActive()
-                ? "reshape" === this.activeTool &&
-                  this.viewModel.toggleUpdateTool()
-                : this.viewModel.reset();
+            "active" !== this.state || this._isUpdateToolActive() ?
+                "reshape" === this.activeTool &&
+                this.viewModel.toggleUpdateTool() :
+                this.viewModel.reset();
             this._modifyDefaultUpdateTool("transform");
             this.view.focus();
         };

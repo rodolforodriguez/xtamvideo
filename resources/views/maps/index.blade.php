@@ -46,5 +46,8 @@ $max_cams = $parameter['max_cams'];
 <div id="coordclick"></div>
 <div id="DivButton"></div>
 <notification-map></notification-map>
-
+<audio id="myAudio">
+  <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 @endsection
