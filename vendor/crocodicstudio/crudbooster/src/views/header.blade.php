@@ -1,8 +1,16 @@
+<?php
+$xtamPerName = DB::table('xtam_profile_inst')
+    ->select('Profile_Description')
+    ->where('profile_StatusChek', '=', '1')
+    ->get();
+$name = substr($xtamPerName, 25, -3);
+?>
 <!-- Main Header -->
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{url(config('crudbooster.ADMIN_PATH'))}}" title='{{Session::get('appname')}}' class="logo">{{CRUDBooster::getSetting('appname')}}</a>
+    <a href="{{url(config('crudbooster.ADMIN_PATH'))}}" title='{{Session::get('appname')}}' class="logo">
+        <?php echo $name ?></a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -32,10 +40,8 @@
                                     </li>
 
                                 </ul>
-                                <div class="slimScrollBar"
-                                     style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);"></div>
-                                <div class="slimScrollRail"
-                                     style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+                                <div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);"></div>
+                                <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
                             </div>
                         </li>
                         <li class="footer"><a href="{{route('NotificationsControllerGetIndex')}}">{{trans("crudbooster.text_view_all_notification")}}</a></li>
@@ -47,26 +53,25 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="{{ CRUDBooster::myPhoto() }}" class="user-image" alt="User Image"/>
+                        <img src="{{ CRUDBooster::myPhoto() }}" class="user-image" alt="User Image" />
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{ CRUDBooster::myName() }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="{{ CRUDBooster::myPhoto() }}" class="img-circle" alt="User Image"/>
+                            <img src="{{ CRUDBooster::myPhoto() }}" class="img-circle" alt="User Image" />
                             <p>
                                 {{ CRUDBooster::myName() }}
                                 <small>{{ CRUDBooster::myPrivilegeName() }}</small>
-                                <small><em><?php echo date('d F Y')?></em></small>
+                                <small><em><?php echo date('d F Y') ?></em></small>
                             </p>
                         </li>
 
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-{{ trans('crudbooster.left') }}">
-                                <a href="{{ route('AdminCmsUsersControllerGetProfile') }}" class="btn btn-default btn-flat"><i
-                                            class='fa fa-user'></i> {{trans("crudbooster.label_button_profile")}}</a>
+                                <a href="{{ route('AdminCmsUsersControllerGetProfile') }}" class="btn btn-default btn-flat"><i class='fa fa-user'></i> {{trans("crudbooster.label_button_profile")}}</a>
                             </div>
                             <div class="pull-{{ trans('crudbooster.right') }}">
                                 <a title='Lock Screen' href="{{ route('getLockScreen') }}" class='btn btn-default btn-flat'><i class='fa fa-key'></i></a>
@@ -90,4 +95,4 @@
             </ul>
         </div>
     </nav>
-</header>
+</header> 

@@ -4,8 +4,6 @@
 </body>
 </template>
 <script>
-var permisos = perm;
-
 import axios from "axios";
 import { loadModules } from "esri-loader";
 export default {
@@ -76,9 +74,10 @@ export default {
           center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
         });
         var x = document.getElementById("myAudio");
-            function playAudio() {
-                x.play();
-            }
+        function playAudio() {
+          x.play();
+        }
+        var permisos = perm;
         switch (permisos) {
           case "1":
             //alert("Xtam video");
@@ -234,8 +233,6 @@ export default {
 
               view.ui.add(sketch, "bottom-left");
             });
-
-
 
             break;
           case "2":
@@ -446,7 +443,7 @@ export default {
                 popupTemplate: popupTemplate
               });
               /// sonido de notificacion de alarma generada
-                    playAudio();
+              playAudio();
               // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
             });
@@ -606,8 +603,6 @@ export default {
 
               view.ui.add(sketch, "bottom-left");
             });
-
-
 
             /// alarmas no gestionadas XTAM ALARMAS
             axios

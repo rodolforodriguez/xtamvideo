@@ -69292,7 +69292,7 @@ exports = module.exports = __webpack_require__(53)(false);
 exports.push([module.i, "@import url(http://xtamvideo.test/4.10/esri/css/main.css);", ""]);
 
 // module
-exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\n  height: 80vh;\n  min-height: 250px;\n}\n.title[data-v-3231e30a] {\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\n  font-weight: 300;\n  color: #9aabb1;\n  margin: 0;\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\n  margin-top: 50px;\n}\n", ""]);
+exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 80vh;\r\n  min-height: 250px;\n}\n.title[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\r\n", ""]);
 
 // exports
 
@@ -69658,8 +69658,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 
-var permisos = perm;
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69712,6 +69710,7 @@ var permisos = perm;
       function playAudio() {
         x.play();
       }
+      var permisos = perm;
       switch (permisos) {
         case "1":
           //alert("Xtam video");
