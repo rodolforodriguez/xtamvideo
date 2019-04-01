@@ -15,6 +15,12 @@ include "includes/connection.php";
 /// end conexion camaras privadas
 //$userid=CRUDBooster::myId();
 
+$perms = DB::table('xtam_profile_inst')
+    ->select('idProfile_inst')
+    ->where('profile_StatusChek', '=', '1')
+    ->get();
+$val = substr($perms, 19, -2);
+
 // query of radio of the alarm and numbers of cam's to see
 $query_parameter = mysqli_query($con, "select * from parameter");
 $parameter = mysqli_fetch_assoc($query_parameter);
@@ -24,6 +30,7 @@ $max_cams = $parameter['max_cams'];
 /// end conexion alarma y parametros
 ?>
 <script>
+    var perm = '<?php echo $val;  ?>';
     var cliente = <?php echo $cliente;  ?>;
     var dist = <?php echo $alarm_radio; ?>;
     var max_cams = <?php echo $max_cams; ?>;
@@ -39,7 +46,10 @@ $max_cams = $parameter['max_cams'];
 <div id="coordclick"></div>
 <div id="DivButton"></div>
 <notification-map></notification-map>
-
+<audio id="myAudio">
+  <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('crudbooster::admin_template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

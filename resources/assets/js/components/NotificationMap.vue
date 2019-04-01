@@ -75,9 +75,9 @@ export default {
           center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
         });
         var x = document.getElementById("myAudio");
-            function playAudio() {
-                x.play();
-            }
+        function playAudio() {
+          x.play();
+        }
         switch (permisos) {
           case "1":
             //alert("Xtam video");
