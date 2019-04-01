@@ -4,7 +4,6 @@
 </body>
 </template>
 <script>
-var permisos = perm;
 
 import axios from "axios";
 import { loadModules } from "esri-loader";
@@ -12,7 +11,7 @@ export default {
   props: [""],
 
   mounted() {
-    //console.log('map: mounted')
+
     loadModules(
       [
         "esri/tasks/Locator",
@@ -445,15 +444,24 @@ export default {
                 attributes: attributes,
                 popupTemplate: popupTemplate
               });
-              /// sonido de notificacion de alarma generada
-                    playAudio();
+
               // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
+              /// se desplaza la posicion geografica hacia las coordenadas de la alarma
+                var pt = new Point({
+                    x: e.longitud,
+                    y: e.latitud
+                    });
+                view.center=pt;
+                view.zoom=17;
+              /// sonido de notificacion de alarma generada
+                 playAudio();
+
             });
             break;
           case "3":
             //alert("Xtam premium");
-            ///// XTAM VIDEO
+            ///// XTAM VIDEO Y ALARMA
 
             axios
               .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
@@ -729,7 +737,7 @@ export default {
 
             ////// end de alarmas no gestionadas
 
-            //Xtam Alarmas
+            //Xtam Alarmas escucha el canal y pinta las alarmas en arcgis 4.10
             Echo.channel("channelDemoEvent").listen("eventTrigger", e => {
               console.log(e);
 
@@ -815,8 +823,18 @@ export default {
                 popupTemplate: popupTemplate
               });
 
-              // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
+
+              /// se desplaza la posicion geografica hacia las coordenadas de la alarma
+                    var pt = new Point({
+                        x: e.longitud,
+                        y: e.latitud
+                        });
+                    view.center=pt;
+                    view.zoom=17;
+                  /// sonido de notificacion de alarma generada
+                    playAudio();
+
             });
             break;
           default:

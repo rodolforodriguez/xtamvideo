@@ -69658,7 +69658,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 
-var permisos = perm;
 
 
 
@@ -69666,7 +69665,7 @@ var permisos = perm;
   props: [""],
 
   mounted: function mounted() {
-    //console.log('map: mounted')
+
     Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
       url: "http://xtamvideo.test/4.10/init.js"
@@ -70016,15 +70015,23 @@ var permisos = perm;
               attributes: attributes,
               popupTemplate: popupTemplate
             });
-            /// sonido de notificacion de alarma generada
-            playAudio();
+
             // Add the graphics to the view's graphics layer
             view.graphics.add(pointGraphic);
+            /// se desplaza la posicion geografica hacia las coordenadas de la alarma
+            var pt = new Point({
+              x: e.longitud,
+              y: e.latitud
+            });
+            view.center = pt;
+            view.zoom = 17;
+            /// sonido de notificacion de alarma generada
+            playAudio();
           });
           break;
         case "3":
           //alert("Xtam premium");
-          ///// XTAM VIDEO
+          ///// XTAM VIDEO Y ALARMA
 
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
@@ -70256,7 +70263,7 @@ var permisos = perm;
 
           ////// end de alarmas no gestionadas
 
-          //Xtam Alarmas
+          //Xtam Alarmas escucha el canal y pinta las alarmas en arcgis 4.10
           Echo.channel("channelDemoEvent").listen("eventTrigger", function (e) {
             console.log(e);
 
@@ -70324,8 +70331,17 @@ var permisos = perm;
               popupTemplate: popupTemplate
             });
 
-            // Add the graphics to the view's graphics layer
             view.graphics.add(pointGraphic);
+
+            /// se desplaza la posicion geografica hacia las coordenadas de la alarma
+            var pt = new Point({
+              x: e.longitud,
+              y: e.latitud
+            });
+            view.center = pt;
+            view.zoom = 17;
+            /// sonido de notificacion de alarma generada
+            playAudio();
           });
           break;
         default:

@@ -30,7 +30,7 @@ $max_cams = $parameter['max_cams'];
 /// end conexion alarma y parametros
 ?>
 <script>
-    var perm = '<?php echo $val;  ?>';
+    var permisos = '<?php echo $val;  ?>';
     var cliente = <?php echo $cliente;  ?>;
     var dist = <?php echo $alarm_radio; ?>;
     var max_cams = <?php echo $max_cams; ?>;
