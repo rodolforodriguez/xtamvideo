@@ -3,13 +3,28 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
 
-<!-- REQUIRED JS SCRIPTS -->
+<!-- REQUIRED    JS SCRIPTS -->
 
 <!-- jQuery 2.1.3 -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 
 <!-- Bootstrap 3.3.2 JS -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+
+
+<?php
+$url = $_SERVER["REQUEST_URI"];
+if ($url == '/admin/maps') {
+    ?>
+<script src="{{ asset ('js/app.js')}}"></script>
+<script>
+    var url = '<?php echo $url; ?>';
+</script>
+<?php
+
+}
+?>
+
 <!-- AdminLTE App -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js') }}" type="text/javascript"></script>
 
@@ -26,7 +41,7 @@
 <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
 
-<link rel='stylesheet' href='{{ asset("vendor/crudbooster/assets/lightbox/dist/css/lightbox.min.css") }}'/>
+<link rel='stylesheet' href='{{ asset("vendor/crudbooster/assets/lightbox/dist/css/lightbox.min.css") }}' />
 <script src="{{ asset('vendor/crudbooster/assets/lightbox/dist/js/lightbox.min.js') }}"></script>
 
 <!--SWEET ALERT-->
@@ -47,16 +62,12 @@
     var ADMIN_PATH = '{{url(config("crudbooster.ADMIN_PATH")) }}';
     var NOTIFICATION_JSON = "{{route('NotificationsControllerGetLatestJson')}}";
     var NOTIFICATION_INDEX = "{{route('NotificationsControllerGetIndex')}}";
-
     var NOTIFICATION_YOU_HAVE = "{{trans('crudbooster.notification_you_have')}}";
     var NOTIFICATION_NOTIFICATIONS = "{{trans('crudbooster.notification_notification')}}";
     var NOTIFICATION_NEW = "{{trans('crudbooster.notification_new')}}";
 
-    $(function () {
+    $(function() {
         $('.datatables-simple').DataTable();
     })
 </script>
-<script src="{{asset('vendor/crudbooster/assets/js/main.js').'?r='.time()}}"></script>
-<script src="{{ URL::asset('js/app.js')}}"></script>
-
-
+<script src="{{asset('vendor/crudbooster/assets/js/main.js').'?r='.time()}}"></script> 

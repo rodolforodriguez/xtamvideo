@@ -30,7 +30,7 @@ $max_cams = $parameter['max_cams'];
 /// end conexion alarma y parametros
 ?>
 <script>
-    var perm = '<?php echo $val;  ?>';
+    var permisos = '<?php echo $val;  ?>';
     var cliente = <?php echo $cliente;  ?>;
     var dist = <?php echo $alarm_radio; ?>;
     var max_cams = <?php echo $max_cams; ?>;
@@ -41,15 +41,14 @@ $max_cams = $parameter['max_cams'];
         var myWindow = window.open(url, "", "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=400,height=400,titlebar=no,location=no,menubar=no");
     }
 </script>
-<!---->
+
 <?php $__env->startSection('content'); ?>
 <div id="coordclick"></div>
 <div id="DivButton"></div>
 <notification-map></notification-map>
 <audio id="myAudio">
-  <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
+    <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
 </audio>
-<?php $__env->stopSection(); ?>
-
+<?php $__env->stopSection(); ?> 
 <?php echo $__env->make('crudbooster::admin_template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

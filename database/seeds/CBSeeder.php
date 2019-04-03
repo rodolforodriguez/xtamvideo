@@ -29,15 +29,16 @@ class CmsEmailTemplates extends Seeder
     public function run()
     {
         DB::table('cms_email_templates')->insert([
-            'created_at' => date('Y-m-d H:i:s'),
-            'name' => 'Email Template Forgot Password Backend',
-            'slug' => 'forgot_password_backend',
-            'content' => '<p>Hi,</p><p>Someone requested forgot password, here is your new password : </p><p>[password]</p><p><br></p><p>--</p><p>Regards,</p><p>Admin</p>',
-            'description' => '[password]',
-            'from_name' => 'System',
-            'from_email' => 'system@crudbooster.com',
-            'cc_email' => null,
-        ]);
+                'id' => DB::table('cms_email_templates')->max('id') + 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'name' => 'Email Template Forgot Password Backend',
+                'slug' => 'forgot_password_backend',
+                'content' => '<p>Hi,</p><p>Someone requested forgot password, here is your new password : </p><p>[password]</p><p><br></p><p>--</p><p>Regards,</p><p>Admin</p>',
+                'description' => '[password]',
+                'from_name' => 'System',
+                'from_email' => 'system@crudbooster.com',
+                'cc_email' => null,
+            ]);
     }
 }
 
@@ -45,6 +46,7 @@ class Cms_settingsSeeder extends Seeder
 {
     public function run()
     {
+
         $data = [
 
             //LOGIN REGISTER STYLE
@@ -223,6 +225,7 @@ class Cms_settingsSeeder extends Seeder
                 }
                 continue;
             }
+            $row['id'] = DB::table('cms_settings')->max('id') + 1;
             DB::table('cms_settings')->insert($row);
         }
     }
@@ -261,6 +264,7 @@ class Cms_privileges_rolesSeeder extends Seeder
                 }
 
                 DB::table('cms_privileges_roles')->insert([
+                    'id' => DB::table('cms_privileges_roles')->max('id') + 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'is_visible' => $is_visible,
                     'is_create' => $is_create,
@@ -283,6 +287,7 @@ class Cms_privilegesSeeder extends Seeder
 
         if (DB::table('cms_privileges')->where('name', 'Super Administrator')->count() == 0) {
             DB::table('cms_privileges')->insert([
+                'id' => DB::table('cms_privileges_roles')->max('id') + 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'name' => 'Super Administrator',
                 'is_superadmin' => 1,
@@ -444,6 +449,7 @@ class Cms_usersSeeder extends Seeder
         if (DB::table('cms_users')->count() == 0) {
             $password = \Hash::make('123456');
             $cms_users = DB::table('cms_users')->insert([
+                'id' => DB::table('cms_users')->max('id') + 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'name' => 'Super Admin',
                 'email' => 'admin@crudbooster.com',
@@ -454,3 +460,4 @@ class Cms_usersSeeder extends Seeder
         }
     }
 }
+

@@ -59,13 +59,12 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
 /******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+	// Load entry module and return exports
+	return __webpack_require__(__webpack_require__.s = 13);
+ })
+ ([
+
+(function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -14073,17 +14072,6 @@ Vue.component("notification-map", __webpack_require__(50));
 
 var app = new Vue({
     el: "#app"
-    //,
-    //created()
-    //{
-    //  console.log('Inicio...');
-    //alert('alerta de inicio de evento');
-    //Echo.channel('channelDemoEvent')
-    //.listen('AlarmStatusChanged',(e)=>{
-    //  alert('Evento ejecutado');
-    //console.log('Perfecto.....');
-    //});
-    //}
 });
 
 /***/ }),
