@@ -9,51 +9,51 @@ use DateTime;
 class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\controllers\CBController
 {
 
-    public function cbInit()
-    {
+	public function cbInit()
+	{
 
-        # START CONFIGURATION DO NOT REMOVE THIS LINE
-        $this->title_field = "id";
-        $this->limit = "20";
-        $this->orderby = "idProfile_inst,desc";
-        $this->global_privilege = false;
-        $this->button_table_action = true;
-        $this->button_bulk_action = true;
-        $this->button_action_style = "button_icon";
-        $this->button_add = false;
-        $this->button_edit = true;
-        $this->button_delete = false;
-        $this->button_detail = true;
-        $this->button_show = false;
-        $this->button_filter = false;
-        $this->button_import = false;
-        $this->button_export = false;
-        $this->table = "xtam_profile_inst";
-        # END CONFIGURATION DO NOT REMOVE THIS LINE
+		# START CONFIGURATION DO NOT REMOVE THIS LINE
+		$this->title_field = "id";
+		$this->limit = "20";
+		$this->orderby = "idProfile_inst,desc";
+		$this->global_privilege = false;
+		$this->button_table_action = true;
+		$this->button_bulk_action = true;
+		$this->button_action_style = "button_icon";
+		$this->button_add = false;
+		$this->button_edit = true;
+		$this->button_delete = false;
+		$this->button_detail = true;
+		$this->button_show = false;
+		$this->button_filter = false;
+		$this->button_import = false;
+		$this->button_export = false;
+		$this->table = "xtam_profile_inst";
+		# END CONFIGURATION DO NOT REMOVE THIS LINE
 
-        # START COLUMNS DO NOT REMOVE THIS LINE
-        $this->col = [];
-        $this->col[] = ["label" => "Nº", "name" => "idProfile_inst"];
-        $this->col[] = ["label" => "Descripcion", "name" => "Profile_Description"];
-        $this->col[] = ["label" => "Estado", "name" => "Profile_StatusChek"];
-        $this->col[] = ["label" => "Fecha de modificación", "name" => "Profile_DateModified"];
-        # END COLUMNS DO NOT REMOVE THIS LINE
+		# START COLUMNS DO NOT REMOVE THIS LINE
+		$this->col = [];
+		$this->col[] = ["label" => "Nº", "name" => "idProfile_inst"];
+		$this->col[] = ["label" => "Descripcion", "name" => "Profile_Description"];
+		$this->col[] = ["label" => "Estado", "name" => "Profile_StatusChek"];
+		$this->col[] = ["label" => "Fecha de modificación", "name" => "Profile_DateModified"];
+		# END COLUMNS DO NOT REMOVE THIS LINE
 
-        # START FORM DO NOT REMOVE THIS LINE
-        $this->form = [];
-        $this->form[] = ['label' => 'Nº', 'name' => 'idProfile_inst', 'type' => 'number', 'validation' => 'numeric', 'width' => 'col-sm-10', 'readonly' => 'true'];
-        $this->form[] = ['label' => 'Descripcion', 'name' => 'Profile_Description', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
-        $this->form[] = ['label' => 'Estado', 'name' => 'Profile_StatusChek', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
-        # END FORM DO NOT REMOVE THIS LINE
+		# START FORM DO NOT REMOVE THIS LINE
+		$this->form = [];
+		$this->form[] = ['label' => 'Nº', 'name' => 'idProfile_inst', 'type' => 'number', 'validation' => 'numeric', 'width' => 'col-sm-10', 'readonly' => 'true'];
+		$this->form[] = ['label' => 'Descripcion', 'name' => 'Profile_Description', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+		$this->form[] = ['label' => 'Estado', 'name' => 'Profile_StatusChek', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+		# END FORM DO NOT REMOVE THIS LINE
 
-        # OLD START FORM
-        //$this->form = [];
-        //$this->form[] = ['label'=>'Nº','name'=>'idProfile_inst','type'=>'number','validation'=>'numeric','width'=>'col-sm-10','readonly'=>'true'];
-        //$this->form[] = ['label'=>'Descripcion','name'=>'Profile_Description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-        //$this->form[] = ['label'=>'Estado','name'=>'Profile_StatusChek','type'=>'checkbox','validation'=>'|min:1|max:1','width'=>'col-sm-10','dataenum'=>'1|'];
-        # OLD END FORM
+		# OLD START FORM
+		//$this->form = [];
+		//$this->form[] = ['label'=>'Nº','name'=>'idProfile_inst','type'=>'number','validation'=>'numeric','width'=>'col-sm-10','readonly'=>'true'];
+		//$this->form[] = ['label'=>'Descripcion','name'=>'Profile_Description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+		//$this->form[] = ['label'=>'Estado','name'=>'Profile_StatusChek','type'=>'checkbox','validation'=>'|min:1|max:1','width'=>'col-sm-10','dataenum'=>'1|'];
+		# OLD END FORM
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Sub Module
 	        | ----------------------------------------------------------------------     
@@ -65,10 +65,10 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 			| @parent_columns = Sparate with comma, e.g : name,created_at
 	        | 
 	        */
-        $this->sub_module = array();
+		$this->sub_module = array();
 
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Add More Action Button / Menu
 	        | ----------------------------------------------------------------------     
@@ -79,10 +79,10 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-        $this->addaction = array();
+		$this->addaction = array();
 
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Add More Button Selected
 	        | ----------------------------------------------------------------------     
@@ -92,10 +92,10 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | Then about the action, you should code at actionButtonSelected method 
 	        | 
 	        */
-        $this->button_selected = array();
+		$this->button_selected = array();
 
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Add alert message to this module at overheader
 	        | ----------------------------------------------------------------------     
@@ -103,11 +103,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | @type    = warning,success,danger,info        
 	        | 
 	        */
-        $this->alert        = array();
+		$this->alert        = array();
 
 
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Add more button to header button 
 	        | ----------------------------------------------------------------------     
@@ -116,11 +116,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | @icon  = Icon from Awesome.
 	        | 
 	        */
-        $this->index_button = array();
+		$this->index_button = array();
 
 
 
-        /* 
+		/* 
 	        | ---------------------------------------------------------------------- 
 	        | Customize Table Row Color
 	        | ----------------------------------------------------------------------     
@@ -128,21 +128,21 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | @color = Default is none. You can use bootstrap success,info,warning,danger,primary.        
 	        | 
 	        */
-        $this->table_row_color = array();
+		$this->table_row_color = array();
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | You may use this bellow array to add statistic at dashboard 
 	        | ---------------------------------------------------------------------- 
 	        | @label, @count, @icon, @color 
 	        |
 	        */
-        $this->index_statistic = array();
+		$this->index_statistic = array();
 
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Add javascript at body 
 	        | ---------------------------------------------------------------------- 
@@ -150,10 +150,10 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-        $this->script_js = null;
+		$this->script_js = null;
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Include HTML Code before index table 
 	        | ---------------------------------------------------------------------- 
@@ -161,11 +161,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->pre_index_html = "<p>test</p>";
 	        |
 	        */
-        $this->pre_index_html = null;
+		$this->pre_index_html = null;
 
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Include HTML Code after index table 
 	        | ---------------------------------------------------------------------- 
@@ -173,11 +173,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->post_index_html = "<p>test</p>";
 	        |
 	        */
-        $this->post_index_html = null;
+		$this->post_index_html = null;
 
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Include Javascript File 
 	        | ---------------------------------------------------------------------- 
@@ -185,11 +185,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->load_js[] = asset("myfile.js");
 	        |
 	        */
-        $this->load_js = array();
+		$this->load_js = array();
 
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Add css style at body 
 	        | ---------------------------------------------------------------------- 
@@ -197,11 +197,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->style_css = ".style{....}";
 	        |
 	        */
-        $this->style_css = null;
+		$this->style_css = null;
 
 
 
-        /*
+		/*
 	        | ---------------------------------------------------------------------- 
 	        | Include css File 
 	        | ---------------------------------------------------------------------- 
@@ -209,11 +209,11 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	        | $this->load_css[] = asset("myfile.css");
 	        |
 	        */
-        $this->load_css = array();
-    }
+		$this->load_css = array();
+	}
 
 
-    /*
+	/*
 	    | ---------------------------------------------------------------------- 
 	    | Hook for button selected
 	    | ---------------------------------------------------------------------- 
@@ -221,69 +221,69 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	    | @button_name = the name of button
 	    |
 	    */
-    public function actionButtonSelected($id_selected, $button_name)
-    {
-        //Your code here
+	public function actionButtonSelected($id_selected, $button_name)
+	{
+		//Your code here
 
-    }
+	}
 
 
-    /*
+	/*
 	    | ---------------------------------------------------------------------- 
 	    | Hook for manipulate query of index result 
 	    | ---------------------------------------------------------------------- 
 	    | @query = current sql query 
 	    |
 	    */
-    public function hook_query_index(&$query)
-    {
-        //Your code here
+	public function hook_query_index(&$query)
+	{
+		//Your code here
 
-    }
+	}
 
-    /*
+	/*
 	    | ---------------------------------------------------------------------- 
 	    | Hook for manipulate row of index table html 
 	    | ---------------------------------------------------------------------- 
 	    |
 	    */
-    public function hook_row_index($column_index, &$column_value)
-    {
-        //Your code here
-    }
+	public function hook_row_index($column_index, &$column_value)
+	{
+		//Your code here
+	}
 
-    /*
+	/*
 	    | ---------------------------------------------------------------------- 
 	    | Hook for manipulate data input before add data is execute
 	    | ---------------------------------------------------------------------- 
 	    | @arr
 	    |
 	    */
-    public function hook_before_add(&$postdata)
-    {
-        if (!$postdata['Profile_StatusChek']) {
-            $postdata['checkbox'] = false;
-        }
-        $datetime = new DateTime();
-        $datetime = $datetime->format('Y/m/d/ h:i:s');
-        $postdata['Profile_DateCreated'] = $datetime;
-        //Your code here
-    }
+	public function hook_before_add(&$postdata)
+	{
+		if (!$postdata['Profile_StatusChek']) {
+			$postdata['checkbox'] = false;
+		}
+		$datetime = new DateTime();
+		$datetime = $datetime->format('Y/m/d/ h:i:s');
+		$postdata['Profile_DateCreated'] = $datetime;
+		//Your code here
+	}
 
-    /* 
+	/* 
 	    | ---------------------------------------------------------------------- 
 	    | Hook for execute command after add public static function called 
 	    | ---------------------------------------------------------------------- 
 	    | @id = last insert id
 	    | 
 	    */
-    public function hook_after_add($id)
-    {
-        //Your code here
+	public function hook_after_add($id)
+	{
+		//Your code here
 
-    }
+	}
 
-    /* 
+	/* 
 	    | ---------------------------------------------------------------------- 
 	    | Hook for manipulate data input before update data is execute
 	    | ---------------------------------------------------------------------- 
@@ -291,73 +291,73 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	    | @id       = current id 
 	    | 
 	    */
-    public function hook_before_edit(&$postdata, $id)
-    {
-        //Your code here
+	public function hook_before_edit(&$postdata, $id)
+	{
+		//Your code here
 
-        $datetime = new DateTime();
-        $datetime = $datetime->format('Y/m/d/ h:i:s');
-        $postdata['Profile_DateModified'] = $datetime;
+		$datetime = new DateTime();
+		$datetime = $datetime->format('Y/m/d/ h:i:s');
+		$postdata['Profile_DateModified'] = $datetime;
 
-        if (!$postdata['Profile_StatusChek']) {
-            $postdata['Profile_StatusChek'] = false;
-        }
-    }
+		if (!$postdata['Profile_StatusChek']) {
+			$postdata['Profile_StatusChek'] = false;
+		}
+	}
 
-    /* 
+	/* 
 	    | ---------------------------------------------------------------------- 
 	    | Hook for execute command after edit public static function called
 	    | ----------------------------------------------------------------------     
 	    | @id       = current id 
 	    | 
 	    */
-    public function hook_after_edit($id)
-    {
-        //Your code here 
-        DB::table('xtam_profile_inst')
-            ->where('idProfile_inst', '<>', $id)
-            ->update(['Profile_StatusChek' => 0]);
+	public function hook_after_edit($id)
+	{
+		//Your code here 
+		DB::table('xtam_profile_inst')
+			->where('idProfile_inst', '<>', $id)
+			->update(['Profile_StatusChek' => 0]);
 
-        $resp = Db::table('xtam_profile_inst')
-            ->select('cms_privileges.id')
-            ->join('cms_privileges', 'cms_privileges.name', '=', 'xtam_profile_inst.Profile_Description')
-            ->where('xtam_profile_inst.Profile_StatusChek', '=', '1')
-            ->first()
-            ->id;
+		$resp = Db::table('xtam_profile_inst')
+			->select('cms_privileges.id')
+			->join('cms_privileges', 'cms_privileges.name', '=', 'xtam_profile_inst.Profile_Description')
+			->where('xtam_profile_inst.Profile_StatusChek', '=', '1')
+			->first()
+			->id;
 
 
-        Db::table('cms_users')
-            ->where('id', '<>', '1')
-            ->update(['id_cms_privileges' => $resp]);
-    }
+		Db::table('cms_users')
+			->where('id', '<>', '1')
+			->update(['id_cms_privileges' => $resp]);
+	}
 
-    /* 
+	/* 
 	    | ---------------------------------------------------------------------- 
 	    | Hook for execute command before delete public static function called
 	    | ----------------------------------------------------------------------     
 	    | @id       = current id 
 	    | 
 	    */
-    public function hook_before_delete($id)
-    {
-        //Your code here
+	public function hook_before_delete($id)
+	{
+		//Your code here
 
-    }
+	}
 
-    /* 
+	/* 
 	    | ---------------------------------------------------------------------- 
 	    | Hook for execute command after delete public static function called
 	    | ----------------------------------------------------------------------     
 	    | @id       = current id 
 	    | 
 	    */
-    public function hook_after_delete($id)
-    {
-        //Your code here
+	public function hook_after_delete($id)
+	{
+		//Your code here
 
-    }
+	}
 
 
 
-    //By the way, you can still create your own method in here... :) 
+	//By the way, you can still create your own method in here... :) 
 }

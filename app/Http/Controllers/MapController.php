@@ -1,11 +1,16 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
+use Session;
+use Illuminate\Support\Facades\Auth;
+use Request;
+use DB;
+use CRUDBooster;
+use DateTime;
 
-use Illuminate\Http\Request;
 
 class MapController extends \crocodicstudio\crudbooster\controllers\CBController
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,6 @@ class MapController extends \crocodicstudio\crudbooster\controllers\CBController
      */
     public function cbInit()
     {
-
 
         /* 
         | ---------------------------------------------------------------------- 

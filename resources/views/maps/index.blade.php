@@ -1,5 +1,15 @@
 <?php
 
+$userid = CRUDBooster::myId();
+if ($userid === null) {
+    ?>
+<script>
+    window.location.replace("../../admin/login");
+</script>
+<?php
+
+}
+
 $cliente = $_SERVER['REMOTE_ADDR'];
 $server = $_SERVER['SERVER_ADDR'];
 ////// helper que obtiene cliente que esta consumiendo
@@ -21,6 +31,11 @@ $perms = DB::table('xtam_profile_inst')
     ->get();
 $val = substr($perms, 19, -2);
 
+$centeralarm = DB::table('parameter')
+    ->select('Alarm_center')
+    ->get();
+$AlmCenter = substr($centeralarm, 17, -2);
+
 // query of radio of the alarm and numbers of cam's to see
 $query_parameter = mysqli_query($con, "select * from parameter");
 $parameter = mysqli_fetch_assoc($query_parameter);
@@ -30,6 +45,7 @@ $max_cams = $parameter['max_cams'];
 /// end conexion alarma y parametros
 ?>
 <script>
+    var cenAlarm = <?php echo $AlmCenter; ?>;
     var permisos = '<?php echo $val;  ?>';
     var cliente = <?php echo $cliente;  ?>;
     var dist = <?php echo $alarm_radio; ?>;

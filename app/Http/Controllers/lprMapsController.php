@@ -1,15 +1,14 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Middleware\Authenticate;
 use Session;
-use Request;
 use DB;
 use CRUDBooster;
-use helpers;
+
 class lprMapsController extends \crocodicstudio\crudbooster\controllers\CBController 
 {
+  
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +16,7 @@ class lprMapsController extends \crocodicstudio\crudbooster\controllers\CBContro
      */
 
     public function cbInit() {
-
+        $this->middleware('auth');
         
         /* 
         | ---------------------------------------------------------------------- 
@@ -180,6 +179,7 @@ class lprMapsController extends \crocodicstudio\crudbooster\controllers\CBContro
         
     }
      
+ 
     public function index()
     {
         return view('lpr.index');

@@ -4,14 +4,12 @@
 </body>
 </template>
 <script>
-
 import axios from "axios";
 import { loadModules } from "esri-loader";
 export default {
   props: [""],
 
   mounted() {
-
     loadModules(
       [
         "esri/tasks/Locator",
@@ -234,8 +232,6 @@ export default {
               view.ui.add(sketch, "bottom-left");
             });
 
-
-
             break;
           case "2":
             //alert("Xtam alarmas");
@@ -347,9 +343,8 @@ export default {
                   });
 
                   // Add the graphics to the view's graphics layer
-                  //if (estado =! "C"){
+
                   view.graphics.add(pointGraphic);
-                  //}
                 }
                 ///// end point cameras
               })
@@ -448,15 +443,16 @@ export default {
               // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
               /// se desplaza la posicion geografica hacia las coordenadas de la alarma
+              if (cenAlarm == "1") {
                 var pt = new Point({
-                    x: e.longitud,
-                    y: e.latitud
-                    });
-                view.center=pt;
-                view.zoom=17;
+                  x: e.longitud,
+                  y: e.latitud
+                });
+                view.center = pt;
+                view.zoom = 17;
+              }
               /// sonido de notificacion de alarma generada
-                 playAudio();
-
+              playAudio();
             });
             break;
           case "3":
@@ -614,8 +610,6 @@ export default {
 
               view.ui.add(sketch, "bottom-left");
             });
-
-
 
             /// alarmas no gestionadas XTAM ALARMAS
             axios
@@ -826,15 +820,16 @@ export default {
               view.graphics.add(pointGraphic);
 
               /// se desplaza la posicion geografica hacia las coordenadas de la alarma
-                    var pt = new Point({
-                        x: e.longitud,
-                        y: e.latitud
-                        });
-                    view.center=pt;
-                    view.zoom=17;
-                  /// sonido de notificacion de alarma generada
-                    playAudio();
-
+              if (cenAlarm == "1") {
+                var pt = new Point({
+                  x: e.longitud,
+                  y: e.latitud
+                });
+                view.center = pt;
+                view.zoom = 17;
+              }
+              /// sonido de notificacion de alarma generada
+              playAudio();
             });
             break;
           default:
