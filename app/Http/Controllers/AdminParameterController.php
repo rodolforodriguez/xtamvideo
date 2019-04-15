@@ -4,12 +4,19 @@ use Session;
 use Request;
 use DB;
 use CRUDBooster;
+use SebastianBergmann\Environment\Console;
 
 class AdminParameterController extends \crocodicstudio\crudbooster\controllers\CBController
 {
 
 	public function cbInit()
 	{
+		$perf = DB::table('xtam_profile_inst')
+			->select('idProfile_inst')
+			->where('Profile_StatusChek', '=', '1')
+			->get();
+
+		$val = substr($perf, 19, -2);
 
 		# START CONFIGURATION DO NOT REMOVE THIS LINE
 		$this->title_field = "id";
@@ -32,16 +39,22 @@ class AdminParameterController extends \crocodicstudio\crudbooster\controllers\C
 
 		# START COLUMNS DO NOT REMOVE THIS LINE
 		$this->col = [];
-		$this->col[] = ["label" => "Radio de la alarma", "name" => "alarm_radio"];
+
 		$this->col[] = ["label" => "Número máximo de cámaras", "name" => "max_cams"];
-		$this->col[] = ["label" => "Centrar alarma", "name" => "Alarm_center"];
+		if ($val != '1') {
+			$this->col[] = ["label" => "Radio de la alarma", "name" => "alarm_radio"];
+			$this->col[] = ["label" => "Centrar alarma", "name" => "Alarm_center"];
+		}
 		# END COLUMNS DO NOT REMOVE THIS LINE
 
 		# START FORM DO NOT REMOVE THIS LINE
 		$this->form = [];
-		$this->form[] = ['label' => 'Radio de la alarma', 'name' => 'alarm_radio', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+
 		$this->form[] = ['label' => 'Número máximo de cámaras', 'name' => 'max_cams', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
-		$this->form[] = ['label' => 'Centrar alarma', 'name' => 'Alarm_center', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+		if ($val != '1') {
+			$this->form[] = ['label' => 'Radio de la alarma', 'name' => 'alarm_radio', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+			$this->form[] = ['label' => 'Centrar alarma', 'name' => 'Alarm_center', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+		}
 		# END FORM DO NOT REMOVE THIS LINE
 
 		# OLD START FORM
@@ -235,7 +248,6 @@ class AdminParameterController extends \crocodicstudio\crudbooster\controllers\C
 	public function hook_query_index(&$query)
 	{
 		//Your code here
-
 	}
 
 	/*
@@ -300,7 +312,6 @@ class AdminParameterController extends \crocodicstudio\crudbooster\controllers\C
 	public function hook_after_edit($id)
 	{
 		//Your code here 
-
 	}
 
 	/* 

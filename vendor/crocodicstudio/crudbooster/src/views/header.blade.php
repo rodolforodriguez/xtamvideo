@@ -4,22 +4,45 @@ $xtamPerName = DB::table('xtam_profile_inst')
     ->where('profile_StatusChek', '=', '1')
     ->get();
 $name = substr($xtamPerName, 25, -3);
+
+$Login = DB::table('xtam_profile_inst')
+    ->select('Profile_StatusChek')
+    ->where('Profile_StatusChek', '=', '1')
+    ->get();
+$parameter = sizeof($Login);
 ?>
 <!-- Main Header -->
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{url(config('crudbooster.ADMIN_PATH'))}}" title='{{Session::get('appname')}}' class="logo">
-        <?php echo $name ?></a>
-
+    <?php
+    if ($parameter === 0) {
+        ?>
+        <a title='{{Session::get('appname')}}' class="logo">
+            <?php echo $name ?></a>
+    <?php
+} else {
+    ?>
+        <a title='{{Session::get('appname')}}' class="logo">
+            <?php echo $name ?></a>
+    <?php
+}
+?>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
+        <?php
+        if ($parameter === 1) {
+            ?>
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        <?php
+    }
+    ?>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
 
                 <li class="dropdown notifications-menu">
@@ -76,23 +99,23 @@ $name = substr($xtamPerName, 25, -3);
                             <div class="pull-{{ trans('crudbooster.right') }}">
                                 <a title='Lock Screen' href="{{ route('getLockScreen') }}" class='btn btn-default btn-flat'><i class='fa fa-key'></i></a>
                                 <a href="javascript:void(0)" onclick="swal({
-                                        title: '{{trans('crudbooster.alert_want_to_logout')}}',
-                                        type:'info',
-                                        showCancelButton:true,
-                                        allowOutsideClick:true,
-                                        confirmButtonColor: '#DD6B55',
-                                        confirmButtonText: '{{trans('crudbooster.button_logout')}}',
-                                        cancelButtonText: '{{trans('crudbooster.button_cancel')}}',
-                                        closeOnConfirm: false
-                                        }, function(){
-                                        location.href = '{{ route("getLogout") }}';
-
-                                        });" title="{{trans('crudbooster.button_logout')}}" class="btn btn-danger btn-flat"><i class='fa fa-power-off'></i></a>
+                                         title: '{{trans('crudbooster.alert_want_to_logout')}}',
+                                         type:'info',
+                                         showCancelButton:true,
+                                         allowOutsideClick:true,
+                                         confirmButtonColor: '#DD6B55',
+                                         confirmButtonText: '{{trans('crudbooster.button_logout')}}',
+                                         cancelButtonText: '{{trans('crudbooster.button_cancel')}}',
+                                         closeOnConfirm: false
+                                         }, function(){
+                                         location.href = '{{ route("getLogout") }}';
+                                         });" title="{{trans('crudbooster.button_logout')}}" class="btn btn-danger btn-flat"><i class='fa fa-power-off'></i></a>
                             </div>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
+
     </nav>
-</header> 
+</header>

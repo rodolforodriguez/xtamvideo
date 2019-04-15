@@ -13,7 +13,7 @@ class AdminController extends CBController
         $data = [];
         $data['page_title'] = '<strong>Dashboard</strong>';
 
-        return view('crudbooster::home', $data);
+        return view('crudbooster::home');
     }
 
     public function getLockscreen()
@@ -39,7 +39,7 @@ class AdminController extends CBController
         if (\Hash::check($password, $users->password)) {
             Session::put('admin_lock', 0);
 
-            return redirect(CRUDBooster::adminPath());
+            return redirect(CRUDBooster::adminPath(''));
         } else {
             echo "<script>alert('".trans('crudbooster.alert_password_wrong')."');history.go(-1);</script>";
         }
@@ -95,7 +95,31 @@ class AdminController extends CBController
             $cb_hook_session = new \App\Http\Controllers\CBHook;
             $cb_hook_session->afterLogin();
 
-            return redirect(CRUDBooster::adminPath());
+            //Dashboard por perfil de instancia 
+            $dash=db::table('xtam_profile_inst')
+            ->select('idProfile_inst')
+            ->where('Profile_StatusChek','=','1')
+            ->get();
+            $ProfileDashboard = substr($dash,19,-2);
+
+            switch($ProfileDashboard)
+            {
+                case 1:
+                return redirect(CRUDBooster::adminPath('statistic_builder/show/xtam-video'));
+                break;
+
+                case 2:
+                return redirect(CRUDBooster::adminPath('statistic_builder/show/xtam-alarmas'));
+                break;
+
+                case 3:
+                return redirect(CRUDBooster::adminPath('statistic_builder/show/xtam-video-alarmas'));
+                break;
+
+                default;
+            }
+            //end Dashboard
+            
         } else {
             return redirect()->route('getLogin')->with('message', trans('crudbooster.alert_password_wrong'));
         }

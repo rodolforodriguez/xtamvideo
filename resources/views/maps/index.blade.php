@@ -1,11 +1,10 @@
 <?php
-
 $userid = CRUDBooster::myId();
 if ($userid === null) {
     ?>
-<script>
-    window.location.replace("../../admin/login");
-</script>
+    <script>
+        window.location.replace("../../admin/login");
+    </script>
 <?php
 
 }
@@ -66,4 +65,4 @@ $max_cams = $parameter['max_cams'];
     <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
-@endsection 
+@endsection

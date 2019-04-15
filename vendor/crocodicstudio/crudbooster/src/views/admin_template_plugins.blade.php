@@ -11,23 +11,20 @@
 <!-- Bootstrap 3.3.2 JS -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
-
+<!-- AdminLTE App -->
+<script src="{{ asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js') }}" type="text/javascript"></script>
 <?php
 $url = $_SERVER["REQUEST_URI"];
 if ($url == '/admin/maps') {
     ?>
-<script src="{{ asset ('js/app.js')}}"></script>
-<script>
-    var url = '<?php echo $url; ?>';
-</script>
+    <script src="{{ asset ('js/app.js')}}"></script>
+    <script>
+        var url = '<?php echo $url; ?>';
+    </script>
 <?php
 
 }
 ?>
-
-<!-- AdminLTE App -->
-<script src="{{ asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js') }}" type="text/javascript"></script>
-
 <!--BOOTSTRAP DATEPICKER-->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css') }}">
@@ -70,4 +67,4 @@ if ($url == '/admin/maps') {
         $('.datatables-simple').DataTable();
     })
 </script>
-<script src="{{asset('vendor/crudbooster/assets/js/main.js').'?r='.time()}}"></script> 
+<script src="{{asset('vendor/crudbooster/assets/js/main.js').'?r='.time()}}"></script>

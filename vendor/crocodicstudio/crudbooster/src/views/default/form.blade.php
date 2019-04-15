@@ -76,4 +76,4 @@
 </div>
 <!--END AUTO MARGIN-->
 
-@endsection 
+@endsection
