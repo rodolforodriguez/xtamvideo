@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>::LOCKSCREEN::</title>
+    <title>Bloqueado</title>
     <meta name='generator' content='CRUDBooster'/>
     <meta name='robots' content='noindex,nofollow'/>
     <link rel="shortcut icon"

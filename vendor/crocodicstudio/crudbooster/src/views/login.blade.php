@@ -33,7 +33,7 @@
    
 </head>
 <body class="login-page" style="
-    background-image: url(../includes/img/login.png);
+    background-image: url(../includes/img/Login.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
