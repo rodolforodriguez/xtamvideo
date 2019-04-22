@@ -30,56 +30,14 @@
     <![endif]-->
 
     <link rel='stylesheet' href='{{asset("vendor/crudbooster/assets/css/main.css")}}' />
-    <style type="text/css">
-        .login-page,
-        .register-page {
-            background: {
-                    {
-                    CRUDBooster: :getSetting("login_background_color")?:'#dddddd'
-                }
-            }
-
-            url('{{ CRUDBooster::getSetting("login_background_image")?asset(CRUDBooster::getSetting("login_background_image")):asset('vendor/crudbooster/assets/bg_blur3.jpg') }}');
-
-            color: {
-                    {
-                    CRUDBooster: :getSetting("login_font_color")?:'#ffffff'
-                }
-            }
-
-             !important;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
-
-        .login-box,
-        .register-box {
-            margin: 2% auto;
-        }
-
-        .login-box-body {
-            box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.8);
-            background: rgba(255, 255, 255, 0.9);
-
-            color: {
-                    {
-                    CRUDBooster: :getSetting("login_font_color")?:'#666666'
-                }
-            }
-
-             !important;
-        }
-
-        html,
-        body {
-            overflow: hidden;
-        }
-    </style>
+   
 </head>
-
-<body class="login-page">
-
+<body class="login-page" style="
+    background-image: url(../includes/img/login.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    ">
     <div class="login-box">
         <div class="login-logo">
             <a href="{{url('/')}}">
@@ -109,7 +67,7 @@
                 </div>
                 <div style="margin-bottom:10px" class='row'>
                     <div class='col-xs-12'>
-                        <button type="submit" class="btn btn-primary btn-block btn-flat"><i class='fa fa-lock'></i> {{trans("crudbooster.button_sign_in")}}</button>
+                        <button type="submit" class="btn btn-primary-login btn-block btn-flat"><i class='fa fa-lock'></i> {{trans("crudbooster.button_sign_in")}}</button>
                     </div>
                 </div>
 

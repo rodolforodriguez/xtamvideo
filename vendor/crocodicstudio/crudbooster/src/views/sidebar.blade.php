@@ -22,15 +22,6 @@
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li class="header">{{trans("crudbooster.menu_navigation")}}</li>
-                <!-- Optionally, you can add icons to the links -->
-
-                <?php $dashboard = CRUDBooster::sidebarDashboard(); ?>
-                <!--
-                @if($dashboard)
-                <li data-id='{{$dashboard->id}}' class="{{ (Request::is(config('crudbooster.ADMIN_PATH'))) ? 'active' : '' }}"><a href='{{CRUDBooster::adminPath()}}' class='{{($dashboard->color)?"text-".$dashboard->color:""}}'><i class='fa fa-dashboard'></i>
-                        <span>{{trans("crudbooster.text_dashboard")}}</span> </a></li>
-                @endif
--->
                 @foreach(CRUDBooster::sidebarMenu() as $menu)
                 <li data-id='{{$menu->id}}' class='{{(!empty($menu->children))?"treeview":""}} {{ (Request::is($menu->url_path."*"))?"active":""}}'>
                     <a href='{{ ($menu->is_broken)?"javascript:alert('".trans('crudbooster.controller_route_404')."')":$menu->url }}' class='{{($menu->color)?"text-".$menu->color:""}}'>

@@ -189,7 +189,7 @@ if ($tamaño === 0) {
                     <li class="active">{{$module->name}}</li>
                 </ol>
             @else
-            <h1>{{$name}}
+            <h1>{{$name}}</h1>
             @endif
         </section>
 
@@ -238,8 +238,7 @@ if ($tamaño === 0) {
 <script type="text/javascript">
     var site_url = "{{url('/')}}";
     @if($script_js)
-        {!! $script_js !!}
-			 
+        {!! $script_js !!}	 
     @endif
 </script>
 
