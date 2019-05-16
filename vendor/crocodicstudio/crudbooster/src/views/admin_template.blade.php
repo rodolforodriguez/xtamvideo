@@ -17,7 +17,7 @@ $tamaño = sizeof($Login);
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ ($page_title)?Session::get('appname').': '.strip_tags($page_title):"Admin Area" }}</title>
+    <title>{{ strip_tags($page_title) }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name='generator' content='CRUDBooster 5.4.6'/>
     <meta name='robots' content='noindex,nofollow'/>
@@ -103,13 +103,11 @@ $tamaño = sizeof($Login);
 <?php
 if ($tamaño === 0) {
     ?>
-
-    <body class="@php echo (Session::get('theme_color'))?:'skin-blue'; echo ' sidebar-collapse'; echo config('crudbooster.ADMIN_LAYOUT'); @endphp {{($sidebar_mode)?:''}}">
+    <body class="@php echo (Session::get('theme_color'))?:'skin-red'; echo ' sidebar-collapse'; echo config('crudbooster.ADMIN_LAYOUT'); @endphp {{($sidebar_mode)?:''}}">
     <?php
 } else {
     ?>
-
-        <body class="@php echo (Session::get('theme_color'))?:'skin-blue'; echo ' '; echo config('crudbooster.ADMIN_LAYOUT'); @endphp {{($sidebar_mode)?:''}}">
+        <body class="@php echo (Session::get('theme_color'))?:'skin-red'; echo ' '; echo config('crudbooster.ADMIN_LAYOUT'); @endphp {{($sidebar_mode)?:''}}">
         <?php
     }
     ?>  

@@ -470,7 +470,6 @@ class ComposerStaticInit3baad74511493c7c3213021a1bba32fa
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\AlarmStatusChanged' => __DIR__ . '/../..' . '/app/Events/AlarmStatusChanged.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\AdminAlarmUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminAlarmUserController.php',
         'App\\Http\\Controllers\\AdminCamerasController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCamerasController.php',
         'App\\Http\\Controllers\\AdminCentroComercialController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCentroComercialController.php',
         'App\\Http\\Controllers\\AdminChannelsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminChannelsController.php',

@@ -1,25 +1,65 @@
 <?php
 $xtamPerName = DB::table('xtam_profile_inst')
-    ->select('Profile_Description')
+    ->select('id_privileges')
     ->where('profile_StatusChek', '=', '1')
     ->get();
-$name = substr($xtamPerName, 25, -3);
+$id_profile = substr($xtamPerName, 18, -2);
+
+$Login = DB::table('xtam_profile_inst')
+    ->select('Profile_StatusChek')
+    ->where('Profile_StatusChek', '=', '1')
+    ->get();
+$parameter = sizeof($Login);
 ?>
 <!-- Main Header -->
 <header class="main-header">
-
     <!-- Logo -->
-    <a href="<?php echo e(url(config('crudbooster.ADMIN_PATH'))); ?>" title='<?php echo e(Session::get('appname')); ?>' class="logo">
-        <?php echo $name ?></a>
+    <?php
+    switch ($id_profile) {
+        case 4:
+            ?>
+        <a class="logo font-xtam" href="/admin">
+            <img src="../../../includes/img/Xtam_v_a.png">
+        </a>
+        <?php
+        break;
+    case 5:
+        ?>
+        <a class="logo font-xtam" href="/admin">
+            <img src="../../../includes/img/Xtam_Alarmas.png">
+        </a>
+        <?php
+        break;
 
+    case 6:
+        ?>
+        <a class="logo font-xtam" href="/admin">
+            <img src="../../../includes/img/Xtam_Video.png">
+        </a>
+        <?php
+        break;
+
+    default;
+        ?>
+        <a class="logo font-xtam" href="/admin"></a>
+    <?php
+}
+?>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
+        <?php
+        if ($parameter === 1) {
+            ?>
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        <?php
+    }
+    ?>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
 
                 <li class="dropdown notifications-menu">
@@ -77,23 +117,21 @@ $name = substr($xtamPerName, 25, -3);
                             <div class="pull-<?php echo e(trans('crudbooster.right')); ?>">
                                 <a title='Lock Screen' href="<?php echo e(route('getLockScreen')); ?>" class='btn btn-default btn-flat'><i class='fa fa-key'></i></a>
                                 <a href="javascript:void(0)" onclick="swal({
-                                        title: '<?php echo e(trans('crudbooster.alert_want_to_logout')); ?>',
-                                        type:'info',
-                                        showCancelButton:true,
-                                        allowOutsideClick:true,
-                                        confirmButtonColor: '#DD6B55',
-                                        confirmButtonText: '<?php echo e(trans('crudbooster.button_logout')); ?>',
-                                        cancelButtonText: '<?php echo e(trans('crudbooster.button_cancel')); ?>',
-                                        closeOnConfirm: false
-                                        }, function(){
-                                        location.href = '<?php echo e(route("getLogout")); ?>';
-
-                                        });" title="<?php echo e(trans('crudbooster.button_logout')); ?>" class="btn btn-danger btn-flat"><i class='fa fa-power-off'></i></a>
+                                                             title: '<?php echo e(trans('crudbooster.alert_want_to_logout')); ?>',
+                                                             type:'info',
+                                                             showCancelButton:true,
+                                                             allowOutsideClick:true,
+                                                             confirmButtonColor: '#DD6B55',
+                                                             confirmButtonText: '<?php echo e(trans('crudbooster.button_logout')); ?>',
+                                                             cancelButtonText: '<?php echo e(trans('crudbooster.button_cancel')); ?>',
+                                                             closeOnConfirm: false
+                                                             }, function(){
+                                                             location.href = '<?php echo e(route("getLogout")); ?>';
+                                                             });" title="<?php echo e(trans('crudbooster.button_logout')); ?>" class="btn btn-danger btn-flat"><i class='fa fa-power-off'></i></a>
                             </div>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-    </nav>
-</header> 
+</header>

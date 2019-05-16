@@ -3219,7 +3219,7 @@ select[multiple].input-lg, textarea.input-lg {
 }
 
 .btn.focus, .btn:focus, .btn:hover {
-    color: #333;
+    color: rgb(255, 255, 255);
     text-decoration: none
 }
 
@@ -3288,14 +3288,14 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #A61B34;
-    border-color: #A61B34
+    background-color: #3c8dbc;
+    border-color: #3c8dbc
 }
 
 .btn-primary.focus, .btn-primary:focus {
     color: #fff;
-    background-color: #A61B34;
-    border-color: #A61B34
+    background-color: #3c8dbc;
+    border-color: #3c8dbc
 }
 
 .btn-primary:hover {

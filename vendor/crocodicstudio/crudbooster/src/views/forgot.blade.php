@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{trans("crudbooster.page_title_forgot")}} : {{$appname}}</title>
+    <title>{{trans("crudbooster.page_title_forgot")}}  {{$appname}}</title>
     <meta name='generator' content='CRUDBooster.com'/>
     <meta name='robots' content='noindex,nofollow'/>
     <link rel="shortcut icon"
@@ -67,7 +67,7 @@
                     {{trans("crudbooster.forgot_text_try_again")}} <a href='{{route("getLogin")}}'>{{trans("crudbooster.click_here")}}</a>
                 </div><!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{trans("crudbooster.button_submit")}}</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat btn-xtam">{{trans("crudbooster.button_submit")}}</button>
                 </div><!-- /.col -->
             </div>
         </form>

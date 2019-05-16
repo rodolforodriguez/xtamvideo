@@ -7,27 +7,26 @@
 
 <!-- jQuery 2.1.3 -->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/jQuery/jQuery-2.1.4.min.js')); ?>"></script>
+<!-- DatePicker 
+<link rel="stylesheet" href="datepicker.min.css"> -->
 
 <!-- Bootstrap 3.3.2 JS -->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js')); ?>" type="text/javascript"></script>
 
-
+<!-- AdminLTE App -->
+<script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js')); ?>" type="text/javascript"></script>
 <?php
 $url = $_SERVER["REQUEST_URI"];
 if ($url == '/admin/maps') {
     ?>
-<script src="<?php echo e(asset ('js/app.js')); ?>"></script>
-<script>
-    var url = '<?php echo $url; ?>';
-</script>
+    <script src="<?php echo e(asset ('js/app.js')); ?>"></script>
+    <script>
+        var url = '<?php echo $url; ?>';
+    </script>
 <?php
 
 }
 ?>
-
-<!-- AdminLTE App -->
-<script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js')); ?>" type="text/javascript"></script>
-
 <!--BOOTSTRAP DATEPICKER-->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
 <link rel="stylesheet" href="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css')); ?>">
@@ -70,4 +69,17 @@ if ($url == '/admin/maps') {
         $('.datatables-simple').DataTable();
     })
 </script>
-<script src="<?php echo e(asset('vendor/crudbooster/assets/js/main.js').'?r='.time()); ?>"></script> 
+<script src="<?php echo e(asset('vendor/crudbooster/assets/js/main.js').'?r='.time()); ?>"></script>
+
+<?php
+$url = $_SERVER["REQUEST_URI"];
+
+if ($url == '/xtamvideo/public/admin/recording') {
+    ?>
+    <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
+    <!-- <script src="../../resources/assets/js/video-player.js" type="text/javascript"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../../resources/assets/sass/video-player.css"> -->
+<?php
+}
+?>
+<!--Video - player-->

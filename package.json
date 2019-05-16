@@ -14,13 +14,14 @@
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "install-peers": "^1.0.3",
-        "jquery": "^3.2",
+        "jquery": "^3.4.0",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
-        "popper.js": "^1.12"
+        "popper.js": "^1.15.0"
     },
     "dependencies": {
-        "esri-loader": "^2.3.0",
+        "esri-loader": "^2.9.2",
+        "js-datepicker": "^4.0.10",
         "laravel-echo": "^1.5.3",
         "pusher-js": "^4.4.0",
         "update": "^0.7.4",

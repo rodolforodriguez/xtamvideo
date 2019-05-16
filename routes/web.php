@@ -18,4 +18,6 @@ Route::get('/admin/calls','CallsController@index');
 Route::get('/admin/streaming','StreamingsController@index');
 
 Route::get('/admin/maps','MapController@index');
+Route::get('/admin/recording', 'GrabacionesController@index');
+Route::get('/admin/searchadvanced', 'SearchAdvanceController@index');
 

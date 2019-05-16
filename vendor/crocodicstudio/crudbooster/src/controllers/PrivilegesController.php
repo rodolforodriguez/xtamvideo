@@ -36,10 +36,10 @@ class PrivilegesController extends CBController
         $this->form[] = ["label" => "Is Superadmin", "name" => "is_superadmin", 'required' => true];
         $this->form[] = ["label" => "Theme Color", "name" => "theme_color", 'required' => true];
 
-        $this->alert[] = [
+        /*$this->alert[] = [
             'message' => "You can use the helper <code>CRUDBooster::getMyPrivilegeId()</code> to get current user login privilege id, or <code>CRUDBooster::getMyPrivilegeName()</code> to get current user login privilege name",
             'type' => 'info',
-        ];
+        ];*/
     }
 
     public function getAdd()

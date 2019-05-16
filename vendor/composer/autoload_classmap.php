@@ -9,7 +9,6 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\AlarmStatusChanged' => $baseDir . '/app/Events/AlarmStatusChanged.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Http\\Controllers\\AdminAlarmUserController' => $baseDir . '/app/Http/Controllers/AdminAlarmUserController.php',
     'App\\Http\\Controllers\\AdminCamerasController' => $baseDir . '/app/Http/Controllers/AdminCamerasController.php',
     'App\\Http\\Controllers\\AdminCentroComercialController' => $baseDir . '/app/Http/Controllers/AdminCentroComercialController.php',
     'App\\Http\\Controllers\\AdminChannelsController' => $baseDir . '/app/Http/Controllers/AdminChannelsController.php',

@@ -12,26 +12,26 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 	public function cbInit()
 	{
 
-		# START CONFIGURATION DO NOT REMOVE THIS LINE
-		$this->title_field = "id";
-		$this->limit = "20";
-		$this->orderby = "idProfile_inst,desc";
-		$this->global_privilege = false;
-		$this->button_table_action = true;
-		$this->button_bulk_action = true;
-		$this->button_action_style = "button_icon";
-		$this->button_add = false;
-		$this->button_edit = true;
-		$this->button_delete = false;
-		$this->button_detail = true;
-		$this->button_show = false;
-		$this->button_filter = false;
-		$this->button_import = false;
-		$this->button_export = false;
-		$this->table = "xtam_profile_inst";
-		# END CONFIGURATION DO NOT REMOVE THIS LINE
+			# START CONFIGURATION DO NOT REMOVE THIS LINE
+			$this->title_field = "id";
+			$this->limit = "20";
+			$this->orderby = "idProfile_inst,desc";
+			$this->global_privilege = false;
+			$this->button_table_action = true;
+			$this->button_bulk_action = true;
+			$this->button_action_style = "button_icon";
+			$this->button_add = false;
+			$this->button_edit = true;
+			$this->button_delete = false;
+			$this->button_detail = true;
+			$this->button_show = false;
+			$this->button_filter = false;
+			$this->button_import = false;
+			$this->button_export = false;
+			$this->table = "xtam_profile_inst";
+			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
-		# START COLUMNS DO NOT REMOVE THIS LINE
+			# START COLUMNS DO NOT REMOVE THIS LINE
 		$this->col = [];
 		$this->col[] = ["label" => "Nº", "name" => "idProfile_inst"];
 		$this->col[] = ["label" => "Descripcion", "name" => "Profile_Description"];
@@ -39,21 +39,21 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 		$this->col[] = ["label" => "Fecha de modificación", "name" => "Profile_DateModified"];
 		# END COLUMNS DO NOT REMOVE THIS LINE
 
-		# START FORM DO NOT REMOVE THIS LINE
-		$this->form = [];
-		$this->form[] = ['label' => 'Nº', 'name' => 'idProfile_inst', 'type' => 'number', 'validation' => 'numeric', 'width' => 'col-sm-10', 'readonly' => 'true'];
-		$this->form[] = ['label' => 'Descripcion', 'name' => 'Profile_Description', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
-		$this->form[] = ['label' => 'Estado', 'name' => 'Profile_StatusChek', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
-		# END FORM DO NOT REMOVE THIS LINE
+			# START FORM DO NOT REMOVE THIS LINE
+			$this->form = [];
+			$this->form[] = ['label'=>'Nº','name'=>'idProfile_inst','type'=>'number','validation'=>'numeric','width'=>'col-sm-10','readonly'=>'true'];
+			$this->form[] = ['label'=>'Descripcion','name'=>'Profile_Description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','disabled'=>'true'];
+			$this->form[] = ['label'=>'Estado','name'=>'Profile_StatusChek','type'=>'checkbox','validation'=>'|min:1|max:1','width'=>'col-sm-10','dataenum'=>'1|'];
+			# END FORM DO NOT REMOVE THIS LINE
 
-		# OLD START FORM
-		//$this->form = [];
-		//$this->form[] = ['label'=>'Nº','name'=>'idProfile_inst','type'=>'number','validation'=>'numeric','width'=>'col-sm-10','readonly'=>'true'];
-		//$this->form[] = ['label'=>'Descripcion','name'=>'Profile_Description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-		//$this->form[] = ['label'=>'Estado','name'=>'Profile_StatusChek','type'=>'checkbox','validation'=>'|min:1|max:1','width'=>'col-sm-10','dataenum'=>'1|'];
-		# OLD END FORM
+			# OLD START FORM
+			//$this->form = [];
+			//$this->form[] = ['label' => 'Nº', 'name' => 'idProfile_inst', 'type' => 'number', 'validation' => 'numeric', 'width' => 'col-sm-10', 'readonly' => 'true'];
+			//$this->form[] = ['label' => 'Descripcion', 'name' => 'Profile_Description', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+			//$this->form[] = ['label' => 'Estado', 'name' => 'Profile_StatusChek', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+			# OLD END FORM
 
-		/* 
+			/* 
 	        | ---------------------------------------------------------------------- 
 	        | Sub Module
 	        | ----------------------------------------------------------------------     
@@ -265,7 +265,7 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 			$postdata['checkbox'] = false;
 		}
 		$datetime = new DateTime();
-		$datetime = $datetime->format('Y/m/d/ h:i:s');
+		$datetime = $datetime->format('Y/m/d h:i:s');
 		$postdata['Profile_DateCreated'] = $datetime;
 		//Your code here
 	}
@@ -296,7 +296,7 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 		//Your code here
 
 		$datetime = new DateTime();
-		$datetime = $datetime->format('Y/m/d/ h:i:s');
+		$datetime = $datetime->format('Y/m/d h:i:s');
 		$postdata['Profile_DateModified'] = $datetime;
 
 		if (!$postdata['Profile_StatusChek']) {

@@ -193,7 +193,7 @@ export default {
                     title: "{Plant}",
                     content:
                       "<div>" +
-                      "Latitude: {YCoord}<br/>Longitude: {XCoord}<br/>Dirección:{Adresss}<br/>Camaras:  {Link}" +
+                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" +
                       "</div>"
                   };
 
@@ -572,7 +572,7 @@ export default {
                     title: "{Plant}",
                     content:
                       "<div>" +
-                      "Latitude: {YCoord}<br/>Longitude: {XCoord}<br/>Dirección:{Adresss}<br/>Camaras:  {Link}" +
+                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" +
                       "</div>"
                   };
 

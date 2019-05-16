@@ -1,9 +1,7 @@
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
-
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-{{ trans('crudbooster.left') }} image">
@@ -11,14 +9,9 @@
             </div>
             <div class="pull-{{ trans('crudbooster.left') }} info">
                 <p>{{ CRUDBooster::myName() }}</p>
-                <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('crudbooster.online') }}</a>
             </div>
         </div>
-
-
         <div class='main-menu'>
-
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li class="header">{{trans("crudbooster.menu_navigation")}}</li>

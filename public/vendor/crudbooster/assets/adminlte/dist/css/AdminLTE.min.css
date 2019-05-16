@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
 /*!
  *   AdminLTE v2.3.0
@@ -18,7 +19,9 @@ html, body {
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
     font-weight: 400;
     overflow-x: hidden;
     overflow-y: auto
@@ -279,7 +282,8 @@ a:hover, a:active, a:focus {
     line-height: 50px;
     text-align: center;
     width: 230px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat';
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     padding: 0 15px;
     font-weight: 300;
     overflow: hidden
@@ -579,7 +583,7 @@ a:hover, a:active, a:focus {
 .sidebar-menu .treeview-menu>li>a {
     padding: 5px 5px 5px 15px;
     display: block;
-    font-size: 14px
+    font-size: 10px
 }
 
 .sidebar-menu .treeview-menu>li>a>.fa, .sidebar-menu .treeview-menu>li>a>.glyphicon, .sidebar-menu .treeview-menu>li>a>.ion {
@@ -2342,8 +2346,22 @@ a:hover, a:active, a:focus {
     border-color: #367fa9
 }
 
-.btn-primary-login
-{
+.btn-xtam {
+    background-color: #A61B34;
+    border-color: #A61B34
+}
+
+.btn-xtam:hover, .btn-xtam:focus, .btn-xtam:active, .btn-xtam.active, .open>.dropdown-toggle.btn-xtam {
+    color: rgb(255, 255, 255);
+    background-color: #A61B34 !important;
+    border-color: #C4BEB6 !important;
+}
+
+.btn-xtam:active, .btn-xtam.active, .open>.dropdown-toggle.btn-xtam {
+    background-image: none;
+}
+
+.btn-primary-login {
     color: #fff;
     background-color: #A61B34;
     border-color: #A61B34
