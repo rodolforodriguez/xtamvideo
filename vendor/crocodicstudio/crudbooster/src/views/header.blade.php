@@ -18,35 +18,35 @@ $parameter = sizeof($Login);
     switch ($id_profile) {
         case 4:
             ?>
-        <a class="logo font-xtam" href="/admin">
-            <img src="../../../includes/img/Xtam_v_a.png">
+        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+            <img src="{{URL::to('/')}}/includes/img/Xtam_v_a.png">
         </a>
         <?php
         break;
     case 5:
         ?>
-        <a class="logo font-xtam" href="/admin">
-            <img src="../../../includes/img/Xtam_Alarmas.png">
+        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+            <img src="{{URL::to('/')}}/includes/img/Xtam_Alarmas.png">
         </a>
         <?php
         break;
 
     case 6:
         ?>
-        <a class="logo font-xtam" href="/admin">
-            <img src="../../../includes/img/Xtam_Video.png">
+        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+            <img src="{{URL::to('/')}}/includes/img/Xtam_Video.png">
         </a>
         <?php
         break;
 
     default;
         ?>
-        <a class="logo font-xtam" href="/admin"></a>
+        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}"></a>
     <?php
 }
 ?>
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
+    <nav class=" navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
         <?php
         if ($parameter === 1) {

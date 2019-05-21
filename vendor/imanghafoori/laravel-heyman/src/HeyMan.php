@@ -3,9 +3,8 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Switching\Turn;
-use Imanghafoori\HeyMan\MakeSure\HttpClient;
+use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 
 class HeyMan
 {
@@ -25,12 +24,7 @@ class HeyMan
             resolve('heyman.chain')->set('debugInfo', $info);
         }
 
-        return  SituationsProxy::call($method, $args);
-    }
-
-    public function makeSure($testCase): HttpClient
-    {
-        return new HttpClient($testCase);
+        return  Situations::call($method, $args);
     }
 
     public function checkPoint(string $pointName)

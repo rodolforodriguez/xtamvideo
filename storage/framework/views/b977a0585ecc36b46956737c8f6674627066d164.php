@@ -76,9 +76,17 @@ $url = $_SERVER["REQUEST_URI"];
 
 if ($url == '/xtamvideo/public/admin/recording') {
     ?>
+    <script src="<?php echo e(asset('js/video.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(asset('js/drag_drop.js')); ?>" type="text/javascript"></script>
+    <script src="<?php echo e(asset('js/grabaciones.js')); ?>" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/video.css" media="all" />
+    <link rel="stylesheet" href="../css/grabaciones.css" media="all" />
+
     <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
-    <!-- <script src="../../resources/assets/js/video-player.js" type="text/javascript"></script> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../../resources/assets/sass/video-player.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script src="http://localhost/xtamvideo/node_modules/video.js/dist/video.js" type="text/javascript"></script>
+    <link href="http://localhost/xtamvideo/node_modules/video.js/dist/video-js.css" rel="stylesheet">
 <?php
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Gate;
+use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class Logger
@@ -33,6 +34,8 @@ class MethodCallReactionTest extends TestCase
             ->afterCalling('Logger@error', ['sss'])
             ->weDenyAccess();
 
+        app(StartGuarding::class)->start();
+
         $this->get('welcome');
     }
 
@@ -55,10 +58,12 @@ class MethodCallReactionTest extends TestCase
             ->afterCalling($cb)
             ->weDenyAccess();
 
-        $chain = resolve(\Imanghafoori\HeyMan\Chain::class);
+        $chain = resolve(\Imanghafoori\HeyMan\Core\Chain::class);
         $chain->startChain();
         $this->assertEquals(null, $chain->get('data'));
         $this->assertEquals(null, $chain->get('responseType'));
+
+        app(StartGuarding::class)->start();
 
         $this->get('welcome');
     }

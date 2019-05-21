@@ -8,13 +8,16 @@
 Short answer : **This package helps you clean up your controller code in a way that you have never seen before**
 
 
-![terminator-movie-terminator-5-genisys- 0 0-1200x800](https://user-images.githubusercontent.com/6961695/41775502-5406df86-7639-11e8-9211-3b618e0e4600.jpg)
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/6961695/41775502-5406df86-7639-11e8-9211-3b618e0e4600.jpg" width="500" title="I kill nasty code">
+
+
 
 [![Latest Stable Version](https://poser.pugx.org/imanghafoori/laravel-terminator/v/stable)](https://packagist.org/packages/imanghafoori/laravel-terminator)
 [![Build Status](https://scrutinizer-ci.com/g/imanghafoori1/laravel-terminator/badges/build.png?b=master)](https://scrutinizer-ci.com/g/imanghafoori1/laravel-terminator/build-status/master)
 <a href="https://scrutinizer-ci.com/g/imanghafoori1/laravel-terminator"><img src="https://img.shields.io/scrutinizer/g/imanghafoori1/laravel-terminator.svg?style=round-square" alt="Quality Score"></img></a>
 [![License](https://poser.pugx.org/imanghafoori/laravel-terminator/license)](https://packagist.org/packages/imanghafoori/laravel-terminator)
-
+</p>
 **Made with :heart: for every laravel "Clean Coder"**
 
 ### Installation:
@@ -57,16 +60,16 @@ The idea is : Any class in the application should be able to send back a respons
 
 ## Controllers Are Controllers, They Are Not Responders !!!
 
-Controllers, control the execution flow of your code and send commands to other objects and tell them what to do. Their responsibily is not sending a response back to the client.
+Controllers, "control" the execution flow of your code, and send commands to other objects, telling them what to do. Their responsibility is not returning a "response" back to the client. And this is the philosophy of terminator package.
 
 
 Consider the code below:
 
 ```php
 // BAD code : Too many conditions
-// BAD code : In a sinle method
+// BAD code : In a single method
 // BAD code : (@_@)   (?_?)
-
+// (It is not that bad, since it is a simplified example)
 class AuthController {
   public function login(Request $request)
   {
@@ -75,27 +78,28 @@ class AuthController {
               'email' => 'required|max:255||string',
               'password' => 'required|confirmed||string',
           ]);
+          
           if ($validator->fails()) {
-              return redirect('/some-where')->withErrors($validator)->withInput(); // response 1
+              return redirect('/some-where')->withErrors($validator)->withInput(); // return response 1
           }
           
          
           // 2 - throttle Attempts
           if ($this->hasTooManyLoginAttempts($request)) {
               $this->fireLockoutEvent($request);
-              return $this->sendLockoutResponse($request);   // response 2
+              return $this->sendLockoutResponse($request);   // return response 2
           }
         
          
           // 3 - handle valid Credentials
           if ($this->attemptLogin($request)) {
-              return $this->sendLoginResponse($request);   // response 3
+              return $this->sendLoginResponse($request);   // return response 3
           }
         
 
           // 4 - handle invalid Credentials
           $this->incrementLoginAttempts($request);
-          return $this->sendFailedLoginResponse($request); // response 4
+          return $this->sendFailedLoginResponse($request); // return response 4
           
           
           //These if blocks can not be extracted out. Can they ?
@@ -106,7 +110,7 @@ class AuthController {
 #### Problem :
 
 With the current approach, this is as much as we can refactor at best.
-Why ? because the controllers are asking for response, they are not telling what to do.
+Why? because the controllers are asking for response, they are not telling what to do.
 
 We do not want many if conditions all within a single method, it makes the method hard to understand and reason about.
 
@@ -160,9 +164,10 @@ class AuthController {
               'email' => 'required|max:255||string',
               'password' => 'required|confirmed||string',
           ]);
+          
           if ($validator->fails()) {
                $response = redirect('/some-where')->withErrors($validator)->withInput();
-               respondeWith($response);
+               respondWith($response);  // <-- look here
           }
           
          
@@ -170,14 +175,14 @@ class AuthController {
           if ($this->hasTooManyLoginAttempts($request)) {
               $this->fireLockoutEvent($request);
               $response = $this->sendLockoutResponse($request);
-              respondeWith($response);
+              respondWith($response); // <-- look here "no return !!!"
           }
           
          
           // 3 - handle valid Credentials
           if ($this->attemptLogin($request)) {
                $response = $this->sendLoginResponse($request);
-               respondeWith($response);
+               respondWith($response);  // <-- look here  "no return !!!"
           }
           
 
@@ -185,7 +190,7 @@ class AuthController {
           $this->incrementLoginAttempts($request);
           $response = $this->sendFailedLoginResponse($request) 
          
-          respondeWith($response);  // or use the Facade
+          respondWith($response);  // <-- look here "no return !!!"
     }
 }
 
@@ -213,9 +218,13 @@ class LoginController
 }
 ```
 
-### API
+### Terminator API
 
-All this package exposes for you is:
+All this package exposes for you is 2 global helper functions and 1 Facade:
+
+- respondWith()
+- sendAndTerminate()
+- \ImanGhafoori\Terminator\TerminatorFacade::sendAndTerminate()
 
 ```php
 $response = response()->json($someData);
@@ -226,13 +235,10 @@ respondWith($response);
 respondWith()->json($someData);
 
 
-// or an alias function:
+// or an alias function for 'respondWith()' is 'sendAndTerminate':
 
 sendAndTerminate($response);
 
-// or 
-
-respondWith()->json($someData);
 
 // or use facade :
 \ImanGhafoori\Terminator\TerminatorFacade::sendAndTerminate($response);
@@ -244,6 +250,12 @@ respondWith()->json($someData);
 ### About Testibility:
 
 Let me mention that the "sendAndTerminate or respondWith" helper functions (like other laravel helper functions) can be easily mocked out and does not affect the testibility at all.
+
+
+```php
+// Sample Mock
+TerminatorFacade::shouldRecieve('sendAndTerminate')->once()->with($someResponse)->andReturn(true);
+```
 
 In fact they make your application for testable, because your tests do not fail if you change the shape of your response.
 
@@ -266,11 +278,24 @@ As always if you found this package useful and you want to encourage us to maint
 
 ### More from the author:
 
- :gem: A minimal yet powerful package to give you opportunity to refactor your controllers.
+
+#### Laravel Hey Man
+
+:gem: It allows to write expressive code to authorize, validate and authenticate.
+
+- https://github.com/imanghafoori1/laravel-heyman
+
+------------------
+
+#### Laravel Any Pass
+
+ :gem: A minimal package that helps you login with any password on local environments.
 
 - https://github.com/imanghafoori1/laravel-anypass
 
 ------------------
+
+#### Laravel Widgetize
 
  :gem: A minimal yet powerful package to give a better structure and caching opportunity for your laravel apps.
 
@@ -279,7 +304,10 @@ As always if you found this package useful and you want to encourage us to maint
 
 -------------------
 
- :gem: A simple package that lets you easily impersonate your users in production.
+#### Laravel Master Pass
+
+
+ :gem: A simple package that lets you easily impersonate your users.
 
 - https://github.com/imanghafoori1/laravel-MasterPass
 

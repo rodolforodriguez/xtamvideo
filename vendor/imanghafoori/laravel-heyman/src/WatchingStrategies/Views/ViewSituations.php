@@ -4,9 +4,8 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewSituations
 {
-    public function hasMethod($method)
+    public function hasMethod()
     {
-        return false;
     }
 
     /**
@@ -15,6 +14,6 @@ final class ViewSituations
     public function whenYouMakeView(...$views)
     {
         $view = resolve(ViewNormalizer::class)->normalizeView($views);
-        resolve('heyman.chain')->init(ViewEventManager::class, $view);
+        resolve('heyman.chains')->init(ViewEventListener::class, $view);
     }
 }

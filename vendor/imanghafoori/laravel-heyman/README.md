@@ -13,17 +13,18 @@
 [![StyleCI](https://github.styleci.io/repos/139709518/shield?branch=master)](https://github.styleci.io/repos/139709518)
 [![Latest Stable Version](https://poser.pugx.org/imanghafoori/laravel-heyman/v/stable)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Daily Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/d/daily)](https://packagist.org/packages/imanghafoori/laravel-heyman)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=round-square)](LICENSE.md)
+[![Awesome Laravel](https://img.shields.io/badge/Awesome-Laravel-blue.svg)](https://github.com/chiraggude/awesome-laravel)
+[![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=round-square)](LICENSE.md)
 
 
 
-## :ribbon: Heyman continues where the other role-permission packages left off :ribbon:
+## :ribbon: Heyman continues where the other role-permission packages left off...
 
-## We have used CDD (Creativity Driven Development) along side the TDD
+#### We have used CDD (Creativity Driven Development) alongside the TDD
 
-### Built with :heart: for every smart laravel developer
+#### Built with :heart: for every smart laravel developer
 
-and it is very well tested, optimized and production ready !
+Very well tested, optimized and production ready !
 
 In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 

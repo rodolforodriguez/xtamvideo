@@ -7,33 +7,47 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
+use Imanghafoori\HeyMan\Core\Situations;
+use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
+    public $situationProviders = [
+        ViewSituationProvider::class,
+        RouteSituationProvider::class,
+        EventSituationProvider::class,
+        EloquentSituationProvider::class,
+    ];
+
     public function boot()
     {
         $this->defineGates();
 
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
         app()->booted([resolve(StartGuarding::class), 'start']);
 
         $this->disableIfIsSeeding();
         DebugbarIntergrator::register();
 
         $this->registerConditions();
+
+        $this->registerSituationProviders($this->situationProviders);
     }
 
     public function register()
     {
         Singletons::make($this->app);
 
-        AliasLoader::getInstance()->alias('HeyMan', \Imanghafoori\HeyMan\Facades\HeyMan::class);
+        AliasLoader::getInstance()->alias('HeyMan', HeyMan::class);
 
         $this->mergeConfigFrom(__DIR__.'/../config/heyMan.php', 'heyMan');
     }
@@ -65,5 +79,14 @@ final class HeyManServiceProvider extends ServiceProvider
         app(ConditionsFacade::class)->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
 
         app(ConditionsFacade::class)->define('sessionShouldHave', mySession::class.'@sessionHas');
+    }
+
+    private function registerSituationProviders($providers)
+    {
+        foreach ($providers as $provider) {
+            $provider = new $provider;
+            Consider::add($provider->getForgetKey(), $provider->getListener());
+            Situations::add($provider->getSituationProvider());
+        }
     }
 }
