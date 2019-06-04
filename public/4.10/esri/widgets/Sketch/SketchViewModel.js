@@ -349,7 +349,7 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                             coordclick.style.display = "none";
                             coordclick.innerHTML += coords;
                             var linkGoTo =
-                                "http://xtamvideo.test/vs/Pcampoly.php?userid=2&state=1&var=(%20" +
+                                "http://localhost/xtamvideo/vs/Pcampoly.php?userid=2&state=1&var=(%20" +
                                 coordclick.innerHTML +
                                 "*)";
                             var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
@@ -491,7 +491,7 @@ define("require exports ../../core/tsSupport/assignHelper ../../core/tsSupport/d
                         var radius = (c.radius / 100).toFixed(3);
                         /// enviamos coordenadas circunferencia
                         var linkGoTo =
-                            "http://xtamvideo.test/vs/alarm/index.php?lng=" + longitude + "&lat=" + latitude + "&dist=" + radius + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
+                            "http://localhost/xtamvideo/vs/alarm/index.php?lng=" + longitude + "&lat=" + latitude + "&dist=" + radius + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
                         var content = `<a class="btn btn-success btn-sm" onclick="myFunction('${linkGoTo}')">Ver Cámaras</a>`;
                         DivButton.innerHTML = content;
                         DivButton.style.visibility = "visible";

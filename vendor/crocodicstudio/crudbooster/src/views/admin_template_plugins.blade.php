@@ -6,7 +6,8 @@
 <!-- REQUIRED    JS SCRIPTS -->
 
 <!-- jQuery 2.1.3 -->
-<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<!-- <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <!-- DatePicker 
 <link rel="stylesheet" href="datepicker.min.css"> -->
 
@@ -87,8 +88,8 @@ if ($url == '/xtamvideo/public/admin/recording') {
     <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-    <script src="http://localhost/xtamvideo/node_modules/video.js/dist/video.js" type="text/javascript"></script>
-    <link href="http://localhost/xtamvideo/node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  <!--  <script src="http://localhost/xtamvideo/node_modules/video.js/dist/video.js" type="text/javascript"></script>
+    <link href="http://localhost/xtamvideo/node_modules/video.js/dist/video-js.css" rel="stylesheet"> -->
 <?php
 }
 ?>

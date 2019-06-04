@@ -190,11 +190,10 @@ class GrabacionesController extends Controller
         $camaras = DB::table('cameras')
             ->join( 'centro_comercial', 'cameras.id_centrocomercial', '=', 'centro_comercial.id')
             ->join( 'type_cam', 'cameras.typecam', '=', 'type_cam.id')
-            ->select( 'cameras.dcamara' , 'type_cam.desc_cam' , 'centro_comercial.descripcion')
+            ->join( 'routerecord','routerecord.idcamara', '=' , 'cameras.cameraid')
+            ->select( 'cameras.cameraid',  'cameras.dcamara' , 'type_cam.desc_cam' , 'centro_comercial.descripcion' , 'routerecord.route')
             ->get();
-        //['typecam' => $typecam] , ['cc' => $cc] ,
         return view('grabaciones.index',  ['camaras' => $camaras] ,['typecam' => $typecam]);
-     
     }
 
     /**

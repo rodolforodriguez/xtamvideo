@@ -37,25 +37,25 @@ if ($userid === null) {
                                         if ($temp <> $camara->descripcion) {
                                             if ($temp <> '') {
                                                 echo "</div>";
-                                            }
-                                            $temp = $camara->descripcion;
+                                                }
+                                                $temp = $camara->descripcion;
                                             echo "<button class='dropdown-btn'>" . $camara->descripcion . "<i class='fa fa-caret-down'></i> </button>";
-                                            echo "<div class='dropdown-container'>";
-                                        }
+                                                echo "<div class='dropdown-container'>";
+                                            }
                                             echo "<a id='" . ($camara->cameraid) . "' href='#' draggable='true' ondragstart='drag(event)'>" . $camara->dcamara . "</a>";
+                                        }
                                     }
-                                }
-                                if ($temp <> '') {
+                                    if ($temp <> '') {
+                                        echo "</div>";
+                                    }
                                     echo "</div>";
                                 }
-                                echo "</div>";
-                            }
-                            ?>
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <div class="col-md-9 col-xs-12 col-sm-12">
             <div class="row">
                 <div class="col-md-12">
@@ -103,27 +103,27 @@ if ($userid === null) {
                                                 <!--<input type="hidden" name="array" id="array" value='<?php
                                                                                                         ?>'> -->
                                                 <button type="button" id="submitFormData" onclick="SubmitFormData();" class="fa fa-search" style="font-size:25px"> </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="video-controls" class="controls" data-state="hidden">
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="video-controls" class="controls" data-state="hidden">
                                         <button id="playpause" type="button" class="btn btn-lg btn-default" data-state="play">Play/Pause</button>
                                         <button id="stop" type="button" class="btn btn-lg btn-default" data-state="stop">Stop</button>
-                                        <div class="progress">
-                                            <progress id="progress" value="0" min="0">
-                                                <span id="progress-bar"></span>
-                                            </progress>
-                                        </div>
+                                            <div class="progress">
+                                                <progress id="progress" value="0" min="0">
+                                                    <span id="progress-bar"></span>
+                                                </progress>
+                                            </div>
                                         <button id="mute" type="button" class="btn btn-lg btn-default" data-state="mute">Mute/Unmute</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row text-right">
-                                <div class="col-md-5 col-md-offset-7">
+                                <hr>
+                                <div class="row text-right">
+                                    <div class="col-md-5 col-md-offset-7">
                                     <button class="btn btn-sm btn-warning">Ver</button>
                                     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#export">Exportar</button>
                                     <button class="btn btn-sm btn-success">Actualizar</button>
@@ -219,12 +219,12 @@ if ($userid === null) {
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Exportar video</h4>
-            </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Exportar video</h4>
+                </div>
 
-            <div class="modal-body">
+                <div class="modal-body">
                 <div>
                     <div class="row">
                         <div class="col-md-12">
@@ -239,7 +239,7 @@ if ($userid === null) {
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="checkbox" onchange="checkname(this.checked);">
-                                <label class="form-group"> Cambiar nombre</label>
+                                <label class="form-group">Cambiar nombre</label>
                                 <input id="chkname" type="text" class="form-control" disabled>
                             </div>
                         </div>
@@ -251,12 +251,12 @@ if ($userid === null) {
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class=" btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
+                <div class="modal-footer">
+                    <button type="button" class=" btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
                 <button type="button" class=" btn btn-sm btn-success" data-dismiss="modal">Generar</button>
-            </div>
+                </div>
         </div>
     </div>
 </div>
