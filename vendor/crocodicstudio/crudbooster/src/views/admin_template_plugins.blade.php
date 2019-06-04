@@ -75,7 +75,9 @@ if ($url == '/admin/maps') {
 $url = $_SERVER["REQUEST_URI"];
 
 if ($url == '/xtamvideo/public/admin/recording') {
+    header("Access-Control-Allow-Origin: *");
     ?>
+
     <script src="{{asset('js/video.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/drag_drop.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/grabaciones.js')}}" type="text/javascript"></script>

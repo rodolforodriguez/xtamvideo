@@ -13,10 +13,12 @@ if ($userid === null) {
 <div class="box">
     <div class="box-header">
         <span style="font-size: 20px;"> Grabaciones </span>
-        <a href="http://xtamvideo.test/admin/maps" class="btn btn-sm btn-primary" title="Ver mapa">Ver mapa</a>
-        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" title="Busqueda avanzada">Búsqueda avanzada</button>
+        <a href="http://localhost/xtamvideo/public/admin/maps" class="btn btn-sm btn-primary" title="Ver mapa">Ver mapa</a>
+        <a href="http://localhost/xtamvideo/public/admin/cameras35" class="btn btn-sm btn-success" title="Busqueda avanzada">Busqueda avanzada</a>
+        <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" title="Busqueda avanzada">Búsqueda avanzada</button>-->
     </div>
     <div class="box-body">
+        <div class="row">
         <div class="col-md-3 col-xs-12 col-sm-12" style="position: sticky;">
             <div class="content">
                 <div class="sidenav" id="nav" style="min-height: 50vh;">
@@ -40,7 +42,7 @@ if ($userid === null) {
                                             echo "<button class='dropdown-btn'>" . $camara->descripcion . "<i class='fa fa-caret-down'></i> </button>";
                                             echo "<div class='dropdown-container'>";
                                         }
-                                        echo "<a id='" . ($camara->descripcion . "" . $camara->dcamara) . "' href='http://localhost/xtamvideo/resources/views/grabaciones/video.mp4' draggable='true' ondragstart='drag(event)'>" . $camara->dcamara . "</a>";
+                                            echo "<a id='" . ($camara->cameraid) . "' href='#' draggable='true' ondragstart='drag(event)'>" . $camara->dcamara . "</a>";
                                     }
                                 }
                                 if ($temp <> '') {
@@ -62,32 +64,45 @@ if ($userid === null) {
                             <h3 class="panel-title">Visualizacion de camaras</h3>
                         </div>
                         <div class="VideoCont row" id="videoCont" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height: 50vh; ">
+
                         </div>
                         <div class=" panel-footer" id="Controls" style="min-height: 5vh; display: none;">
+                                <form id="myForm" method="post">
                             <div class="row">
                                 <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                     <div class="input-group date">
                                         <label class="control-label">Fecha inicial</label>
-                                        <input id="dateinitial" type="date" class="form-control">
+                                                <input type="date" class="form-control" name="fechastart" id="fechastart" value="2019-05-22">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
+                                        <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
                                     <div class="input-group date">
                                         <label class="control-label">Hora inicial</label>
-                                        <input type="time" id="timeinitial" class="form-control" name="timeinitial" required>
+                                                <input type="time" class="form-control" name="horastart" id="horastart" value="19:11">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-0 col-lg-1">
+                                            <div class="input-group date">
                                     </div>
                                 </div>
-
                                 <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                     <div class="input-group date">
                                         <label class="control-label">Fecha final</label>
-                                        <input id="dateinitial" type="date" class="form-control">
+                                                <input type="date" class="form-control" name="fechafinish" id="fechafinish" value="2019-05-22">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
+                                        <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
                                     <div class="input-group date">
                                         <label class="control-label">Hora final</label>
-                                        <input type="time" id="timeend" class="form-control" name="timeend" required>
+                                                <input type="time" class="form-control" name="horafinish" id="horafinish" value="19:28">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-0 col-lg-1">
+                                            <div class="input-group date">
+                                                <label class="control-label">Buscar</label>
+                                                <!--<input type="hidden" name="array" id="array" value='<?php
+                                                                                                        ?>'> -->
+                                                <button type="button" id="submitFormData" onclick="SubmitFormData();" class="fa fa-search" style="font-size:25px"> </button>
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +129,8 @@ if ($userid === null) {
                                     <button class="btn btn-sm btn-success">Actualizar</button>
                                     <button class="btn btn-sm btn-danger" onclick="eliminarElemento()">Borrar</button>
                                 </div>
+                            </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -179,7 +196,7 @@ if ($userid === null) {
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
 
-                                <label type="text"> Tipo de cámara: </label>
+                                <label type="text"> Sitio Remoto: </label>
                                 <select class="form-control" type="text">
                                 </select>
                             </div>
