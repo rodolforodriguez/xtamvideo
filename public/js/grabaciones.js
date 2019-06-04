@@ -44,8 +44,6 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
-// <!--Borrar contenedor popup searchadvanced-- >
-
 // Le añadimos función de borrar al botón
 function limpiaCampo() {
     // para una selección más general, se puede usar solo 'input'
@@ -54,9 +52,4 @@ function limpiaCampo() {
     for (var i = 0; i < elements.length; i++) {
         elements[i].value = "";
     }
-}
-
-//   <!--Limpiar videos de container-- >
-function eliminarElemento() {
-    location.reload();
 }

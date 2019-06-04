@@ -43,7 +43,7 @@ figcaption {
 }
 
 video {
-    width: 30%;
+    width: 40%;
     margin: 15px;
     margin-left: 50px;
 }
@@ -127,30 +127,28 @@ video {
 }
 
 .controls progress {
-    display: block;
-    width: 100%;
-    height: 81%;
-    margin-top: 2px;
-    margin-top: 0.125rem;
-    border: none;
-    overflow: hidden;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    color: #0095dd;
-    /* Internet Explorer uses this value as the progress bar's value colour */
+	display:block;
+	width:100%;
+	height:20px;
+	height:1.25rem;
+	margin-top:2px;
+	margin-top:0.125rem;
+	border:1px solid #aaa;
+	overflow:hidden;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+.controls progress span {
+	width:0%;
+	height:100%;
+	display:inline-block;
+	background-color:#2a84cd;	
 }
 
 .controls progress[data-state="fake"] {
     background: #e6e6e6;
     height: 65%;
-}
-
-.controls progress span {
-    width: 0%;
-    height: 100%;
-    display: inline-block;
-    background-color: #2a84cd;
 }
 
 .controls progress::-moz-progress-bar {

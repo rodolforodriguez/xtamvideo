@@ -14,7 +14,7 @@ var changeButtonState = function (type) {
     if (type == 'playpause') {
         var videos = document.querySelectorAll('[data-type="video"]');
         for (var v = 0; v < videos.length; v++) {
-            var video = document.getElementById(videos[v].getAttribute("id"));
+            var video = videos[v];
             if (video.paused || video.ended) {
                 playpause.setAttribute('data-state', 'play');
             } else {
@@ -26,8 +26,6 @@ var changeButtonState = function (type) {
         }
 
     }
-    // Mute button
-
 }
 
 stop.addEventListener('click', function (e) {
@@ -61,8 +59,6 @@ playpause.addEventListener('click', function (e) {
         } else {
             video.pause();
         }
-
-
         video.addEventListener('loadedmetadata', function () {
             progress.setAttribute('max', video.duration);
         });
@@ -86,3 +82,103 @@ progress.addEventListener('click', function (e) {
         video.currentTime = pos * video.duration;
     }
 });
+
+function SubmitFormData() {
+
+    var videos = document.querySelectorAll('[data-type="video"]');
+    var ids = [];
+    for (var v = 0; v < videos.length; v++) {
+        var video = videos[v];
+        ids.push(video.id);
+        console.log(video.id)
+    }
+    
+    var fechastart = $("#fechastart").val();
+    var fechafinish = $("#fechafinish").val();
+    var horastart = $("#horastart").val();
+    var horafinish = $("#horafinish").val();
+    var array = ids;
+
+    $.get("http://192.168.2.7/xtamvideo/resources/views/grabaciones/create_m3u8.blade.php", { startdate: fechastart, finishdate: fechafinish, starttime: horastart, finishfime: horafinish, array: array },       
+     function (data) {
+            $('#videoCont').html(data);
+            //$('#myForm')[0].reset();
+        });
+}
+
+//Script popup de exportar videos
+function selectvideos(){
+    var videos = document.querySelectorAll('[data-type="video"]');
+    var select = document.getElementById("camid");
+    var ids = [];
+
+        while(select.length > 1){
+             select.remove(1);
+        }   
+
+    for (var v = 0; v < videos.length; v++) {
+        var video = videos[v];
+        var name = video.getAttribute("name");
+        var route = video.getAttribute("src");
+        var value = video.getAttribute("value");
+        ids.push(video.id);
+        var x = document.createElement("option");
+        x.setAttribute("name" , value);
+        x.setAttribute("value" , name);
+        x.setAttribute("id" , video.id );
+        x.setAttribute("src" , route);
+        x.innerHTML = (name);
+        select.appendChild(x);
+    }
+}
+//Script popup de exportar videos - cambiar nombre a mostrar
+function changename(obj)
+{
+    var cname = obj.value;
+    //var cname = obj.getAttribute(name);
+    var txt = document.getElementById('chkname');
+    txt.value = cname ;
+    txt.value = txt.value.replace(/ /g, "");    
+    
+    
+}
+
+//Exportar videos
+function descargas()
+{
+        var select =  document.getElementById("camid");
+        var myValue = select.value;
+        var url = "";
+        var formato = "";
+
+        for (var v = 0; v < select.length; v++) {
+            if(myValue === select[v].getAttribute("value"))
+            {
+                url = select[v].getAttribute("name");
+            }
+        }
+
+        var format =  document.getElementById("formcam");
+        var f = format.value;
+        //var f = format.innerHTML;
+
+        for (var v = 0; v < format.length; v++) {
+            if(f === format[v].getAttribute("value"))
+            {
+                formato = format[v].innerHTML;
+            }
+        }      
+
+        var z = document.getElementById("chkname").value;
+        var name = z.replace(/ /g, "");
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET", "../format/code/download.php?ruta="+url+"&name="+name+"&formato="+formato);
+        xmlhttp.send();
+}
