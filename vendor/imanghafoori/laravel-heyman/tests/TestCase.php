@@ -1,6 +1,8 @@
 <?php
 
-abstract class TestCase extends Orchestra\Testbench\TestCase
+namespace Imanghafoori\HeyManTests;
+
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function getPackageProviders($app)
     {

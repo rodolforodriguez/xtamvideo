@@ -28,7 +28,7 @@ function drop(ev) {
     x.setAttribute("ondragover", "noAllowDrop(event)");
     x.setAttribute("class", "video-js vjs-default-skin col-md-3");
     x.setAttribute("name",son.name);   
-    x.setAttribute("value", son.value);
+    x.setAttribute("value", route);
     x.setAttribute("style","width: 37%");
     x.addEventListener('play', function () {
         changeButtonState('playpause');

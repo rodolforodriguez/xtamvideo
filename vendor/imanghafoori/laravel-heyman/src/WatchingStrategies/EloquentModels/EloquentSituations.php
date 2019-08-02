@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
 final class EloquentSituations
 {
-    protected static $methods = [
+    protected $methods = [
         'whenYouFetch'  => 'retrieved',
         'whenYouCreate' => 'creating',
         'whenYouUpdate' => 'updating',
@@ -12,13 +12,14 @@ final class EloquentSituations
         'whenYouDelete' => 'deleting',
     ];
 
-    public function hasMethod($method)
+    /**
+     * @param $method
+     * @param $model
+     *
+     * @return array
+     */
+    public function normalize($method, $model): array
     {
-        return array_key_exists($method, self::$methods);
-    }
-
-    public function __call($method, $model)
-    {
-        resolve('heyman.chains')->init(EloquentEventsListener::class, $model, self::$methods[$method]);
+        return [$model, $this->methods[$method]];
     }
 }

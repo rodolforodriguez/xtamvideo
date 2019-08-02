@@ -4,20 +4,18 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
 final class EventSituations
 {
-    public function hasMethod()
-    {
-    }
-
     /**
-     * @param mixed ...$event
+     * @param $method
+     * @param $name
+     *
+     * @return mixed
      */
-    public function whenEventHappens(...$event)
+    public function normalize($method, $name)
     {
-        resolve('heyman.chains')->init(EventListeners::class, $event);
-    }
+        if ($method == 'whenYouReachCheckPoint') {
+            $name[0] = 'heyman_checkpoint_'.$name[0];
+        }
 
-    public function whenYouReachCheckPoint($name)
-    {
-        $this->whenEventHappens('heyman_checkpoint_'.$name);
+        return [$name];
     }
 }

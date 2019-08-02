@@ -4,16 +4,24 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewSituations
 {
-    public function hasMethod()
+    /**
+     * @param $params
+     *
+     * @return mixed
+     */
+    public function normalize($method, $params)
     {
+        array_walk($params, function ($view) {
+            $this->checkViewExists($view);
+        });
+
+        return [$params];
     }
 
-    /**
-     * @param array|string $views
-     */
-    public function whenYouMakeView(...$views)
+    private function checkViewExists($view)
     {
-        $view = resolve(ViewNormalizer::class)->normalizeView($views);
-        resolve('heyman.chains')->init(ViewEventListener::class, $view);
+        if (strpos($view, '*') === false) {
+            view()->getFinder()->find($view);
+        }
     }
 }

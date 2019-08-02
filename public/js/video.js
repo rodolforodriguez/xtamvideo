@@ -83,7 +83,10 @@ progress.addEventListener('click', function (e) {
     }
 });
 
+// Busqueda por filtros
 function SubmitFormData() {
+
+    
 
     var videos = document.querySelectorAll('[data-type="video"]');
     var ids = [];
@@ -138,7 +141,7 @@ function changename(obj)
     //var cname = obj.getAttribute(name);
     var txt = document.getElementById('chkname');
     txt.value = cname ;
-    txt.value = txt.value.replace(/ /g, "");    
+    txt.value = txt.value.replace(/ /g, "");
     
     
 }
@@ -181,4 +184,9 @@ function descargas()
         }
         xmlhttp.open("GET", "../format/code/download.php?ruta="+url+"&name="+name+"&formato="+formato);
         xmlhttp.send();
+}
+
+function eliminarElemento()
+{
+    location.reload();
 }

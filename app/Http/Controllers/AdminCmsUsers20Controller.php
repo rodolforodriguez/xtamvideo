@@ -44,7 +44,7 @@ class AdminCmsUsers20Controller extends \crocodicstudio\crudbooster\controllers\
 			$this->form[] = ['label'=>'foto','name'=>'photo','type'=>'upload','validation'=>'required|image|max:3000','width'=>'col-sm-10','help'=>'Tipo de imágenes soportados: JPG, JPEG, PNG, GIF, BMP'];
 			$this->form[] = ['label'=>'Correo','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:cms_users','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
 			$this->form[] = ['label'=>'Contraseña','name'=>'password','type'=>'password','validation'=>'min:3|max:32','width'=>'col-sm-10','help'=>'Mínimo 5 caracteres. Deja este campo vacio si no solicitaste un cambio de contraseña.'];
-			$this->form[] = ['label'=>'Perfil','name'=>'id_cms_privileges','type'=>'select','validation'=>'required|integer|min:0','width'=>'col-sm-10','dataquery'=>'SELECT cms_privileges.id as value , cms_privileges.name as label			FROM xtam_profile_inst				inner join cms_privileges ON cms_privileges.name = xtam_profile_inst.Profile_Description				where xtam_profile_inst.Profile_StatusChek = 1'];
+			$this->form[] = ['label'=>'Perfil','name'=>'id_cms_privileges','type'=>'select','validation'=>'required|integer|min:0','width'=>'col-sm-10','dataquery'=>'SELECT cms_privileges.id as value ,cms_privileges.name as label FROM xtam_profile_inst inner join cms_privileges ON cms_privileges.id = xtam_profile_inst.id_privileges where xtam_profile_inst.Profile_StatusChek = 1'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

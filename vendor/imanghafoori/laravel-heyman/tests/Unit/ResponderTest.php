@@ -1,5 +1,9 @@
 <?php
 
+namespace Imanghafoori\HeyManTests\Unit;
+
+use Mockery;
+use Imanghafoori\HeyManTests\TestCase;
 
 class ResponderTest extends TestCase
 {

@@ -18,6 +18,7 @@ mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
 <?php
 //// END DE LA CONEXION Y QUERYS
 if ($_GET) {
+    
     $startdate = $_GET['startdate'];
     $finishdate = $_GET['finishdate'];
     $starttime = $_GET['starttime'];
@@ -107,7 +108,7 @@ if ($_GET) {
                             if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
                             progress.value = x.currentTime;
                             progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
-                        });
+                        });         
                     }
                 </script>
                 <video id=<?php echo $cont; ?> data-type="video" class="video-js vjs-default-skin col-md-3">

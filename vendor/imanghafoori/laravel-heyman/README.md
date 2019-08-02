@@ -1,7 +1,8 @@
 # Laravel Hey Man
 
 
-![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png" width="600" title="I kill nasty code">
 
 ### Readability Counts. In fact, Readability is the primary value of your code !!!
 
@@ -9,13 +10,12 @@
 [![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d6be7b057103cb14410/maintainability)](https://codeclimate.com/github/imanghafoori1/laravel-heyman/maintainability)
 [![Build Status](https://travis-ci.org/imanghafoori1/laravel-heyman.svg?branch=master)](https://travis-ci.org/imanghafoori1/laravel-heyman)
-[![Code Coverage](https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman/?branch=master)
 [![StyleCI](https://github.styleci.io/repos/139709518/shield?branch=master)](https://github.styleci.io/repos/139709518)
 [![Latest Stable Version](https://poser.pugx.org/imanghafoori/laravel-heyman/v/stable)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Daily Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/d/daily)](https://packagist.org/packages/imanghafoori/laravel-heyman)
+[![Total Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/downloads)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Awesome Laravel](https://img.shields.io/badge/Awesome-Laravel-blue.svg)](https://github.com/chiraggude/awesome-laravel)
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=round-square)](LICENSE.md)
-
 
 
 ## :ribbon: Heyman continues where the other role-permission packages left off...
@@ -118,7 +118,21 @@ And you write code like this in a Service Provider `boot` method to implement wh
 ![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
 
 
-### That is what this package does for you + a lot more...
+#### That is what this package does for you + a lot more...
+
+
+### Customizable Syntax :
+
+You can alias methods like this if you do not like too much verbose syntax provided by default.
+
+- Alias Situations  (ex. `whenYouMakeView` to `view`)
+- Alias Conditions  (ex. `youShouldBeGuest` to `beGuest`)
+
+You should do it in the boot method.
+
+
+![alias methods](https://user-images.githubusercontent.com/6961695/59151840-3d7a8580-8a4f-11e9-8ab1-d0f4058c5379.png)
+
 
 
 ### Structural Benefits:
@@ -167,6 +181,7 @@ public function boot() {
 ```
 
 
+
 #### Hey Man, Should I Momorize all the Methods ?! 
 
 You do not need any cheat sheet.
@@ -174,6 +189,8 @@ You do not need any cheat sheet.
 > IDE `Auto-completion` is fully supported.
 
 ![refactor5](https://user-images.githubusercontent.com/6961695/43903677-320db906-9c02-11e8-9f2a-ca5a85f6839d.gif)
+
+
 
 #### Hey Man, Where do I put these `Heyman::` calls ?
 
@@ -522,10 +539,6 @@ If you find an issue, or have a better way to do something, feel free to open an
 If you use laravel-heyman in your open source project, create a pull request to provide it's url as a sample application in the README.md file. 
 
 
-### :exclamation: Security
-If you discover any security related issues, please email imanghafoori1@gmail.com instead of using the issue tracker.
-
-
 ### :star: Your Stars Make Us Do More :star:
 As always if you found this package useful and you want to encourage us to maintain and work on it. Just press the star button to declare your willing.
 
@@ -541,7 +554,7 @@ As always if you found this package useful and you want to encourage us to maint
 - https://github.com/imanghafoori1/laravel-widgetize
 
 
-------------
+-----------------
 
 ### Laravel Terminator
 
@@ -550,10 +563,17 @@ As always if you found this package useful and you want to encourage us to maint
 - https://github.com/imanghafoori1/laravel-terminator
 
 
-------------
-
+-----------------
 ### Laravel AnyPass
 
 :gem: It allows you login with any password in local environment only.
 
 - https://github.com/imanghafoori1/laravel-anypass
+
+-----------------
+
+### Eloquent Relativity
+
+:gem: It allows you to decouple your eloquent models to reach a modular structure
+
+- https://github.com/imanghafoori1/eloquent-relativity

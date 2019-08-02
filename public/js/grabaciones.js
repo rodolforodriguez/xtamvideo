@@ -53,3 +53,8 @@ function limpiaCampo() {
         elements[i].value = "";
     }
 }
+
+function eliminarElemento()
+{
+    location.reload();
+}

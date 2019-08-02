@@ -14,20 +14,17 @@
 <!-- Bootstrap 3.3.2 JS -->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js')); ?>" type="text/javascript"></script>
 
-<!-- AdminLTE App -->
-<script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js')); ?>" type="text/javascript"></script>
 <?php
 $url = $_SERVER["REQUEST_URI"];
-if ($url == '/admin/maps') {
+if ($url == '/xtamvideo/public/admin/maps') {
     ?>
     <script src="<?php echo e(asset ('js/app.js')); ?>"></script>
-    <script>
-        var url = '<?php echo $url; ?>';
-    </script>
 <?php
-
 }
 ?>
+<!-- AdminLTE App -->
+<script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js')); ?>" type="text/javascript"></script>
+
 <!--BOOTSTRAP DATEPICKER-->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
 <link rel="stylesheet" href="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css')); ?>">
@@ -74,23 +71,16 @@ if ($url == '/admin/maps') {
 
 <?php
 $url = $_SERVER["REQUEST_URI"];
-
 if ($url == '/xtamvideo/public/admin/recording') {
     header("Access-Control-Allow-Origin: *");
     ?>
-
     <script src="<?php echo e(asset('js/video.js')); ?>" type="text/javascript"></script>
     <script src="<?php echo e(asset('js/drag_drop.js')); ?>" type="text/javascript"></script>
     <script src="<?php echo e(asset('js/grabaciones.js')); ?>" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/video.css" media="all" />
     <link rel="stylesheet" href="../css/grabaciones.css" media="all" />
-
     <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-  <!--  <script src="http://localhost/xtamvideo/node_modules/video.js/dist/video.js" type="text/javascript"></script>
-    <link href="http://localhost/xtamvideo/node_modules/video.js/dist/video-js.css" rel="stylesheet"> -->
 <?php
 }
 ?>
-<!--Video - player-->

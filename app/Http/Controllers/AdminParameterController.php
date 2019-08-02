@@ -40,21 +40,52 @@ class AdminParameterController extends \crocodicstudio\crudbooster\controllers\C
 			# START COLUMNS DO NOT REMOVE THIS LINE
 		$this->col = [];
 
-		$this->col[] = ["label" => "Número máximo de cámaras", "name" => "max_cams"];
-		if ($val != '1') {
+		switch ($val) {
+			case 1:
+			$this->col[] = ["label" => "Número máximo de cámaras", "name" => "max_cams"];
+				break;
+			case 2:
 			$this->col[] = ["label" => "Radio de la alarma", "name" => "alarm_radio"];
 			$this->col[] = ["label" => "Centrar alarma", "name" => "Alarm_center"];
+				break;
+				
+			case 3:
+			$this->col[] = ["label" => "Número máximo de cámaras", "name" => "max_cams"];
+			$this->col[] = ["label" => "Radio de la alarma", "name" => "alarm_radio"];
+			$this->col[] = ["label" => "Centrar alarma", "name" => "Alarm_center"];
+				break;
+
+			default:
+				# code...
+				break;
 		}
+
 		# END COLUMNS DO NOT REMOVE THIS LINE
 
 		# START FORM DO NOT REMOVE THIS LINE
 		$this->form = [];
 
-		$this->form[] = ['label' => 'Número máximo de cámaras', 'name' => 'max_cams', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
-		if ($val != '1') {
+		switch ($val) {
+			case 1:
+			$this->form[] = ['label' => 'Número máximo de cámaras', 'name' => 'max_cams', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+				break;
+			case 2:
 			$this->form[] = ['label' => 'Radio de la alarma', 'name' => 'alarm_radio', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
 			$this->form[] = ['label' => 'Centrar alarma', 'name' => 'Alarm_center', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+				break;
+				
+			case 3:
+			$this->form[] = ['label' => 'Número máximo de cámaras', 'name' => 'max_cams', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+			$this->form[] = ['label' => 'Radio de la alarma', 'name' => 'alarm_radio', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
+			$this->form[] = ['label' => 'Centrar alarma', 'name' => 'Alarm_center', 'type' => 'checkbox', 'validation' => '|min:1|max:1', 'width' => 'col-sm-10', 'dataenum' => '1|'];
+				break;
+
+			default:
+				# code...
+				break;
 		}
+
+
 		# END FORM DO NOT REMOVE THIS LINE
 
 		# OLD START FORM

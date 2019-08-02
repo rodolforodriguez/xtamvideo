@@ -36039,19 +36039,9 @@ module.exports.default = axios;
  * @license  MIT
  */
 
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -69753,7 +69743,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(56)(false);
 // imports
-exports.push([module.i, "@import url(http://xtamvideo.test/4.10/esri/css/main.css);", ""]);
+exports.push([module.i, "@import url(http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css);", ""]);
 
 // module
 exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 80vh;\r\n  min-height: 250px;\n}\n.title[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\r\n", ""]);
@@ -70130,7 +70120,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   mounted: function mounted() {
     Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
-      url: "http://xtamvideo.test/4.10/init.js"
+      url: "http://192.168.2.7/xtamvideo/public/4.10/init.js"
     }).then(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 15),
           Locator = _ref2[0],
@@ -70177,7 +70167,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         case "1":
           //alert("Xtam video");
           ///// XTAM VIDEO
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70312,7 +70302,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         case "2":
           //alert("Xtam alarmas");
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=2").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70496,7 +70486,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           //alert("Xtam premium");
           ///// XTAM VIDEO Y ALARMA
 
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70628,7 +70618,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           });
 
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://xtamvideo.test/testvue/ajaxfile.php?n=2").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;

@@ -13,7 +13,7 @@
 			$this->title_field = "id";
 			$this->limit = "20";
 			$this->orderby = "cameraid,desc";
-			$this->global_privilege = false;
+			$this->global_privilege = true;
 			$this->button_table_action = false;
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_icon";
@@ -21,7 +21,7 @@
 			$this->button_edit = false;
 			$this->button_delete = false;
 			$this->button_detail = false;
-			$this->button_show = true;
+			$this->button_show = false;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;

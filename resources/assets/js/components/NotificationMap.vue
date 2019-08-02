@@ -31,7 +31,7 @@ export default {
       ],
       {
         // use a specific version instead of latest 4.x
-        url: "http://xtamvideo.test/4.10/init.js"
+        url: "http://192.168.2.7/xtamvideo/public/4.10/init.js"
       }
     ).then(
       ([
@@ -81,7 +81,7 @@ export default {
             //alert("Xtam video");
             ///// XTAM VIDEO
             axios
-              .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
+              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1")
               .then(function(response) {
                 console.log(response);
 
@@ -237,7 +237,7 @@ export default {
             //alert("Xtam alarmas");
             /// alarmas no gestionadas XTAM ALARMAS
             axios
-              .get("http://xtamvideo.test/testvue/ajaxfile.php?n=2")
+              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2")
               .then(function(response) {
                 console.log(response);
 
@@ -460,7 +460,7 @@ export default {
             ///// XTAM VIDEO Y ALARMA
 
             axios
-              .get("http://xtamvideo.test/testvue/ajaxfile.php?n=1")
+              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1")
               .then(function(response) {
                 console.log(response);
 
@@ -613,7 +613,7 @@ export default {
 
             /// alarmas no gestionadas XTAM ALARMAS
             axios
-              .get("http://xtamvideo.test/testvue/ajaxfile.php?n=2")
+              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2")
               .then(function(response) {
                 console.log(response);
 
@@ -847,7 +847,7 @@ export default {
 };
 </script>
 <style scoped>
-@import url("http://xtamvideo.test/4.10/esri/css/main.css");
+@import url("http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css");
 #viewDiv {
   height: 80vh;
   min-height: 250px;
