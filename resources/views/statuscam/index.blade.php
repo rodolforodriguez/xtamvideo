@@ -26,6 +26,8 @@ if ($userid === null) {
             <form method="GET" name="camid" value="camid" action="">
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <label id="ccname"> Centro comercial </label>
+             
+
                 </div>
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <select name="cam" id="cam">
@@ -55,16 +57,16 @@ if ($userid === null) {
 
                     function inactivecam($id)
                     {
-                        $conF = mysqli_connect("192.168.2.7", "administrator", "Pruebas123$", "xtamdb");
-                        $querycam = mysqli_query($conF, "SELECT cameraid,ipcam FROM cameras where id_centrocomercial=" . $id);
+                        include "includes/connection.php";
+                        $querycam = mysqli_query($con, "SELECT cameraid,ipcam FROM cameras where id_centrocomercial=" . $id);
                         while ($rowcam = mysqli_fetch_assoc($querycam)) {
                             $sqlcam = "UPDATE cameras SET estado='inactive' WHERE cameraid=" . $rowcam['cameraid'];
-                            mysqli_query($conF, $sqlcam);
+                            mysqli_query($con, $sqlcam);
                         }
                     }
                     function camaras($idcc)
                     {
-                        $con = mysqli_connect("192.168.2.7", "administrator", "Pruebas123$", "xtamdb");
+                        include "includes/connection.php";
                         // Check connection
                         if (mysqli_connect_errno()) {
                             echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -106,6 +108,7 @@ if ($userid === null) {
                     if (isset($_GET["cam"]) && $_GET["cam"] == "todos") {
                         $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial;");
                     } else {
+                        //DB_SERVER,DB_USER, DB_PASS,DB_NAME
                         $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial where id = " . $_GET["cam"] . ";");
                     }
 

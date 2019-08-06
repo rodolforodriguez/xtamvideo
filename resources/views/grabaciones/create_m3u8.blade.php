@@ -1,10 +1,7 @@
 <?php
 error_reporting(0);
 header("Access-Control-Allow-Origin: *");
-//// CONEXION BASE DE DATOS Y QUERY ESTO ES EVENTUAL SOLO PARA PROBAR
-$con = mysqli_connect("192.168.2.7", "administrator", "Pruebas123$", "xtamdb") or die(mysql_error());
-mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
-
+include "includes/connection.php";
 ?>
 <script>
     var videos = document.querySelectorAll('[data-type="video"]');

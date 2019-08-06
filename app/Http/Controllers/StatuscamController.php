@@ -2,6 +2,7 @@
 
 use Session;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use CRUDBooster;
@@ -10,7 +11,7 @@ use DateTime;
 
 class StatuscamController extends \crocodicstudio\crudbooster\controllers\CBController
 {
-
+    use AuthenticatesUsers;
     /**
      * Display a listing of the resource.
      *
@@ -182,10 +183,10 @@ class StatuscamController extends \crocodicstudio\crudbooster\controllers\CBCont
     public function index()
     {
 
-        $centro_comercial = DB::table('centro_comercial')
-        ->select( 'centro_comercial.id',  'centro_comercial.descripcion')
-        ->get();
-        return view('statuscam.index',  ['centro_comercial' => $centro_comercial]);
+            $centro_comercial = DB::table('centro_comercial')
+            ->select( 'centro_comercial.id',  'centro_comercial.descripcion')
+            ->get();
+            return view('statuscam.index',  ['centro_comercial' => $centro_comercial]);
 
     }
 

@@ -33,7 +33,8 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
 		$this->form[] = array("label" => "Nombre", "name" => "name", 'required' => true, 'validation' => 'required|alpha_spaces|min:3');
 		$this->form[] = array("label" => "Correo", "name" => "email", 'required' => true, 'type' => 'email', 'validation' => 'required|email|unique:cms_users,email,' . CRUDBooster::getCurrentId());
 		$this->form[] = array("label" => "Foto", "name" => "photo", "type" => "upload", "help" => "Resolución recomendada 200x200px", 'required' => true, 'validation' => 'required|image|max:1000', 'resize_width' => 90, 'resize_height' => 90);
-		$this->form[] = array("label" => "Privilegio", "name" => "id_cms_privileges", "type" => "select", "datatable" => "cms_privileges,name", 'required' => true);
+		//$this->form[] = array("label" => "Privilegio", "name" => "id_cms_privileges", "type" => "select", "datatable" => "cms_privileges,name", 'required' => true);
+		$this->form[] = ['label'=>'Perfil','name'=>'id_cms_privileges','type'=>'select','validation'=>'required|integer|min:0','width'=>'col-sm-10','dataquery'=>'SELECT cms_privileges.id as value ,cms_privileges.name as label FROM xtam_profile_inst inner join cms_privileges ON cms_privileges.id = xtam_profile_inst.id_privileges where xtam_profile_inst.Profile_StatusChek = 1'];
 		$this->form[] = array("label" => "Contraseña", "name" => "password", "type" => "password", "help" => "Por favor, deje vacío si no cambia la contraseña");
 		# END FORM DO NOT REMOVE THIS LINE
 

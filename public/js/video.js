@@ -86,8 +86,6 @@ progress.addEventListener('click', function (e) {
 // Busqueda por filtros
 function SubmitFormData() {
 
-    
-
     var videos = document.querySelectorAll('[data-type="video"]');
     var ids = [];
     for (var v = 0; v < videos.length; v++) {
@@ -101,8 +99,10 @@ function SubmitFormData() {
     var horastart = $("#horastart").val();
     var horafinish = $("#horafinish").val();
     var array = ids;
-
-    $.get("http://192.168.2.7/xtamvideo/resources/views/grabaciones/create_m3u8.blade.php", { startdate: fechastart, finishdate: fechafinish, starttime: horastart, finishfime: horafinish, array: array },       
+    var URLdomain = window.location.host;
+    //$host = Config::get('constant.ruta.host');
+    console.log(URLdomain);
+    $.get("http://" + URLdomain + "/xtamvideo/resources/views/grabaciones/create_m3u8.blade.php", { startdate: fechastart, finishdate: fechafinish, starttime: horastart, finishfime: horafinish, array: array },       
      function (data) {
             $('#videoCont').html(data);
             //$('#myForm')[0].reset();

@@ -40,7 +40,11 @@ $query_parameter = mysqli_query($con, "select * from parameter");
 $parameter = mysqli_fetch_assoc($query_parameter);
 $alarm_radio = $parameter['alarm_radio'];
 $max_cams = $parameter['max_cams'];
-
+$lastselect1 = $parameter['Last_IdAlarmaSelect'];
+$query_selectlastcam = mysqli_query($con, "select * from cms_notifications where id='$lastselect1'");
+$parameter_selectlastcam = mysqli_fetch_assoc($query_selectlastcam);
+$latitud_selectlastcam = $parameter_selectlastcam['latitud'];
+$longitud_selectlastcam = $parameter_selectlastcam['longitud'];
 /// end conexion alarma y parametros
 ?>
 <script>
@@ -50,17 +54,53 @@ $max_cams = $parameter['max_cams'];
     var dist = <?php echo $alarm_radio; ?>;
     var max_cams = <?php echo $max_cams; ?>;
     var userid = 2;
+    var lastselect1 = <?php echo $lastselect1; ?>;
+    if (lastselect1 == 0) {
+        console.log("entro a 0");
+        var lastselectLatitud =4.64766;
+        var lastselectLongitud =-74.098253;
+    } 
+    else {
+        console.log("entro a 1");
+        var lastselectLatitud = '<?php echo $latitud_selectlastcam; ?>';
+        var lastselectLongitud = '<?php echo $longitud_selectlastcam; ?>';
+    }
 </script>
 <script>
     function myFunction(url) {
         var myWindow = window.open(url, "", "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=400,height=400,titlebar=no,location=no,menubar=no");
+    }
+
+    function test(idAlarma) {
+        var URLdomain = window.location.host;
+        axios
+            .get(
+                `http://${URLdomain}/xtamvideo/public/testvue/CambiarVerestadoAbonado.php?n=${idAlarma}`
+            )
+            .then(function(response) {
+
+                if (Object.keys(response.data).length !== 0) {
+                    location.reload();
+                    axios
+                        .get(
+                            `http://${URLdomain}/xtamvideo/public/testvue/UltimoAbonado.php?n=${idAlarma}`
+                        )
+                        .then(function(response) {
+
+                            if (Object.keys(response.data).length !== 0) {
+                                location.reload();
+                            }
+                        });
+
+                }
+            });
     }
 </script>
 
 <?php $__env->startSection('content'); ?>
 <div id="coordclick"></div>
 <div id="DivButton"></div>
-<notification-map></notification-map>
+<notification-map v-bind:likes="42"></notification-map>
 <audio id="myAudio">
     <source src="../includes/sounds/bell_ring.mp3" type="audio/mpeg">
     Your browser does not support the audio element.

@@ -4,10 +4,11 @@
 </body>
 </template>
 <script>
+var URLdomain = window.location.host;
 import axios from "axios";
 import { loadModules } from "esri-loader";
 export default {
-  props: [""],
+  props: [],
 
   mounted() {
     loadModules(
@@ -31,7 +32,7 @@ export default {
       ],
       {
         // use a specific version instead of latest 4.x
-        url: "http://192.168.2.7/xtamvideo/public/4.10/init.js"
+        url: `http://${URLdomain}/xtamvideo/public/4.10/init.js`
       }
     ).then(
       ([
@@ -64,24 +65,28 @@ export default {
         map = new EsriMap({
           basemap: "hybrid",
           layers: [layer]
-        });
-
+        });       
+       
         var view = new MapView({
           container: "viewDiv", // Reference to the scene div created in step 5
           map: map, // Reference to the map object created before the scene
           zoom: 15, // Sets zoom level based on level of detail (LOD)
-          center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
+          center: [lastselectLongitud, lastselectLatitud] // Sets center point of view using longitude,latitude
         });
         var x = document.getElementById("myAudio");
+
         function playAudio() {
           x.play();
         }
+
         switch (permisos) {
           case "1":
             //alert("Xtam video");
             ///// XTAM VIDEO
             axios
-              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1")
+              .get(
+                `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=1`
+              )
               .then(function(response) {
                 console.log(response);
 
@@ -237,7 +242,9 @@ export default {
             //alert("Xtam alarmas");
             /// alarmas no gestionadas XTAM ALARMAS
             axios
-              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2")
+              .get(
+                `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=2`
+              )
               .then(function(response) {
                 console.log(response);
 
@@ -260,15 +267,15 @@ export default {
                       break;
                     case "P":
                       caseupdate = "Pendiente";
-                      colorcase = [255, 0, 0, 0.5];
+                      colorcase = [255, 0, 0];
                       break;
                     case "E":
                       caseupdate = "En Proceso";
-                      colorcase = [255, 255, 0, 0.5];
+                      colorcase = [255, 255, 0, 0];
                       break;
                     default:
                       caseupdate = "Pendiente";
-                      colorcase = [255, 255, 0, 0.5];
+                      colorcase = [255, 255, 0, 0];
                   }
 
                   ///// end estados de las camras
@@ -292,20 +299,6 @@ export default {
                     }
                   });
 
-                  /// link a abrir en otra ventana
-                  var link =
-                    "../vs/alarm/index.php?lng=" +
-                    point.longitude +
-                    "&lat=" +
-                    point.latitude +
-                    "&dist=" +
-                    dist +
-                    "&max_cams=" +
-                    max_cams +
-                    "&state=" +
-                    cliente +
-                    "&userid=" +
-                    userid;
                   //../vs/alarm/index.php?lng='+longitud+'&lat='+latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
 
                   // Create attributes
@@ -313,23 +306,76 @@ export default {
                     XCoord: cameras[i].longitud,
                     YCoord: cameras[i].latitud,
                     Plant: cameras[i].municipio,
-                    Link:
-                      "<A class='btn btn-success btn-sm' onclick=myFunction('" +
-                      link +
-                      "')>Ver Cámara</A>",
+                    LinkAbonados: `<a class='btn btn-success btn-sm' onclick=test(${cameras[i].id})>Ver/Ocultar Abonados</a>`,
                     Adresss: cameras[i].direccion,
                     Barrio: cameras[i].barrio,
                     DesCaso: cameras[i].descripcion_caso,
                     Fecha: cameras[i].fecha
                     //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
                   };
+                  axios
+                    .get(
+                      `http://${URLdomain}/xtamvideo/public/testvue/abonados.php?n=${cameras[i].id}`
+                    )
+                    .then(function(response) {
+                      if (Object.keys(response.data).length !== 0) {
+                        var abonados = response.data;
+                        var AbonadosJson = JSON.parse(abonados[0].abonados);
+                        var BotonPresionado = JSON.parse(
+                          abonados[0].VerAbonados
+                        );
+                        console.log(
+                          "El boton esta presionado " + BotonPresionado
+                        );
 
+                        for (let j = 0; j < AbonadosJson.length; j++) {
+                          var pointAbonado = new Point({
+                            longitude: AbonadosJson[j].Longitud,
+                            latitude: AbonadosJson[j].Latitud
+                          });
+                          var icon = "../includes/img/icon-abonado.png";
+                          var markerSymbolAbonado = new PictureMarkerSymbol({
+                            // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                            url: icon,
+                            width: "24px",
+                            height: "24px"
+                          });
+
+                          var attributesPointAbonado = {
+                            XCoord: AbonadosJson[j].Longitud,
+                            YCoord: AbonadosJson[j].Latitud,
+                            Nombre: AbonadosJson[j].Nombre,
+                            Telefono1: AbonadosJson[j].Tel1,
+                            Telefono2: AbonadosJson[j].Tel2,
+                            Telefono3: AbonadosJson[j].Tel3,
+                            Direccion: AbonadosJson[j].Direccion,
+                            Tipo_Elemento: AbonadosJson[j].Tipo_elemento
+                          };
+                          var popupTemplateAbonado = {
+                            title: "{Plant}",
+                            content:
+                              "<div>" +
+                              "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" +
+                              "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" +
+                              "</div>"
+                          };
+                          var pointGraphicAbonado = new Graphic({
+                            geometry: pointAbonado,
+                            symbol: markerSymbolAbonado,
+                            attributes: attributesPointAbonado,
+                            popupTemplate: popupTemplateAbonado
+                          });
+                          view.graphics.add(pointGraphicAbonado);
+                        }
+                      }
+                    });
                   // Create popup template
                   var popupTemplate = {
                     title: "{Plant}",
                     content:
                       "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
+                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
+                      "<br/>Abonados: {LinkAbonados}" +
                       "</div>"
                   };
 
@@ -343,9 +389,13 @@ export default {
                   });
 
                   // Add the graphics to the view's graphics layer
-
+                  //if (estado =! "C"){
                   view.graphics.add(pointGraphic);
+                  //}
                 }
+
+                //console.log("Cantidad de abonados TOTAL: "+arregloIndices.length);
+
                 ///// end point cameras
               })
               .catch(function(error) {
@@ -354,7 +404,7 @@ export default {
 
             ////// end de alarmas no gestionadas
 
-            //Xtam Alarmas
+            //Xtam Alarmas escucha el canal y pinta las alarmas en arcgis 4.10
             Echo.channel("channelDemoEvent").listen("eventTrigger", e => {
               console.log(e);
 
@@ -428,7 +478,7 @@ export default {
                 title: "{Plant}",
                 content:
                   "<div>" +
-                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
+                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
                   "</div>"
               };
 
@@ -440,8 +490,8 @@ export default {
                 popupTemplate: popupTemplate
               });
 
-              // Add the graphics to the view's graphics layer
               view.graphics.add(pointGraphic);
+
               /// se desplaza la posicion geografica hacia las coordenadas de la alarma
               if (cenAlarm == "1") {
                 var pt = new Point({
@@ -455,12 +505,14 @@ export default {
               playAudio();
             });
             break;
+
           case "3":
             //alert("Xtam premium");
             ///// XTAM VIDEO Y ALARMA
-
             axios
-              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1")
+              .get(
+                `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=1`
+              )
               .then(function(response) {
                 console.log(response);
 
@@ -612,8 +664,11 @@ export default {
             });
 
             /// alarmas no gestionadas XTAM ALARMAS
+
             axios
-              .get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2")
+              .get(
+                `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=2`
+              )
               .then(function(response) {
                 console.log(response);
 
@@ -636,15 +691,15 @@ export default {
                       break;
                     case "P":
                       caseupdate = "Pendiente";
-                      colorcase = [255, 0, 0, 0.5];
+                      colorcase = [255, 0, 0];
                       break;
                     case "E":
                       caseupdate = "En Proceso";
-                      colorcase = [255, 255, 0, 0.5];
+                      colorcase = [255, 255, 0, 0];
                       break;
                     default:
                       caseupdate = "Pendiente";
-                      colorcase = [255, 255, 0, 0.5];
+                      colorcase = [255, 255, 0, 0];
                   }
 
                   ///// end estados de las camras
@@ -693,19 +748,76 @@ export default {
                       "<A class='btn btn-success btn-sm' onclick=myFunction('" +
                       link +
                       "')>Ver Cámara</A>",
+                    LinkAbonados: `<a class='btn btn-success btn-sm' onclick=test(${cameras[i].id})>Ver/Ocultar Abonados</a>`,
                     Adresss: cameras[i].direccion,
                     Barrio: cameras[i].barrio,
                     DesCaso: cameras[i].descripcion_caso,
                     Fecha: cameras[i].fecha
                     //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
                   };
+                  axios
+                    .get(
+                      `http://${URLdomain}/xtamvideo/public/testvue/abonados.php?n=${cameras[i].id}`
+                    )
+                    .then(function(response) {
+                      if (Object.keys(response.data).length !== 0) {
+                        var abonados = response.data;
+                        var AbonadosJson = JSON.parse(abonados[0].abonados);
+                        var BotonPresionado = JSON.parse(
+                          abonados[0].VerAbonados
+                        );
+                        console.log(
+                          "El boton esta presionado " + BotonPresionado
+                        );
 
+                        for (let j = 0; j < AbonadosJson.length; j++) {
+                          var pointAbonado = new Point({
+                            longitude: AbonadosJson[j].Longitud,
+                            latitude: AbonadosJson[j].Latitud
+                          });
+                          var icon = "../includes/img/icon-abonado.png";
+                          var markerSymbolAbonado = new PictureMarkerSymbol({
+                            // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                            url: icon,
+                            width: "24px",
+                            height: "24px"
+                          });
+
+                          var attributesPointAbonado = {
+                            XCoord: AbonadosJson[j].Longitud,
+                            YCoord: AbonadosJson[j].Latitud,
+                            Nombre: AbonadosJson[j].Nombre,
+                            Telefono1: AbonadosJson[j].Tel1,
+                            Telefono2: AbonadosJson[j].Tel2,
+                            Telefono3: AbonadosJson[j].Tel3,
+                            Direccion: AbonadosJson[j].Direccion,
+                            Tipo_Elemento: AbonadosJson[j].Tipo_elemento
+                          };
+                          var popupTemplateAbonado = {
+                            title: "{Plant}",
+                            content:
+                              "<div>" +
+                              "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" +
+                              "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" +
+                              "</div>"
+                          };
+                          var pointGraphicAbonado = new Graphic({
+                            geometry: pointAbonado,
+                            symbol: markerSymbolAbonado,
+                            attributes: attributesPointAbonado,
+                            popupTemplate: popupTemplateAbonado
+                          });
+                          view.graphics.add(pointGraphicAbonado);
+                        }
+                      }
+                    });
                   // Create popup template
                   var popupTemplate = {
                     title: "{Plant}",
                     content:
                       "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                      "{Fecha}<br/>Abonados: {LinkAbonados}" +
                       "</div>"
                   };
 
@@ -723,6 +835,9 @@ export default {
                   view.graphics.add(pointGraphic);
                   //}
                 }
+
+                //console.log("Cantidad de abonados TOTAL: "+arregloIndices.length);
+
                 ///// end point cameras
               })
               .catch(function(error) {
@@ -841,13 +956,17 @@ export default {
   methods: {
     SimpleMarkerSymbol: function(d) {
       return moment(d).fromNow();
+    },
+    llamarafuera: function() {
+      alert("estoyllamandodesdelavista");
     }
   }
+
   // End Alarmas
 };
 </script>
 <style scoped>
-@import url("http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css");
+@import url('http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css');
 #viewDiv {
   height: 80vh;
   min-height: 250px;

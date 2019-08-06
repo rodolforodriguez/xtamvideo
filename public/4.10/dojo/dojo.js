@@ -419,7 +419,7 @@
     });
     m(u, { uid: v, cache: K, packs: L });
     t.define || (t.define = ga, t.require = u, z("foreign-loader") || (a(ia, function(a) { V(a) }), ga = f.deps || h.deps || d.deps, h = f.callback || h.callback || d.callback, u.boot = ga || h ? [ga || [], h] : 0))
-})(function(h) { return h.dojoConfig || h.djConfig || h.require || {} }, {
+})(function(h) {return h.dojoConfig || h.djConfig || h.require || {} }, {
     aliases: [
         [/^webgl-engine/, function() { return "esri/views/3d/webgl-engine" }],
         [/^engine/, function() { return "esri/views/3d/webgl-engine" }],

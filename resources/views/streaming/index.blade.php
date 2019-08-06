@@ -45,7 +45,7 @@ $query =mysqli_query($con,"select c.cameraid, cc.ipserver, c.dcamara, ss.server,
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!--<meta http-equiv="refresh" content="3000;url=../index.php"/>-->
 	<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-	<title>Vloxy Security</title>
+	<title>Xtam</title>
 	<meta name="keywords" content="rtmp player, rtmp">
 	<meta name="description" content="This page allows you to play RTMP streams online with no installation required.">
 	<script async="" src="../RTMP Player - HLSPlayer_files/beacon.js"></script>

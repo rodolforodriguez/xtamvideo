@@ -70112,15 +70112,16 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 
+var URLdomain = window.location.host;
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [""],
+  props: [],
 
   mounted: function mounted() {
     Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
-      url: "http://192.168.2.7/xtamvideo/public/4.10/init.js"
+      url: "http://" + URLdomain + "/xtamvideo/public/4.10/init.js"
     }).then(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 15),
           Locator = _ref2[0],
@@ -70157,17 +70158,19 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         container: "viewDiv", // Reference to the scene div created in step 5
         map: map, // Reference to the map object created before the scene
         zoom: 15, // Sets zoom level based on level of detail (LOD)
-        center: [-74.098253, 4.64766] // Sets center point of view using longitude,latitude
+        center: [lastselectLongitud, lastselectLatitud] // Sets center point of view using longitude,latitude
       });
       var x = document.getElementById("myAudio");
+
       function playAudio() {
         x.play();
       }
+
       switch (permisos) {
         case "1":
           //alert("Xtam video");
           ///// XTAM VIDEO
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70302,7 +70305,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         case "2":
           //alert("Xtam alarmas");
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70324,15 +70327,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                   break;
                 case "P":
                   caseupdate = "Pendiente";
-                  colorcase = [255, 0, 0, 0.5];
+                  colorcase = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0.5];
+                  colorcase = [255, 255, 0, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0.5];
+                  colorcase = [255, 255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70356,8 +70359,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }
               });
 
-              /// link a abrir en otra ventana
-              var link = "../vs/alarm/index.php?lng=" + point.longitude + "&lat=" + point.latitude + "&dist=" + dist + "&max_cams=" + max_cams + "&state=" + cliente + "&userid=" + userid;
               //../vs/alarm/index.php?lng='+longitud+'&lat='+latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
 
               // Create attributes
@@ -70365,18 +70366,61 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 XCoord: cameras[i].longitud,
                 YCoord: cameras[i].latitud,
                 Plant: cameras[i].municipio,
-                Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
+                LinkAbonados: "<a class='btn btn-success btn-sm' onclick=test(" + cameras[i].id + ")>Ver/Ocultar Abonados</a>",
                 Adresss: cameras[i].direccion,
                 Barrio: cameras[i].barrio,
                 DesCaso: cameras[i].descripcion_caso,
                 Fecha: cameras[i].fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
+              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
+                if (Object.keys(response.data).length !== 0) {
+                  var abonados = response.data;
+                  var AbonadosJson = JSON.parse(abonados[0].abonados);
+                  var BotonPresionado = JSON.parse(abonados[0].VerAbonados);
+                  console.log("El boton esta presionado " + BotonPresionado);
 
+                  for (var j = 0; j < AbonadosJson.length; j++) {
+                    var pointAbonado = new Point({
+                      longitude: AbonadosJson[j].Longitud,
+                      latitude: AbonadosJson[j].Latitud
+                    });
+                    var icon = "../includes/img/icon-abonado.png";
+                    var markerSymbolAbonado = new PictureMarkerSymbol({
+                      // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                      url: icon,
+                      width: "24px",
+                      height: "24px"
+                    });
+
+                    var attributesPointAbonado = {
+                      XCoord: AbonadosJson[j].Longitud,
+                      YCoord: AbonadosJson[j].Latitud,
+                      Nombre: AbonadosJson[j].Nombre,
+                      Telefono1: AbonadosJson[j].Tel1,
+                      Telefono2: AbonadosJson[j].Tel2,
+                      Telefono3: AbonadosJson[j].Tel3,
+                      Direccion: AbonadosJson[j].Direccion,
+                      Tipo_Elemento: AbonadosJson[j].Tipo_elemento
+                    };
+                    var popupTemplateAbonado = {
+                      title: "{Plant}",
+                      content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" + "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" + "</div>"
+                    };
+                    var pointGraphicAbonado = new Graphic({
+                      geometry: pointAbonado,
+                      symbol: markerSymbolAbonado,
+                      attributes: attributesPointAbonado,
+                      popupTemplate: popupTemplateAbonado
+                    });
+                    view.graphics.add(pointGraphicAbonado);
+                  }
+                }
+              });
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" + "</div>"
+                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" + "<br/>Abonados: {LinkAbonados}" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70389,9 +70433,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
               });
 
               // Add the graphics to the view's graphics layer
-
+              //if (estado =! "C"){
               view.graphics.add(pointGraphic);
+              //}
             }
+
+            //console.log("Cantidad de abonados TOTAL: "+arregloIndices.length);
+
             ///// end point cameras
           }).catch(function (error) {
             console.log(error);
@@ -70399,7 +70447,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
           ////// end de alarmas no gestionadas
 
-          //Xtam Alarmas
+          //Xtam Alarmas escucha el canal y pinta las alarmas en arcgis 4.10
           Echo.channel("channelDemoEvent").listen("eventTrigger", function (e) {
             console.log(e);
 
@@ -70456,7 +70504,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             // Create popup template
             var popupTemplate = {
               title: "{Plant}",
-              content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" + "</div>"
+              content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + "</div>"
             };
 
             // Create a graphic and add the geometry and symbol to it
@@ -70467,8 +70515,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
               popupTemplate: popupTemplate
             });
 
-            // Add the graphics to the view's graphics layer
             view.graphics.add(pointGraphic);
+
             /// se desplaza la posicion geografica hacia las coordenadas de la alarma
             if (cenAlarm == "1") {
               var pt = new Point({
@@ -70482,11 +70530,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             playAudio();
           });
           break;
+
         case "3":
           //alert("Xtam premium");
           ///// XTAM VIDEO Y ALARMA
-
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70618,7 +70666,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           });
 
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://192.168.2.7/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70640,15 +70689,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                   break;
                 case "P":
                   caseupdate = "Pendiente";
-                  colorcase = [255, 0, 0, 0.5];
+                  colorcase = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0.5];
+                  colorcase = [255, 255, 0, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0.5];
+                  colorcase = [255, 255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70682,17 +70731,61 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 YCoord: cameras[i].latitud,
                 Plant: cameras[i].municipio,
                 Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
+                LinkAbonados: "<a class='btn btn-success btn-sm' onclick=test(" + cameras[i].id + ")>Ver/Ocultar Abonados</a>",
                 Adresss: cameras[i].direccion,
                 Barrio: cameras[i].barrio,
                 DesCaso: cameras[i].descripcion_caso,
                 Fecha: cameras[i].fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
+              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
+                if (Object.keys(response.data).length !== 0) {
+                  var abonados = response.data;
+                  var AbonadosJson = JSON.parse(abonados[0].abonados);
+                  var BotonPresionado = JSON.parse(abonados[0].VerAbonados);
+                  console.log("El boton esta presionado " + BotonPresionado);
 
+                  for (var j = 0; j < AbonadosJson.length; j++) {
+                    var pointAbonado = new Point({
+                      longitude: AbonadosJson[j].Longitud,
+                      latitude: AbonadosJson[j].Latitud
+                    });
+                    var icon = "../includes/img/icon-abonado.png";
+                    var markerSymbolAbonado = new PictureMarkerSymbol({
+                      // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                      url: icon,
+                      width: "24px",
+                      height: "24px"
+                    });
+
+                    var attributesPointAbonado = {
+                      XCoord: AbonadosJson[j].Longitud,
+                      YCoord: AbonadosJson[j].Latitud,
+                      Nombre: AbonadosJson[j].Nombre,
+                      Telefono1: AbonadosJson[j].Tel1,
+                      Telefono2: AbonadosJson[j].Tel2,
+                      Telefono3: AbonadosJson[j].Tel3,
+                      Direccion: AbonadosJson[j].Direccion,
+                      Tipo_Elemento: AbonadosJson[j].Tipo_elemento
+                    };
+                    var popupTemplateAbonado = {
+                      title: "{Plant}",
+                      content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" + "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" + "</div>"
+                    };
+                    var pointGraphicAbonado = new Graphic({
+                      geometry: pointAbonado,
+                      symbol: markerSymbolAbonado,
+                      attributes: attributesPointAbonado,
+                      popupTemplate: popupTemplateAbonado
+                    });
+                    view.graphics.add(pointGraphicAbonado);
+                  }
+                }
+              });
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + "</div>"
+                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" + "{Fecha}<br/>Abonados: {LinkAbonados}" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70709,6 +70802,9 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
               view.graphics.add(pointGraphic);
               //}
             }
+
+            //console.log("Cantidad de abonados TOTAL: "+arregloIndices.length);
+
             ///// end point cameras
           }).catch(function (error) {
             console.log(error);
@@ -70808,7 +70904,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   methods: {
     SimpleMarkerSymbol: function SimpleMarkerSymbol(d) {
       return moment(d).fromNow();
+    },
+    llamarafuera: function llamarafuera() {
+      alert("estoyllamandodesdelavista");
     }
+
     // End Alarmas
   } });
 
