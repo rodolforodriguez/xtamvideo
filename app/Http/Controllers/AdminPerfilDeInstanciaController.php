@@ -18,20 +18,20 @@ class AdminPerfilDeInstanciaController extends \crocodicstudio\crudbooster\contr
 			$this->orderby = "idProfile_inst,desc";
 			$this->global_privilege = false;
 			$this->button_table_action = true;
-			$this->button_bulk_action = true;
+			$this->button_bulk_action = false;
 			$this->button_action_style = "button_icon";
 			$this->button_add = false;
 			$this->button_edit = true;
 			$this->button_delete = false;
-			$this->button_detail = true;
+			$this->button_detail = false;
 			$this->button_show = false;
 			$this->button_filter = false;
 			$this->button_import = false;
 			$this->button_export = false;
 			$this->table = "xtam_profile_inst";
-			# END CONFIGURATION DO NOT REMOVE THIS LINE
+		# END CONFIGURATION DO NOT REMOVE THIS LINE
 
-			# START COLUMNS DO NOT REMOVE THIS LINE
+		# START COLUMNS DO NOT REMOVE THIS LINE
 		$this->col = [];
 		$this->col[] = ["label" => "Nº", "name" => "idProfile_inst"];
 		$this->col[] = ["label" => "Descripcion", "name" => "Profile_Description"];

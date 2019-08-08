@@ -18,7 +18,7 @@ if ($userid === null) {
     <div class="box-header">
         <span style="font-size: 20px;"> Estado de cámaras </span>
         <!-- <a href="{{CRUDBooster::adminPath()}}/maps" class="btn btn-sm btn-primary" title="Ver mapa">Ver mapa</a>
-        <a href="{{CRUDBooster::adminPath()}}/cameras35" class="btn btn-sm btn-success" title="Busqueda avanzada">Busqueda avanzada</a>
+        <a href="{{CRUDBooster::adminPath()}}/cameras35" class="btn btn-sm btn-success" title="Búsqueda avanzada">Búsqueda avanzada</a>
        -->
     </div>
     <div class="box-body">

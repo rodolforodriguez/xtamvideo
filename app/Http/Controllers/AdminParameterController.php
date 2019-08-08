@@ -20,20 +20,21 @@ class AdminParameterController extends \crocodicstudio\crudbooster\controllers\C
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
 			$this->title_field = "id";
-			$this->limit = "20";
-			$this->orderby = "id,desc";
+			$this->limit = "1";
+			$this->orderby = "";
 			$this->global_privilege = false;
 			$this->button_table_action = true;
-			$this->button_bulk_action = true;
-			$this->button_action_style = "button_icon";
+			$this->button_bulk_action = false;
+			$this->button_action_style = "button_icon_text";
 			$this->button_add = false;
 			$this->button_edit = true;
 			$this->button_delete = false;
-			$this->button_detail = true;
-			$this->button_show = true;
-			$this->button_filter = true;
+			$this->button_detail = false;
+			$this->button_show = false;
+			$this->button_filter = false;
 			$this->button_import = false;
 			$this->button_export = false;
+			$this->sort_column = false;
 			$this->table = "parameter";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 

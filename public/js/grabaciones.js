@@ -1,5 +1,5 @@
 
-//!--Busqueda avanzada-- >
+//!--Búsqueda avanzada-- >
 function redirect() {
     window.location.replace("../../public/admin/searchadvanced");
 }

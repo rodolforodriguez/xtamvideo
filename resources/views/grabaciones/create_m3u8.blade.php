@@ -9,13 +9,12 @@ include "includes/connection.php";
     for (var v = 0; v < videos.length; v++) {
         var video = videos[v];
         ids.push(video.id);
-        console.log(video.id)
     }
 </script>
 <?php
 //// END DE LA CONEXION Y QUERYS
 if ($_GET) {
-    
+
     $startdate = $_GET['startdate'];
     $finishdate = $_GET['finishdate'];
     $starttime = $_GET['starttime'];
@@ -24,6 +23,9 @@ if ($_GET) {
 
     if (count($array) > 0) {
         foreach ($array as $campo => $valor) {
+            $con = mysqli_connect("localhost", "root", "", "xtamdb") or die(mysql_error());
+            mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+            
             $querynginx = mysqli_query($con, "SELECT filename,format(timediff(timefinish,timestart),4) as timeduration, rt.route 
                                             from recordings as r
                                             inner join cameras as c on r.idCamara =  c.cameraid
@@ -67,6 +69,9 @@ if ($_GET) {
         if (count($arraycam) > 0) {
             // mostramos los valores del array
             foreach ($arraycam as $col => $cont) {
+                $con = mysqli_connect("localhost", "root", "", "xtamdb") or die(mysql_error());
+                mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+
                 $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
                 $rowroute = mysqli_fetch_assoc($queryroute);
                 $url = $rowroute['route'];
@@ -105,16 +110,16 @@ if ($_GET) {
                             if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
                             progress.value = x.currentTime;
                             progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
-                        });         
+                        });
                     }
                 </script>
                 <video id=<?php echo $cont; ?> data-type="video" class="video-js vjs-default-skin col-md-3">
                 </video>
             <?php
+            }
         }
-    }
-} else {
-    ?>
+    } else {
+        ?>
 
         <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog">
@@ -134,11 +139,10 @@ if ($_GET) {
         </div>
 
         <script>
-   $(document).ready(function()
-   {
-      $("#mostrarmodal").modal("show");
-   });
-</script>
+            $(document).ready(function() {
+                $("#mostrarmodal").modal("show");
+            });
+        </script>
 
         <?php
         $startdate = $_GET['startdate'];
@@ -148,15 +152,30 @@ if ($_GET) {
         $array = $_GET['array'];
 
         if (count($array) > 0) {
+
             // mostramos los valores del array
             foreach ($array as $col => $cont) {
-                $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
+                $con = mysqli_connect("localhost", "root", "", "xtamdb") or die(mysql_error());
+                mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+
+                $queryroute = mysqli_query($con, "SELECT re.route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
                 $rowroute = mysqli_fetch_assoc($queryroute);
+
                 $url = $rowroute['route'];
                 $cc = $rowroute['descripcion'];
                 $cam = $rowroute['dcamara'];
                 $ip = substr($url, 18, -8);
                 $rout = substr($url, 31);
+
+                ?>
+                <script>
+                    console.log('<?php echo ("hola" . $url); ?>');
+                    console.log('<?php echo ("hola" .  $cc); ?>');
+                    console.log('<?php echo ("hola" . $cam); ?>');
+                    console.log('<?php echo ("hola" . $ip ); ?>');
+                </script>
+                <?php
+
                 $final = "http://" . $ip . "/listfolder/recording" . $rout . "/index.m3u8";
                 $a = $cc . $cam;
                 $nombre = $a;
@@ -194,8 +213,8 @@ if ($_GET) {
                 <video id=<?php echo $cont; ?> data-type="video" class="video-js vjs-default-skin col-md-3">
                 </video>
             <?php
+            }
         }
     }
-}
 }
 ?>

@@ -83,7 +83,7 @@ progress.addEventListener('click', function (e) {
     }
 });
 
-// Busqueda por filtros
+// Búsqueda por filtros
 function SubmitFormData() {
 
     var videos = document.querySelectorAll('[data-type="video"]');
