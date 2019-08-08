@@ -2,6 +2,7 @@
 
 include "config.php";
 $n=$_GET['n'];
+mysqli_set_charset($con, 'utf8');
 if($n==1){
 $cameras = mysqli_query($con,"select * from cameras c inner join streamserver ss
 on c.id_streamserver = ss.id inner join centro_comercial cc

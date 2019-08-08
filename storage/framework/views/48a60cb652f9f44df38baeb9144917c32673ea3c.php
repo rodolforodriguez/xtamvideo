@@ -42,9 +42,15 @@ $alarm_radio = $parameter['alarm_radio'];
 $max_cams = $parameter['max_cams'];
 $lastselect1 = $parameter['Last_IdAlarmaSelect'];
 $query_selectlastcam = mysqli_query($con, "select * from cms_notifications where id='$lastselect1'");
-$parameter_selectlastcam = mysqli_fetch_assoc($query_selectlastcam);
-$latitud_selectlastcam = $parameter_selectlastcam['latitud'];
-$longitud_selectlastcam = $parameter_selectlastcam['longitud'];
+$totalAlarms = mysqli_num_rows(mysqli_query($con, "select * from cms_notifications where id='$lastselect1'"));
+$query_selectlastcamF = 0;
+echo($totalAlarms);
+if ($totalAlarms !=0) {         
+    $query_selectlastcamF = 1;
+    $parameter_selectlastcam = mysqli_fetch_assoc($query_selectlastcam);
+    $latitud_selectlastcam = $parameter_selectlastcam['latitud'];
+    $longitud_selectlastcam = $parameter_selectlastcam['longitud'];
+}
 /// end conexion alarma y parametros
 ?>
 <script>
@@ -55,16 +61,18 @@ $longitud_selectlastcam = $parameter_selectlastcam['longitud'];
     var max_cams = <?php echo $max_cams; ?>;
     var userid = 2;
     var lastselect1 = <?php echo $lastselect1; ?>;
-    if (lastselect1 == 0) {
+    var queryalarmas = <?php echo  $query_selectlastcamF; ?>;
+    if (queryalarmas == 0 || lastselect1 == 0) {
         console.log("entro a 0");
-        var lastselectLatitud =4.64766;
-        var lastselectLongitud =-74.098253;
-    } 
-    else {
+        var lastselectLatitud = 4.64766;
+        var lastselectLongitud = -74.098253;
+    } else {
+
         console.log("entro a 1");
         var lastselectLatitud = '<?php echo $latitud_selectlastcam; ?>';
         var lastselectLongitud = '<?php echo $longitud_selectlastcam; ?>';
     }
+    
 </script>
 <script>
     function myFunction(url) {

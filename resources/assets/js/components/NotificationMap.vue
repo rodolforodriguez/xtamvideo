@@ -65,8 +65,8 @@ export default {
         map = new EsriMap({
           basemap: "hybrid",
           layers: [layer]
-        });       
-       
+        });  
+      
         var view = new MapView({
           container: "viewDiv", // Reference to the scene div created in step 5
           map: map, // Reference to the map object created before the scene

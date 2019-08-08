@@ -1,8 +1,8 @@
 <?php
 
-$host = "localhost";    /* Host name */
-$user = "root";         /* User */
-$password = "";         /* Password */
+$host = "192.168.2.7";    /* Host name */
+$user = "administrator";         /* User */
+$password = "Pruebas123$";         /* Password */
 $dbname = "xtamdb";   /* Database name */
 
 // Create connection
