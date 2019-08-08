@@ -65,8 +65,8 @@ export default {
         map = new EsriMap({
           basemap: "hybrid",
           layers: [layer]
-        });  
-      
+        });
+
         var view = new MapView({
           container: "viewDiv", // Reference to the scene div created in step 5
           map: map, // Reference to the map object created before the scene
@@ -848,7 +848,7 @@ export default {
 
             //Xtam Alarmas escucha el canal y pinta las alarmas en arcgis 4.10
             Echo.channel("channelDemoEvent").listen("eventTrigger", e => {
-              console.log(e);
+              console.log(e.codigo);
 
               // First create a point geometry
               var point = new Point({
@@ -888,9 +888,9 @@ export default {
 
               var link =
                 "../vs/alarm/index.php?lng=" +
-                e.longitud +
+                point.longitude +
                 "&lat=" +
-                e.latitud +
+                point.latitude +
                 "&dist=" +
                 dist +
                 "&max_cams=" +
@@ -899,6 +899,8 @@ export default {
                 cliente +
                 "&userid=" +
                 userid;
+              //../vs/alarm/index.php?lng='+longitud+'&lat='+latitud+'&dist='+dist+'&max_cams='+max_cams+'&state='+cliente+'&userid='+userid;
+
               // Create attributes
               var attributes = {
                 XCoord: e.longitud,
@@ -908,22 +910,74 @@ export default {
                   "<A class='btn btn-success btn-sm' onclick=myFunction('" +
                   link +
                   "')>Ver Cámara</A>",
+                LinkAbonados: `<a class='btn btn-success btn-sm' onclick=test(${e.codigo})>Ver/Ocultar Abonados</a>`,
                 Adresss: e.direccion,
                 Barrio: e.barrio,
                 DesCaso: e.descripcion_caso,
                 Fecha: e.fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
+              axios
+                .get(
+                  `http://${URLdomain}/xtamvideo/public/testvue/abonados.php?n=${e.codigo}`
+                )
+                .then(function(response) {
+                  if (Object.keys(response.data).length !== 0) {
+                    var abonados = response.data;
+                    var AbonadosJson = JSON.parse(abonados[0].abonados);
+                    console.log(abonados);
+                    var BotonPresionado = JSON.parse(abonados[0].VerAbonados);
+                    console.log("El boton esta presionado " + BotonPresionado);
 
-              // Create popup template
+                    for (let j = 0; j < AbonadosJson.length; j++) {
+                      var pointAbonado = new Point({
+                        longitude: AbonadosJson[j].Longitud,
+                        latitude: AbonadosJson[j].Latitud
+                      });
+                      var icon = "../includes/img/icon-abonado.png";
+                      var markerSymbolAbonado = new PictureMarkerSymbol({
+                        // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                        url: icon,
+                        width: "24px",
+                        height: "24px"
+                      });
+
+                      var attributesPointAbonado = {
+                        XCoord: AbonadosJson[j].Longitud,
+                        YCoord: AbonadosJson[j].Latitud,
+                        Nombre: AbonadosJson[j].Nombre,
+                        Telefono1: AbonadosJson[j].Tel1,
+                        Telefono2: AbonadosJson[j].Tel2,
+                        Telefono3: AbonadosJson[j].Tel3,
+                        Direccion: AbonadosJson[j].Direccion,
+                        Tipo_Elemento: AbonadosJson[j].Tipo_elemento
+                      };
+                      var popupTemplateAbonado = {
+                        title: "{Plant}",
+                        content:
+                          "<div>" +
+                          "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" +
+                          "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" +
+                          "</div>"
+                      };
+                      var pointGraphicAbonado = new Graphic({
+                        geometry: pointAbonado,
+                        symbol: markerSymbolAbonado,
+                        attributes: attributesPointAbonado,
+                        popupTemplate: popupTemplateAbonado
+                      });
+                      view.graphics.add(pointGraphicAbonado);
+                    }
+                  }
+                });
               var popupTemplate = {
                 title: "{Plant}",
                 content:
                   "<div>" +
-                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                  "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}<br/>Camaras:  {Link}" +
+                  "{Fecha}<br/>Abonados: {LinkAbonados}" +
                   "</div>"
               };
-
               // Create a graphic and add the geometry and symbol to it
               var pointGraphic = new Graphic({
                 geometry: point,
@@ -966,7 +1020,7 @@ export default {
 };
 </script>
 <style scoped>
-@import url('http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css');
+@import url("http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css");
 #viewDiv {
   height: 80vh;
   min-height: 250px;
