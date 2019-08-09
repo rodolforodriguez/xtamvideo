@@ -713,7 +713,7 @@ export default {
 
                   var markerSymbol = new SimpleMarkerSymbol({
                     //color: [226, 119, 40],
-                    size: "24px",
+                    size: "54px",
                     style: "circle",
                     //color: [255,0,0,0.5],
                     color: colorcase,
