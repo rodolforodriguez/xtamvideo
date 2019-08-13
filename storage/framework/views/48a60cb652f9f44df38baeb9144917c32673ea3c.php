@@ -2,9 +2,9 @@
 $userid = CRUDBooster::myId();
 if ($userid === null) {
     ?>
-    <script>
-        window.location.replace("../../admin/login");
-    </script>
+<script>
+    window.location.replace("../../admin/login");
+</script>
 <?php
 
 }
@@ -44,7 +44,7 @@ $lastselect1 = $parameter['Last_IdAlarmaSelect'];
 $query_selectlastcam = mysqli_query($con, "select * from cms_notifications where id='$lastselect1'");
 $totalAlarms = mysqli_num_rows(mysqli_query($con, "select * from cms_notifications where id='$lastselect1'"));
 $query_selectlastcamF = 0;
-if ($totalAlarms !=0) {         
+if ($totalAlarms != 0) {
     $query_selectlastcamF = 1;
     $parameter_selectlastcam = mysqli_fetch_assoc($query_selectlastcam);
     $latitud_selectlastcam = $parameter_selectlastcam['latitud'];
@@ -61,18 +61,21 @@ if ($totalAlarms !=0) {
     var userid = 2;
     var lastselect1 = <?php echo $lastselect1; ?>;
     var queryalarmas = <?php echo  $query_selectlastcamF; ?>;
-    if (queryalarmas == 0 || lastselect1 == 0) {        
+    if (queryalarmas == 0 || lastselect1 == 0) {
         var lastselectLatitud = 4.64766;
         var lastselectLongitud = -74.098253;
-    } else {    
+    } else {
         var lastselectLatitud = '<?php echo $latitud_selectlastcam; ?>';
         var lastselectLongitud = '<?php echo $longitud_selectlastcam; ?>';
     }
-    
 </script>
 <script>
     function myFunction(url) {
         var myWindow = window.open(url, "", "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=400,height=400,titlebar=no,location=no,menubar=no");
+    }
+
+    function Grabaciones(url) {
+        var myWindow = window.open(url, "", "toolbar=yes,scrollbars=yes,resizable=yes,titlebar=no,location=no,menubar=no");
     }
 
     function test(idAlarma) {

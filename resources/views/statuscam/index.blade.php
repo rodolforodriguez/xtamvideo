@@ -3,9 +3,9 @@ include "includes/connection.php";
 $userid = CRUDBooster::myId();
 if ($userid === null) {
     ?>
-    <script>
-        window.location.replace("../../admin/login");
-    </script>
+<script>
+    window.location.replace("../../admin/login");
+</script>
 <?php
 }
 ?>
@@ -26,7 +26,7 @@ if ($userid === null) {
             <form method="GET" name="camid" value="camid" action="">
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <label id="ccname"> Centro comercial </label>
-             
+
 
                 </div>
                 <div class="col-md-3 col-xs-4 col-sm-4">
@@ -83,27 +83,26 @@ if ($userid === null) {
 
                         ?>
 
-                        <script>
-                            var xmlhttp;
-                            if (window.XMLHttpRequest) {
-                                // code for IE7+, Firefox, Chrome, Opera, Safari
-                                xmlhttp = new XMLHttpRequest();
-                            } else {
-                                // code for IE6, IE5
-                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                            }
-                            xmlhttp.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    document.getElementById("ipcam").innerHTML = this.responseText;
-                                   
-                                }
-                            };
-                            xmlhttp.open("GET", '<?php echo $url ?>', true);
-                            xmlhttp.send();
-                        </script>
-                    <?php
+                <script>
+                    var xmlhttp;
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
                     }
-                
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("ipcam").innerHTML = this.responseText;
+                        }
+                    };
+                    xmlhttp.open("GET", '<?php echo $url ?>', true);
+                    xmlhttp.send();
+                </script>
+                <?php
+                    }
+
 
                     if (isset($_GET["cam"]) && $_GET["cam"] == "todos") {
                         $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial;");
@@ -127,11 +126,11 @@ if ($userid === null) {
                         $host   = $row['ipserver'];
                         $host = preg_replace("/[^A-Za-z0-9.-]/", "", $host);
                         $count = preg_replace("/[^0-9]/", "", $count);
-                      
+
 
                         if ($unix) {
                             echo '<br>';
-                            echo '<h3>Centro comercial '.$row['descripcion'].'</h3>';
+                            echo '<h3>Centro comercial ' . $row['descripcion'] . '</h3>';
                             echo '<label>Conexion Sitio Central</label>';
                             echo '<br>';
                             system("ping -c$count -w$count $host");
@@ -139,7 +138,7 @@ if ($userid === null) {
                             echo '<br>';
                         } else {
                             echo '<br>';
-                            echo '<h3>Centro comercial '.$row['descripcion'].'</h3>';
+                            echo '<h3>Centro comercial ' . $row['descripcion'] . '</h3>';
                             echo '<label>Conexion Sitio Central</label>';
                             echo '<br>';
                             $result = trim(system("ping -n $count $host"));

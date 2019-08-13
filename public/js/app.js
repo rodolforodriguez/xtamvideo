@@ -36039,19 +36039,9 @@ module.exports.default = axios;
  * @license  MIT
  */
 
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -70261,20 +70251,33 @@ var URLdomain = window.location.host;
               /// link a abrir en otra ventana
               var link = "../vs/streaming.php?ip=" + server + "&state=" + cliente + "&userid=" + userid;
 
-              // Create attributes
-              var attributes = {
-                XCoord: cameras[i].longitud,
-                YCoord: cameras[i].latitud,
-                Plant: cameras[i].descripcion,
-                Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
-                Adresss: cameras[i].direccion,
-                Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + "&state=" + cliente + "&userid=" + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
-              };
+              var grabaciones = "../camgrabaciones/index.php?id=" + camara;
 
+              // Create attributes
+              if (estado == "active") {
+                var attributes = {
+                  XCoord: cameras[i].longitud,
+                  YCoord: cameras[i].latitud,
+                  Plant: cameras[i].descripcion,
+                  Link: "<button class='btn btn-success btn-sm' onclick=myFunction('" + link + "')> Ver Cámara </button>",
+                  grabaciones: "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" + grabaciones + "')> Ver grabación </button>",
+                  Adresss: cameras[i].direccion
+                };
+              } else {
+                var attributes = {
+                  XCoord: cameras[i].longitud,
+                  YCoord: cameras[i].latitud,
+                  Plant: cameras[i].descripcion,
+                  grabaciones: "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" + grabaciones + "')> Ver grabación </button>",
+                  Adresss: cameras[i].direccion
+                };
+              }
+
+              if (estado == "active") {}
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70289,7 +70292,8 @@ var URLdomain = window.location.host;
                 var pointGraphic = new Graphic({
                   geometry: point,
                   symbol: markerSymbol,
-                  attributes: attributes
+                  attributes: attributes,
+                  popupTemplate: popupTemplate
                 });
               }
 
@@ -70625,20 +70629,32 @@ var URLdomain = window.location.host;
               /// link a abrir en otra ventana
               var link = "../vs/streaming.php?ip=" + server + "&state=" + cliente + "&userid=" + userid;
 
+              var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+
               // Create attributes
-              var attributes = {
-                XCoord: cameras[i].longitud,
-                YCoord: cameras[i].latitud,
-                Plant: cameras[i].descripcion,
-                Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
-                Adresss: cameras[i].direccion,
-                Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + "&state=" + cliente + "&userid=" + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
-              };
+              if (estado == "active") {
+                var attributes = {
+                  XCoord: cameras[i].longitud,
+                  YCoord: cameras[i].latitud,
+                  Plant: cameras[i].descripcion,
+                  Link: "<button class='btn btn-success btn-sm' onclick=myFunction('" + link + "')> Ver Cámara </button>",
+                  grabaciones: "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" + grabaciones + "')> Ver grabación </button>",
+                  Adresss: cameras[i].direccion
+                };
+              } else {
+                var attributes = {
+                  XCoord: cameras[i].longitud,
+                  YCoord: cameras[i].latitud,
+                  Plant: cameras[i].descripcion,
+                  grabaciones: "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" + grabaciones + "')> Ver grabación </button>",
+                  Adresss: cameras[i].direccion
+                };
+              }
 
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70653,7 +70669,8 @@ var URLdomain = window.location.host;
                 var pointGraphic = new Graphic({
                   geometry: point,
                   symbol: markerSymbol,
-                  attributes: attributes
+                  attributes: attributes,
+                  popupTemplate: popupTemplate
                 });
               }
 
@@ -70721,7 +70738,7 @@ var URLdomain = window.location.host;
 
               var markerSymbol = new SimpleMarkerSymbol({
                 //color: [226, 119, 40],
-                size: "24px",
+                size: "54px",
                 style: "circle",
                 //color: [255,0,0,0.5],
                 color: colorcase,

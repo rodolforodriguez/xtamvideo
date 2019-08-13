@@ -174,6 +174,8 @@ export default {
                     "&userid=" +
                     userid;
 
+                  var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+
                   // Create attributes
                   var attributes = {
                     XCoord: cameras[i].longitud,
@@ -193,12 +195,38 @@ export default {
                       'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
                   };
 
+                  if (estado == "active") {
+                  }
                   // Create popup template
                   var popupTemplate = {
                     title: "{Plant}",
                     content:
-                      "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" +
+                      "<div class='row text-left'>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" +
+                      "<strong> Latitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" +
+                      "<span>{YCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Longitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "{XCoord}" +
+                      "<span>{YCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Dirección: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{Adresss}</span><br>" +
+                      "</div>" +
+                      "</div>" +
+                      "<div class='row'>" +
+                      "<div class='col-md-12 col-sm-12 col-xs-6'>" +
+                      "<span>{Link}</span> | " +
+                      "<span>{grabaciones}</span>" +
+                      "</div>" +
                       "</div>"
                   };
 
@@ -214,7 +242,8 @@ export default {
                     var pointGraphic = new Graphic({
                       geometry: point,
                       symbol: markerSymbol,
-                      attributes: attributes
+                      attributes: attributes,
+                      popupTemplate: popupTemplate
                     });
                   }
 
@@ -600,31 +629,67 @@ export default {
                     "&userid=" +
                     userid;
 
+                  var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+
                   // Create attributes
-                  var attributes = {
-                    XCoord: cameras[i].longitud,
-                    YCoord: cameras[i].latitud,
-                    Plant: cameras[i].descripcion,
-                    Link:
-                      "<A class='btn btn-success btn-sm' onclick=myFunction('" +
-                      link +
-                      "')>Ver Cámara</A>",
-                    Adresss: cameras[i].direccion,
-                    Embebed:
-                      '<iframe style="position: relative;" src="../vs/streaming.php?ip=' +
-                      server +
-                      "&state=" +
-                      cliente +
-                      "&userid=" +
-                      'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
-                  };
+                  if (estado == "active") {
+                    var attributes = {
+                      XCoord: cameras[i].longitud,
+                      YCoord: cameras[i].latitud,
+                      Plant: cameras[i].descripcion,
+                      Link:
+                        "<button class='btn btn-success btn-sm' onclick=myFunction('" +
+                        link +
+                        "')> Ver Cámara </button>",
+                      grabaciones:
+                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                        grabaciones +
+                        "')> Ver grabación </button>",
+                      Adresss: cameras[i].direccion
+                    };
+                  } else {
+                    var attributes = {
+                      XCoord: cameras[i].longitud,
+                      YCoord: cameras[i].latitud,
+                      Plant: cameras[i].descripcion,
+                      grabaciones:
+                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                        grabaciones +
+                        "')> Ver grabación </button>",
+                      Adresss: cameras[i].direccion
+                    };
+                  }
 
                   // Create popup template
                   var popupTemplate = {
                     title: "{Plant}",
                     content:
-                      "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Dirección:{Adresss}<br/>Cámaras:  {Link}" +
+                      "<div class='row text-left'>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" +
+                      "<strong> Latitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" +
+                      "<span>{YCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Longitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "{XCoord}" +
+                      "<span>{YCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Dirección: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{Adresss}</span><br>" +
+                      "</div>" +
+                      "</div>" +
+                      "<div class='row'>" +
+                      "<div class='col-md-12 col-sm-12 col-xs-6'>" +
+                      "<span>{Link}</span> | " +
+                      "<span>{grabaciones}</span>" +
+                      "</div>" +
                       "</div>"
                   };
 
@@ -640,7 +705,8 @@ export default {
                     var pointGraphic = new Graphic({
                       geometry: point,
                       symbol: markerSymbol,
-                      attributes: attributes
+                      attributes: attributes,
+                      popupTemplate: popupTemplate
                     });
                   }
 

@@ -2,10 +2,12 @@
 // El siguiente documento contiene las constantes de la aplicacion. 
 
 
-$host= $_SERVER["HTTP_HOST"];
-$url= $_SERVER["REQUEST_URI"];
+//$host= $_SERVER["HTTP_HOST"];
+//$url= $_SERVER["REQUEST_URI"];
 
 //constantes de url instalacion xtam
+
+/*
 
 return [
     'ruta' => 
