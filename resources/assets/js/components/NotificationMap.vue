@@ -194,6 +194,33 @@ export default {
                       "&userid=" +
                       'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
                   };
+                  if (estado == "active") {
+                    var attributes = {
+                      XCoord: cameras[i].longitud,
+                      YCoord: cameras[i].latitud,
+                      Plant: cameras[i].descripcion,
+                      Link:
+                        "<button class='btn btn-success btn-sm' onclick=myFunction('" +
+                        link +
+                        "')> Ver Cámara </button>",
+                      grabaciones:
+                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                        grabaciones +
+                        "')> Ver grabación </button>",
+                      Adresss: cameras[i].direccion
+                    };
+                  } else {
+                    var attributes = {
+                      XCoord: cameras[i].longitud,
+                      YCoord: cameras[i].latitud,
+                      Plant: cameras[i].descripcion,
+                      grabaciones:
+                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                        grabaciones +
+                        "')> Ver grabación </button>",
+                      Adresss: cameras[i].direccion
+                    };
+                  }
 
                   if (estado == "active") {
                   }
