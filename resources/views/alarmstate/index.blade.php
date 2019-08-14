@@ -9,9 +9,7 @@ if ($userid === null) {
 <?php
 }
 ?>
-
 @extends('crudbooster::admin_template')
 @section('content')
-
-
+<object data="../update_alarm/index.php" style="width:100%; height:100vh;"></object>
 @endsection
