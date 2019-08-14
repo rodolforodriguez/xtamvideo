@@ -1,21 +1,19 @@
 
 <?php
-include_once("connection.php");
-$db = new dbObj();
-$connString =  $db->getConnstring();
-$params = $_REQUEST;
-$action = isset($params['action']) != '' ? $params['action'] : '';
-$empCls = new AlamState($connString);
+	$params = $_REQUEST;
+    $action = isset($params['action']) != '' ? $params['action'] : '';
+	include_once("../includes/connection.php");
+    mysqli_set_charset($con, 'utf8');
+    $empCls = new AlamState($con);
 
-switch($action) {
-    case 'edit':
-        $empCls->updateAlamState($params);
-    break;
-    default:
-        $empCls->getAlamStates($params);
-    return;
-}
-
+    switch($action) {
+        case 'edit':
+            $empCls->updateAlamState($params);
+        break;
+        default:
+            $empCls->getAlamStates($params);
+        return;
+    }
 class AlamState {
 	protected $conn;
 	protected $data = array();
@@ -27,50 +25,48 @@ class AlamState {
 		echo json_encode($this->data);
 	}
 	function getRecords($x) {
-		$rp = isset($params['rowCount']) ? $params['rowCount'] : 10;
-
-		if (isset($params['current'])) { $page = $params['current']; } else { $page = 1; };
+		$rp = isset($params['rowCount']) ? $params['rowCount'] : 50;
+        $page = isset($params['current']) ? $params['current'] : 1;
 
 		$start_from = ($page-1) * $rp;
 		$sql = $sqlRec = $sqlTot = $where = '';
 
-		if( !empty($params['searchPhrase']) ) {
-			$where .=" AND ( barrio LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR direccion LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR codcaso LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR numllamada LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR estado LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR fecha LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR descripcion_caso LIKE '".$params['searchPhrase']."%' )";
+	    if( !empty($params['searchPhrase']) ) {
+			$where .=" AND ( barrio LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR direccion LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR codcaso LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR numllamada LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR estado LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR fecha LIKE '%".$params['searchPhrase']."%' ";
+			$where .=" OR descripcion_caso LIKE '%".$params['searchPhrase']."%' )";
 	   }
 
-	   if( !empty($params['sort']) ) {
+	    if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
-		}
-	    // getting total number records without any search
+        }
+
 		$sql = "SELECT * FROM cms_notifications WHERE estado <> 'C' ";
 		$sqlTot .= $sql;
-		$sqlRec .= $sql;
+        $sqlRec .= $sql;
 
-		//concatenate search sql if value exist
 		if(isset($where) && $where != '') {
 			$sqlTot .= $where;
 			$sqlRec .= $where;
 		}
 
-		if ($rp!=-1)
-			$sqlRec .= " LIMIT ". $start_from .",".$rp;
+		/*if ($rp!=-1)
+			$sqlRec .= " LIMIT ". $start_from .",".$rp;*/
 
 		$qtot = mysqli_query($this->conn, $sqlTot) or die("error to fetch tot prealert data");
 		$queryRecords = mysqli_query($this->conn, $sqlRec) or die("error to fetch prealert data");
 
 		while( $row = mysqli_fetch_assoc($queryRecords) ) {
 			$data[] = $row;
-		}
+        }
 
 		$json_data = array(
 			"current" => $page,
-			"rowCount" => 10,
+			"rowCount" =>  intval($queryRecords->num_rows),
 			"total" => intval($qtot->num_rows),
 			"rows" => $data
 			);
