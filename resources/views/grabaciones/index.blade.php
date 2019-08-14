@@ -1,19 +1,24 @@
+<?php
+error_reporting(0);
+header("Access-Control-Allow-Origin: *");
+include "includes/connection.php";
+?>
 @extends('crudbooster::admin_template')
 @section('content')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <div class="loader"></div>
 <style>
-.loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url('https://i.imgur.com/2vEB8dD.gif') 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
-}
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('https://i.imgur.com/2vEB8dD.gif') 50% 50% no-repeat rgb(249, 249, 249);
+        opacity: .8;
+    }
 </style>
 <script type="text/javascript">
     $(window).load(function() {
@@ -25,9 +30,9 @@
 $userid = CRUDBooster::myId();
 if ($userid === null) {
     ?>
-    <script>
-        window.location.replace("../../admin/login");
-    </script>
+<script>
+    window.location.replace("../../admin/login");
+</script>
 <?php
 }
 ?>
@@ -88,7 +93,7 @@ if ($userid === null) {
                                 <h3 class="panel-title">Visualización de cámaras</h3>
                             </div>
                             <div class="VideoCont row" id="videoCont" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height: 50vh; ">
-                                  
+
                             </div>
                             <div class=" panel-footer" id="Controls" style="min-height: 5vh; display: none;">
                                 <div class="row">

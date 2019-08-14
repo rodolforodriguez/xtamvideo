@@ -16,7 +16,11 @@
 
 <?php
 $url = $_SERVER["REQUEST_URI"];
-if ($url == '/xtamvideo/public/admin/maps') {
+
+$mapsxtam = '/xtamvideo/public/admin/maps';
+$mapsxtamvideo = '/xtam/public/admin/maps';
+
+if ($url === $mapsxtamvideo || $url === $mapsxtam) {
     ?>
     <script src="{{ asset ('js/app.js')}}"></script>
 <?php
@@ -71,7 +75,11 @@ if ($url == '/xtamvideo/public/admin/maps') {
 
 <?php
 $url = $_SERVER["REQUEST_URI"];
-if ($url == '/xtamvideo/public/admin/recording') {
+$xtamvideo = '/xtamvideo/public/admin/recording';
+$xtam = '/xtam/public/admin/recording';
+$vdGrab = '/xtamvideo/public/camgrabaciones';
+
+if ($url === $xtamvideo || $url === $xtam || $url === $vdGrab) {
     header("Access-Control-Allow-Origin: *");
     ?>
     <script src="{{asset('js/video.js')}}" type="text/javascript"></script>
