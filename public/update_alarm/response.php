@@ -25,13 +25,13 @@ class AlamState {
 		echo json_encode($this->data);
 	}
 	function getRecords($x) {
-		$rp = isset($params['rowCount']) ? $params['rowCount'] : 50;
+		$rp = isset($params['rowCount']) ? $params['rowCount'] : -1;
         $page = isset($params['current']) ? $params['current'] : 1;
 
 		$start_from = ($page-1) * $rp;
 		$sql = $sqlRec = $sqlTot = $where = '';
 
-	    if( !empty($params['searchPhrase']) ) {
+	    if(!empty($params['searchPhrase']) ) {
 			$where .=" AND ( barrio LIKE '%".$params['searchPhrase']."%' ";
 			$where .=" OR direccion LIKE '%".$params['searchPhrase']."%' ";
 			$where .=" OR codcaso LIKE '%".$params['searchPhrase']."%' ";
@@ -54,8 +54,8 @@ class AlamState {
 			$sqlRec .= $where;
 		}
 
-		/*if ($rp!=-1)
-			$sqlRec .= " LIMIT ". $start_from .",".$rp;*/
+		if ($rp!=-1)
+			$sqlRec .= " LIMIT ". $start_from .",".$rp;
 
 		$qtot = mysqli_query($this->conn, $sqlTot) or die("error to fetch tot prealert data");
 		$queryRecords = mysqli_query($this->conn, $sqlRec) or die("error to fetch prealert data");

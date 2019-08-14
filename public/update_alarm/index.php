@@ -81,8 +81,6 @@
                     <label for="descripcion_caso" class="control-label">Descripción:</label>
                     <input type="text" class="form-control" id="descripcion_caso" name="descripcion_caso" readonly/>
                   </div>
-                  <input type="hidden" id="rowCount" name="rowCount" value="50">
-                  <input type="hidden" id="current" name="current" value="2">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
