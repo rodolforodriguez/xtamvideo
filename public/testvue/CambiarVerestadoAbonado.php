@@ -6,6 +6,8 @@ $n = $_GET['n'];
 
 $abonados = mysqli_query($con, "select VerAbonados from cms_notifications where id='$n' and abonados IS NOT NULL");
 $row = mysqli_fetch_array($abonados);
+$abonados1 = mysqli_query($con, "update cms_notifications  set VerAbonados=0 where id<>'$n'");
+$row1 = mysqli_fetch_array($abonados);
 $ResultadoColumna = $row[0];
 $ResultadoUpdate = null;
 

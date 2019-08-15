@@ -36039,9 +36039,19 @@ module.exports.default = axios;
  * @license  MIT
  */
 
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
 
@@ -70254,6 +70264,14 @@ var URLdomain = window.location.host;
               var grabaciones = "../camgrabaciones/index.php?id=" + camara;
 
               // Create attributes
+              var attributes = {
+                XCoord: cameras[i].longitud,
+                YCoord: cameras[i].latitud,
+                Plant: cameras[i].descripcion,
+                Link: "<A class='btn btn-success btn-sm' onclick=myFunction('" + link + "')>Ver Cámara</A>",
+                Adresss: cameras[i].direccion,
+                Embebed: '<iframe style="position: relative;" src="../vs/streaming.php?ip=' + server + "&state=" + cliente + "&userid=" + 'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+              };
               if (estado == "active") {
                 var attributes = {
                   XCoord: cameras[i].longitud,
@@ -70738,7 +70756,7 @@ var URLdomain = window.location.host;
 
               var markerSymbol = new SimpleMarkerSymbol({
                 //color: [226, 119, 40],
-                size: "54px",
+                size: "30px",
                 style: "circle",
                 //color: [255,0,0,0.5],
                 color: colorcase,
