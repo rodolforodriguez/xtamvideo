@@ -84,7 +84,7 @@ return [
 
     'action_show_data' => 'Mostrar',
     'action_add_data' => 'Añadir',
-    'action_delete_selected' => 'Elimina los seleccionados',
+    'action_delete_selected' => 'Eliminar los seleccionados',
 
     'action_label' => 'Acción',
     'action_detail_data' => 'Detalles',

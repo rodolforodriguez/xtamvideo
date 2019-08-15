@@ -10,6 +10,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
 
 <?php
 
@@ -17,12 +19,13 @@
 if ($_GET) {
     $id = $_GET['id'];
 
-    $con = mysqli_connect("localhost", "root", "", "xtamdb") or die(mysql_error());
+    $con = mysqli_connect("18.217.79.142", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
     mysqli_select_db($con, "xtamdb") or die("No hay conexion en la base de datos");
 
-    $idcam = mysqli_query($con, "SELECT cameraid , idcamara , route
+    $idcam = mysqli_query($con, "SELECT cameraid , idcamara , route , folder_record , ipserver
     FROM xtamdb.cameras
     inner join routerecord ON routerecord.idcamara = cameras.cameraid
+    inner join centro_comercial ON centro_comercial.id = cameras.id_centrocomercial
     where cameras.cameraid =" . $id);
     $dato = mysqli_fetch_assoc($idcam);
 
@@ -31,13 +34,27 @@ if ($_GET) {
 <h3 style="text-align: center;">No se han encontrado grabaciones para esta cámara</h3>
 <?php
     }
-    $url = $dato['route'];
-    $ip = substr($url, 18, -8);
-    $rout = substr($url, 31);
-    $final = "http://" . $ip . "/listfolder/recording" . $rout . "/index.m3u8";
+    //$url = $dato['route'];
+    $ip = $dato['ipserver'];
+    $rout = $dato['folder_record'];
+    //$rout = substr($url, 31);
+    $final = "http://" . $ip . "/listfolder/" . $rout . "/index.m3u8";
     ?>
-
+<style>
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../images/cargando.gif') 50% 50% no-repeat rgb(249, 249, 249);
+        opacity: .8;
+    }
+</style>
+<div class="loader" id="loader"></div>
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <div class="VideoCont row" id="videoCont">
@@ -65,25 +82,25 @@ if ($_GET) {
         <div class="col-md-4">
             <div class="form-group">
                 <label>Fecha inicial: </label>
-                <input class="form-control" type="date" name="fechastart" id="fechastart" value="2019-08-01" required>
+                <input class="form-control" type="date" name="fechastart" id="fechastart" value="2019-08-15" required>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 <label>Hora inicial: </label>
-                <input class="form-control" type="time" name="horastart" id="horastart" value="19:11" required>
+                <input class="form-control" type="time" name="horastart" id="horastart" value="12:06" required>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label>Fecha final: </label>
-                <input class="form-control" type="date" name="fechafinish" id="fechafinish" value="2019-08-01" required>
+                <input class="form-control" type="date" name="fechafinish" id="fechafinish" value="2019-08-15" required>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 <label>Hora final: </label>
-                <input class="form-control" type="time" name="horafinish" id="horafinish" value="19:28" required>
+                <input class="form-control" type="time" name="horafinish" id="horafinish" value="13:29" required>
             </div>
         </div>
     </div>
@@ -93,13 +110,18 @@ if ($_GET) {
     </div>
 
 </div>
-
+<script type="text/javascript">
+    $(window).load(function() {
+        $(".loader").fadeOut("slow");
+    });
+</script>
 
 <script>
     if (Hls.isSupported()) {
         var video = document.getElementById('video');
         video.setAttribute("data-type", "video");
         video.setAttribute("value", '<?php echo $final; ?>');
+        video.setAttribute('data-id', '<?php echo $id; ?>');
         video.addEventListener('play', function() {
             changeButtonState('playpause');
         }, false);
@@ -127,7 +149,6 @@ if ($_GET) {
     var mute = document.getElementById("mute");
     var progress = document.getElementById("progress");
     var progressBar = document.getElementById("progress-bar");
-
     videoControls.setAttribute("data-state", "visible");
 
     //funcionalidad de botones play pause mute
@@ -212,8 +233,10 @@ if ($_GET) {
     // Búsqueda por filtros
     function SubmitFormData() {
 
-        var videos = document.getElementById('video').value;
+        document.getElementById("loader").style = "";
 
+        var videos = document.getElementById('video').value;
+        var id = document.getElementById('video').getAttribute("data-id");
         var fechaI = document.getElementById('fechastart').value;
         var fechaF = document.getElementById('fechafinish').value;
         var horaI = document.getElementById('horastart').value;
@@ -231,10 +254,11 @@ if ($_GET) {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("respuesta").innerHTML = this.responseText;
+                document.getElementById("loader").style = "display: none;";
                 //console.log('respuesta');
             }
         };
-        xmlhttp.open("GET", direccion + '?startdate=' + fechaI + '&finishdate=' + fechaF + '&starttime=' + horaI + '&finishfime=' + horaF, true);
+        xmlhttp.open("GET", direccion + '?id=' + id + '&startdate=' + fechaI + '&finishdate=' + fechaF + '&starttime=' + horaI + '&finishfime=' + horaF, true);
         xmlhttp.send();
 
         console.log(xmlhttp);
