@@ -147,6 +147,24 @@
     data = $("#frm_edit").serializeArray();
     console.log(JSON.stringify(data));
     $.ajax({
+      type: "GET",
+      url: `http://localhost:2045/api/UpdateAlarmSinap?ESTADO=${$("#estado").val()}&NUMLLAMADA=${$("#numllamada").val()}`,
+      dataType: "json",
+      success: function(response) {
+        console.log("OK");
+        console.log(response);
+        $('#edit_model').modal('hide');
+        $("#notification_grid").bootgrid('reload');
+      },
+      error: function(response) {
+        console.log("MAL");
+        console.log(response);
+        $('#edit_model').modal('hide');
+        $("#notification_grid").bootgrid('reload');
+      },
+    });
+
+    /*$.ajax({
       type: "POST",
       url: "../update_alarm/response.php",
       data: data,
@@ -155,7 +173,7 @@
         $('#edit_model').modal('hide');
         $("#notification_grid").bootgrid('reload');
       }
-    });
+    });*/
   }
   $("#btn_edit").click(function() {
     ajaxAction();
