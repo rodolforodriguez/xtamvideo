@@ -124,6 +124,8 @@
             characters: 1
         }
     }).on("loaded.rs.jquery.bootgrid", function() {
+        $('.search-field').css("display","none");
+        $('.glyphicon-search').css("display","none");
         grid.find(".command-edit").on("click", function(e) {
         var ele =$(this).parent();
         $('#edit_model').modal('show');
