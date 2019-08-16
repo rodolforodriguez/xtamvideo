@@ -958,7 +958,7 @@ export default {
                  
                 var markerSymbol = new SimpleMarkerSymbol({
                   color: [255, 0, 0],
-                  size: "24px",
+                  size: "30px",
                   outline: {
                     color: [255, 255, 255],
                     width: 1
