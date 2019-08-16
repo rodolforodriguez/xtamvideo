@@ -70351,6 +70351,7 @@ var URLdomain = window.location.host;
 
               var estado = cameras[i].estado;
               var caseupdate = "";
+              var colorcase = "";
               var colorcaseBorder = "";
               switch (estado) {
                 case "C":
@@ -70380,15 +70381,14 @@ var URLdomain = window.location.host;
               });
 
               // Create a symbol for drawing the point
-
               var markerSymbol = new SimpleMarkerSymbol({
                 //color: [226, 119, 40],
-                size: "24px",
+                size: "30px",
                 style: "circle",
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
-                  color: [255, 255, 255],
+                  color: colorcaseBorder,
                   width: 0.5
                 }
               });
@@ -70874,7 +70874,6 @@ var URLdomain = window.location.host;
 
             // Create a symbol for drawing the point
             if (e.estado == "P") {
-
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 0, 0],
                 size: "24px",
@@ -70884,7 +70883,6 @@ var URLdomain = window.location.host;
                 }
               });
             } else if (e.estado == "E") {
-
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 255, 0],
                 size: "24px",
@@ -70894,7 +70892,6 @@ var URLdomain = window.location.host;
                 }
               });
             } else {
-
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [0, 102, 0],
                 size: "24px",

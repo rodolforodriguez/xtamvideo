@@ -314,27 +314,27 @@ export default {
 
                   var estado = cameras[i].estado;
                   var caseupdate = "";
+                  var colorcase = "";
                   var colorcaseBorder = "";
                   switch (estado) {
-                    case "C":                    
-                      caseupdate = "Cerrado";                     
+                    case "C":
+                      caseupdate = "Cerrado";
                       break;
                     case "P":
                       caseupdate = "Pendiente";
                       colorcase = [255, 0, 0];
-                      colorcaseBorder=[255, 0, 0];
+                      colorcaseBorder = [255, 0, 0];
                       break;
-                    case "E":                       
+                    case "E":
                       caseupdate = "En Proceso";
                       colorcase = [255, 255, 0];
-                      colorcaseBorder=[255, 255, 0];
+                      colorcaseBorder = [255, 255, 0];
                       break;
                     default:
                       caseupdate = "Pendiente";
                       colorcase = [255, 0, 0];
-                      colorcaseBorder=[255, 0, 0];
+                      colorcaseBorder = [255, 0, 0];
                   }
-
 
                   ///// end estados de las camras
                   /// puntos de las camaras ene el mapa
@@ -344,15 +344,14 @@ export default {
                   });
 
                   // Create a symbol for drawing the point
-
                   var markerSymbol = new SimpleMarkerSymbol({
                     //color: [226, 119, 40],
-                    size: "24px",
+                    size: "30px",
                     style: "circle",
                     //color: [255,0,0,0.5],
                     color: colorcase,
                     outline: {
-                      color: [255, 255, 255],
+                      color: colorcaseBorder,
                       width: 0.5
                     }
                   });
@@ -780,23 +779,23 @@ export default {
                   var colorcase = "";
                   var colorcaseBorder = "";
                   switch (estado) {
-                    case "C":                    
-                      caseupdate = "Cerrado";                     
+                    case "C":
+                      caseupdate = "Cerrado";
                       break;
                     case "P":
                       caseupdate = "Pendiente";
                       colorcase = [255, 0, 0];
-                      colorcaseBorder=[255, 0, 0];
+                      colorcaseBorder = [255, 0, 0];
                       break;
-                    case "E":                       
+                    case "E":
                       caseupdate = "En Proceso";
                       colorcase = [255, 255, 0];
-                      colorcaseBorder=[255, 255, 0];
+                      colorcaseBorder = [255, 255, 0];
                       break;
                     default:
                       caseupdate = "Pendiente";
                       colorcase = [255, 0, 0];
-                      colorcaseBorder=[255, 0, 0];
+                      colorcaseBorder = [255, 0, 0];
                   }
 
                   ///// end estados de las camras
@@ -955,7 +954,6 @@ export default {
 
               // Create a symbol for drawing the point
               if (e.estado == "P") {
-                 
                 var markerSymbol = new SimpleMarkerSymbol({
                   color: [255, 0, 0],
                   size: "24px",
@@ -965,7 +963,6 @@ export default {
                   }
                 });
               } else if (e.estado == "E") {
-               
                 var markerSymbol = new SimpleMarkerSymbol({
                   color: [255, 255, 0],
                   size: "24px",
@@ -975,7 +972,6 @@ export default {
                   }
                 });
               } else {
-               
                 var markerSymbol = new SimpleMarkerSymbol({
                   color: [0, 102, 0],
                   size: "24px",
