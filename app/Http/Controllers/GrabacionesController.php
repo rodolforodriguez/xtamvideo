@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -185,15 +187,15 @@ class GrabacionesController extends Controller
     public function index()
     {
 
-        $typecam = DB::table( 'type_cam')->get();
+        $typecam = DB::table('type_cam')->get();
 
         $camaras = DB::table('cameras')
-            ->join( 'centro_comercial', 'cameras.id_centrocomercial', '=', 'centro_comercial.id')
-            ->join( 'type_cam', 'cameras.typecam', '=', 'type_cam.id')
-            ->join( 'routerecord','routerecord.idcamara', '=' , 'cameras.cameraid')
-            ->select( 'cameras.cameraid',  'cameras.dcamara' , 'type_cam.desc_cam' , 'centro_comercial.descripcion' , 'routerecord.route')
+            ->join('centro_comercial', 'cameras.id_centrocomercial', '=', 'centro_comercial.id')
+            ->join('type_cam', 'cameras.typecam', '=', 'type_cam.id')
+            ->join('routerecord', 'routerecord.idcamara', '=', 'cameras.cameraid')
+            ->select('cameras.cameraid', 'cameras.folder_record',  'cameras.dcamara', 'type_cam.desc_cam', 'centro_comercial.descripcion', 'routerecord.route', 'centro_comercial.ipserver')
             ->get();
-        return view('grabaciones.index',  ['camaras' => $camaras] ,['typecam' => $typecam]);
+        return view('grabaciones.index',  ['camaras' => $camaras], ['typecam' => $typecam]);
     }
 
     /**

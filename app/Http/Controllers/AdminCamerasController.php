@@ -21,7 +21,7 @@
 			$this->button_edit = true;
 			$this->button_delete = true;
 			$this->button_detail = true;
-			$this->button_show = true;
+			$this->button_show = false;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
@@ -51,6 +51,7 @@
 			$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
 			$this->form[] = ['label'=>'Servidor de streaming local','name'=>'id_streamserver','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataquery'=>'select id as value,concat(server," - ",port) as label from streamserver'];
 			$this->form[] = ['label'=>'Canal servidor de streaming local','name'=>'channelstreamserver','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
