@@ -20,6 +20,7 @@
     <div class="container_fluid">
       <div>
         <div class="col-sm-12">
+
           <table id="notification_grid" search="Buscar" class="table table-condensed table-hover table-striped" width="100%" cellspacing="0" data-toggle="bootgrid">
             <thead>
               <tr>
@@ -148,7 +149,7 @@
     console.log(JSON.stringify(data));
     $.ajax({
       type: "GET",
-      url: `http://18.217.10.249:8091/api/UpdateAlarmSinap?ESTADO=${$("#estado").val()}&NUMLLAMADA=${$("#numllamada").val()}`,
+      url: `<?php echo getenv("API_REST_ALARM") ?>UpdateAlarmSinap?estado=${$("#estado").val()}&numllamada=${$("#numllamada").val()}`,
       dataType: "json",
       success: function(response) {
         console.log("OK");
