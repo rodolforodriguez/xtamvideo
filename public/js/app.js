@@ -70295,7 +70295,7 @@ var URLdomain = window.location.host;
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70351,23 +70351,25 @@ var URLdomain = window.location.host;
 
               var estado = cameras[i].estado;
               var caseupdate = "";
-              var colorcase = "";
+              var colorcaseBorder = "";
               switch (estado) {
                 case "C":
                   caseupdate = "Cerrado";
-
                   break;
                 case "P":
                   caseupdate = "Pendiente";
                   colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0];
+                  colorcase = [255, 255, 0];
+                  colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0];
+                  colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70672,7 +70674,7 @@ var URLdomain = window.location.host;
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70727,22 +70729,25 @@ var URLdomain = window.location.host;
               var estado = cameras[i].estado;
               var caseupdate = "";
               var colorcase = "";
+              var colorcaseBorder = "";
               switch (estado) {
                 case "C":
                   caseupdate = "Cerrado";
-
                   break;
                 case "P":
                   caseupdate = "Pendiente";
                   colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0];
+                  colorcase = [255, 255, 0];
+                  colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0];
+                  colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70761,7 +70766,7 @@ var URLdomain = window.location.host;
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
-                  color: [255, 255, 255],
+                  color: colorcaseBorder,
                   width: 0.5
                 }
               });
@@ -70869,6 +70874,7 @@ var URLdomain = window.location.host;
 
             // Create a symbol for drawing the point
             if (e.estado == "P") {
+
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 0, 0],
                 size: "24px",
@@ -70878,6 +70884,7 @@ var URLdomain = window.location.host;
                 }
               });
             } else if (e.estado == "E") {
+
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 255, 0],
                 size: "24px",
@@ -70887,6 +70894,7 @@ var URLdomain = window.location.host;
                 }
               });
             } else {
+
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [0, 102, 0],
                 size: "24px",
