@@ -17,7 +17,7 @@
 .background-yellow { background-color: #ffff0063 !important; }
 .background-red { background-color: #ff5e0070 !important; }
 </style>
-	<div class="container_fluid" style="background-color: #ecf0f5 !important;">
+    <div class="container_fluid">
       <div>
         <div class="col-sm-12">
           <table id="notification_grid" search="Buscar" class="table table-condensed table-hover table-striped" width="100%" cellspacing="0" data-toggle="bootgrid">
@@ -148,7 +148,7 @@
     console.log(JSON.stringify(data));
     $.ajax({
       type: "GET",
-      url: `http://localhost:2045/api/UpdateAlarmSinap?ESTADO=${$("#estado").val()}&NUMLLAMADA=${$("#numllamada").val()}`,
+      url: `http://18.217.10.249:8091/api/UpdateAlarmSinap?ESTADO=${$("#estado").val()}&NUMLLAMADA=${$("#numllamada").val()}`,
       dataType: "json",
       success: function(response) {
         console.log("OK");
@@ -157,7 +157,7 @@
         $("#notification_grid").bootgrid('reload');
       },
       error: function(response) {
-        console.log("MAL");
+        console.log("ERROR");
         console.log(response);
         $('#edit_model').modal('hide');
         $("#notification_grid").bootgrid('reload');
