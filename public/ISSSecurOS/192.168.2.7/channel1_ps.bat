@@ -1,0 +1,1 @@
+C:/laragon/www/xtamvideo/public/psexec/psexec \\192.168.2.7 -u verytel\avallejo -p Colombia2017* C:/ffmpeg/bin/channel1.bat
