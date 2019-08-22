@@ -3,8 +3,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- <script src="camvideo.js"></script> -->
 
-<script src="camvideo.js" type="text/javascript"></script>
-
 <!-- boostrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -59,14 +57,14 @@ if ($_GET) {
     <div class="row">
         <div class="col-md-12">
             <div class="VideoCont row" id="videoCont">
-                <video id="video"></video>
+                <video id="video" controls></video>
             </div>
         </div>
     </div>
     <div id="respuesta">
 
     </div>
-    <div class="row">
+    <div class="row" style="display : none;">
         <div id="video-controls" class="controls">
             <button id="playpause" type="button" data-state="play">Play/Pause</button>
             <button id="stop" type="button" data-state="stop">Stop</button>
@@ -112,13 +110,12 @@ if ($_GET) {
 
 </div>
 <script type="text/javascript">
-    $(window).load(function() {
-        $(".loader").fadeOut("slow");
-    });
+    document.getElementById("loader").style = "";
 </script>
 
 <script>
     if (Hls.isSupported()) {
+        document.getElementById("loader").style = "";
         var video = document.getElementById('video');
         video.setAttribute("data-type", "video");
         video.setAttribute("value", '<?php echo $final; ?>');
@@ -130,12 +127,12 @@ if ($_GET) {
             changeButtonState('playpause');
         }, false);
 
-
         var hls = new Hls();
         hls.loadSource('<?php echo $final; ?>');
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, function() {
             // video.play();
+            document.getElementById("loader").style = "display: none;";
         });
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = '<?php echo $final; ?>';
@@ -143,6 +140,7 @@ if ($_GET) {
             video.play();
         });
     }
+
 
     // Display the user defined video controls
     var videoControls = document.getElementById("video-controls");
@@ -254,29 +252,29 @@ if ($_GET) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-
                 document.getElementById("respuesta").innerHTML = this.responseText;
-                if (Hls.isSupported()) {
-                    console.log('entramos al hls index');
-                    document.getElementById("videoCont").innerHTML = "";
-                    var x = document.getElementById('temp');
-                    var y = new Hls();
-                    y.loadSource(x.getAttribute("value"));
-                    y.attachMedia(x);
-                    y.on(Hls.Events.MANIFEST_PARSED, function() {
+                var x = document.getElementById('temp');
+                if (x) {
+                    document.getElementById("videoCont").style = "display: none;";
+                    if (Hls.isSupported()) {
+                        var y = new Hls();
+                        y.loadSource(x.getAttribute('value'));
+                        y.attachMedia(x);
+                        y.on(Hls.Events.MANIFEST_PARSED, function() {
 
-                    });
-                    x.addEventListener('loadedmetadata', function() {
-                        progress.setAttribute('max', x.duration);
-                    });
+                        });
+                        x.addEventListener('loadedmetadata', function() {
+                            progress.setAttribute('max', x.duration);
+                        });
 
-                    // As the video is playing, update the progress bar
-                    x.addEventListener('timeupdate', function() {
-                        // For mobile browsers, ensure that the progress element's max attribute is set
-                        if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
-                        progress.value = x.currentTime;
-                        progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
-                    });
+                        // As the video is playing, update the progress bar
+                        x.addEventListener('timeupdate', function() {
+                            // For mobile browsers, ensure that the progress element's max attribute is set
+                            if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
+                            progress.value = x.currentTime;
+                            progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
+                        });
+                    }
                 }
                 document.getElementById("loader").style = "display: none;";
                 //console.log('respuesta');

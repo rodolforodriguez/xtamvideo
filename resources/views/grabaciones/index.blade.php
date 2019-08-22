@@ -243,6 +243,7 @@ if ($userid === null) {
             },
             function(data) {
                 $("#videoCont").html(data);
+                document.getElementById("loader").style = "display: none;";
                 //$('#myForm')[0].reset();
             }
         );

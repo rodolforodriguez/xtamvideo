@@ -64,11 +64,8 @@ if ($_GET) {
         //echo $temp;
 
         ?>
-<script>
-    var videoTemp = '<?php echo $temp; ?>';
-</script>
 <div>
-    <video id='temp' data-type='video' value="<?php echo $temp; ?>"></video>
+    <video id='temp' data-type='video' value='<?php echo $temp; ?>' controls data-found="true"></video>
 </div>
 <?php
 
