@@ -70353,22 +70353,23 @@ var URLdomain = window.location.host;
               var estado = cameras[i].estado;
               var caseupdate = "";
               var colorcase = "";
+              var colorcaseBorder = "";
               switch (estado) {
                 case "C":
                   caseupdate = "Cerrado";
-
                   break;
                 case "P":
                   caseupdate = "Pendiente";
                   colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0];
+                  colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70379,15 +70380,14 @@ var URLdomain = window.location.host;
               });
 
               // Create a symbol for drawing the point
-
               var markerSymbol = new SimpleMarkerSymbol({
                 //color: [226, 119, 40],
                 size: "24px",
+                size: "30px",
                 style: "circle",
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
-                  color: [255, 255, 255],
                   width: 0.5
                 }
               });
@@ -70729,22 +70729,23 @@ var URLdomain = window.location.host;
               var estado = cameras[i].estado;
               var caseupdate = "";
               var colorcase = "";
+              var colorcaseBorder = "";
               switch (estado) {
                 case "C":
                   caseupdate = "Cerrado";
-
                   break;
                 case "P":
                   caseupdate = "Pendiente";
                   colorcase = [255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
                   break;
                 case "E":
                   caseupdate = "En Proceso";
-                  colorcase = [255, 255, 0, 0];
+                  colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
-                  colorcase = [255, 255, 0, 0];
+                  colorcaseBorder = [255, 0, 0];
               }
 
               ///// end estados de las camras
@@ -70763,7 +70764,6 @@ var URLdomain = window.location.host;
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
-                  color: [255, 255, 255],
                   width: 0.5
                 }
               });
@@ -70874,6 +70874,7 @@ var URLdomain = window.location.host;
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 0, 0],
                 size: "24px",
+                size: "30px",
                 outline: {
                   color: [255, 255, 255],
                   width: 1

@@ -80,7 +80,6 @@ if ($totalAlarms != 0) {
 
     function test(idAlarma) {
         var URLdomain = window.location.host;
-        alert(idAlarma);
         axios
             .get(
                 `http://${URLdomain}/xtamvideo/public/testvue/CambiarVerestadoAbonado.php?n=${idAlarma}`

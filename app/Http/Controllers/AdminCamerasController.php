@@ -46,12 +46,13 @@
 			$this->form[] = ['label'=>'Dirección','name'=>'direccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Descripción','name'=>'dcamara','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Descripción','name'=>'dcamara','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'channel1;channel2;channel3;channel4'];
 			$this->form[] = ['label'=>'Estado','name'=>'estado','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'inactive|Inactiva;active|Activa'];
 			$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
 			$this->form[] = ['label'=>'Servidor de streaming local','name'=>'id_streamserver','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataquery'=>'select id as value,concat(server," - ",port) as label from streamserver'];
 			$this->form[] = ['label'=>'Canal servidor de streaming local','name'=>'channelstreamserver','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
+			$this->form[] = ['label'=>'IP de la cámara','name'=>'ipcam','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
@@ -66,6 +67,7 @@
 			//$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
 			//$this->form[] = ['label'=>'Servidor de streaming local','name'=>'id_streamserver','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataquery'=>'select id as value,concat(server," - ",port) as label from streamserver'];
 			//$this->form[] = ['label'=>'Canal servidor de streaming local','name'=>'channelstreamserver','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
 			# OLD END FORM
 
 			/* 
@@ -277,10 +279,61 @@
 			//Your code here
 			//Your code here
 			//Your code here
-			$streamserver=$postdata["id_streamserver"];
+			$cameras= DB::table('centro_comercial')
+			->select('ipserver')
+			->where('id', '=', $postdata['id_centrocomercial'])
+			->first();
+			$rtspurl="rtsp://".$cameras->ipserver.":8554/".$postdata['dcamara'];
+			$postdata['rtsp_url']=$rtspurl;
+			//// funcionalidad ejecutar .bat desde php
+			function execInBackground($cmd) { 
+				if (substr(php_uname(), 0, 7) == "Windows"){ 
+					pclose(popen("start ". $cmd, "r"));
+					//echo("entro1");  
+				} 
+				else { 
+					exec($cmd . " > /dev/null &");   
+					//echo("entro2");
+				} 
+			}
+			//// fin funcionalidad .bat
+			
+			///// generacion y ejecucion cmd para convertir rtmp to rtsp
+			
+			$texto="cd C:/ffmpeg/bin 
+			ffmpeg -i rtmp://localhost:1935/".$postdata['dcamara']." -acodec libmp3lame -ar 11025 -f rtsp rtsp://localhost:8554/".$postdata['dcamara'].
+			"
+			pause";
+			$fileconf="ftp://xtam:xtam123456@".$cameras->ipserver."/".$postdata['dcamara'].".bat";
+
+			$fh=fopen($fileconf, 'w') or die("Ocurrio un error al abrir el archivo");
+			fwrite($fh, $texto) or die("No se puede escribir en el archivo");
+			fclose($fh);
+			$BS="\\\\";
+			$userxtam=getenv("USER_XTAM");
+			$pwdxtam=getenv("PWD_XTAM");
+			//// generamos .bat que ejecuta psexec 
+			$texto="C:/laragon/www/xtamvideo/public/psexec/psexec ".$BS.$cameras->ipserver." -u ".$userxtam." -p ".$pwdxtam." C:/ffmpeg/bin/".$postdata['dcamara'].".bat";
+			mkdir("C:/laragon/www/xtamvideo/public/ISSSecurOS/".$cameras->ipserver, 0700);
+			$fileconf="C:/laragon/www/xtamvideo/public/ISSSecurOS/".$cameras->ipserver."/".$postdata['dcamara']."_ps.bat";
+
+			$fh=fopen($fileconf, 'w') or die("Ocurrio un error al abrir el archivo");
+			fwrite($fh, $texto) or die("No se puede escribir en el archivo");
+			fclose($fh);
+			execInBackground($fileconf);
+			//$cmd2="C:\laragon\www\xtamvideo\public\psexec\psexec \\192.168.2.7 -u verytel\avallejo -p Colombia2017* C:\ffmpeg\bin\channel1.bat";
+			//$cmd2="ftp://xtam:xtam123456@".$cameras->ipserver."/".$postdata['dcamara'].".bat";
+
+			
+			//// finalizacion reestructuracion streaming RTSP
+
+
+			////////////////////
+
+			$streamserver=$postdata['id_streamserver'];
 			$counts=DB::table("cameras")->where('id_streamserver',$streamserver);
 			$ncam=$counts->count();
-			if($ncam>=8){
+			/*if($ncam>=8){
 				//$this->alert[] = ["message"=>"Lo siento este servidor de streaming tiene los canales ocupados","type"=>"danger"];
 				//CRUDBooster::redirectBack('este servidor tienes sus canales ocupados')->withInput(Input::all());
 				echo('unavailable');
@@ -291,7 +344,9 @@
 				//\Session::driver()->save();
 				//CRUDBooster::redirect(back(),'Process is successfully done!');
 				
-			}
+			}*/
+				
+			
 			
 
 	    }
