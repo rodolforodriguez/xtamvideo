@@ -86,42 +86,6 @@ progress.addEventListener("click", function(e) {
     }
 });
 
-// Búsqueda por filtros
-function SubmitFormData() {
-    var videos = document.querySelectorAll('[data-type="video"]');
-    var ids = [];
-    for (var v = 0; v < videos.length; v++) {
-        var video = videos[v];
-        ids.push(video.id);
-        console.log(video.id);
-    }
-
-    var fechastart = $("#fechastart").val();
-    var fechafinish = $("#fechafinish").val();
-    var horastart = $("#horastart").val();
-    var horafinish = $("#horafinish").val();
-    var array = ids;
-    var URLdomain = window.location.host;
-    //$host = Config::get('constant.ruta.host');
-    console.log(URLdomain);
-    $.get(
-        "http://" +
-            URLdomain +
-            "/xtamvideo/resources/views/grabaciones/create_m3u8.blade.php",
-        {
-            startdate: fechastart,
-            finishdate: fechafinish,
-            starttime: horastart,
-            finishfime: horafinish,
-            array: array
-        },
-        function(data) {
-            $("#videoCont").html(data);
-            //$('#myForm')[0].reset();
-        }
-    );
-}
-
 //Script popup de exportar videos
 function selectvideos() {
     var videos = document.querySelectorAll('[data-type="video"]');

@@ -17,6 +17,7 @@ if ($server == $cliente) {
     $cliente = 1;
 } else {
     $cliente = 0;
+    $cliente = 1;
 }
 // Database Constants
 include "includes/connection.php";

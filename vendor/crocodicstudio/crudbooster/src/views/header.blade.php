@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 $xtamPerName = DB::table('xtam_profile_inst')
     ->select('id_privileges')
     ->where('profile_StatusChek', '=', '1')
@@ -18,30 +19,30 @@ $parameter = sizeof($Login);
     switch ($id_profile) {
         case 4:
             ?>
-        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
-            <img src="{{URL::to('/')}}/includes/img/Xtam_v_a.png">
-        </a>
-        <?php
+    <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+        <img src="{{URL::to('/')}}/includes/img/Xtam_v_a.png">
+    </a>
+    <?php
         break;
     case 5:
         ?>
-        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
-            <img src="{{URL::to('/')}}/includes/img/Xtam_Alarmas.png">
-        </a>
-        <?php
+    <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+        <img src="{{URL::to('/')}}/includes/img/Xtam_Alarmas.png">
+    </a>
+    <?php
         break;
 
     case 6:
         ?>
-        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
-            <img src="{{URL::to('/')}}/includes/img/Xtam_Video.png">
-        </a>
-        <?php
+    <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}">
+        <img src="{{URL::to('/')}}/includes/img/Xtam_Video.png">
+    </a>
+    <?php
         break;
 
     default;
         ?>
-        <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}"></a>
+    <a class="logo font-xtam" href="{{CRUDBooster::adminPath()}}"></a>
     <?php
 }
 ?>
@@ -51,12 +52,12 @@ $parameter = sizeof($Login);
         <?php
         if ($parameter === 1) {
             ?>
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
         <?php
-    }
-    ?>
+        }
+        ?>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
 

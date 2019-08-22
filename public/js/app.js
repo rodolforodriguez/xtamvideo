@@ -36052,6 +36052,9 @@ function isBuffer (obj) {
 // For Node v0.10 support. Remove this eventually.
 function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -70296,6 +70299,7 @@ var URLdomain = window.location.host;
               var popupTemplate = {
                 title: "{Plant}",
                 content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70309,9 +70313,6 @@ var URLdomain = window.location.host;
               } else {
                 var pointGraphic = new Graphic({
                   geometry: point,
-                  symbol: markerSymbol,
-                  attributes: attributes,
-                  popupTemplate: popupTemplate
                 });
               }
 
@@ -70673,6 +70674,7 @@ var URLdomain = window.location.host;
               var popupTemplate = {
                 title: "{Plant}",
                 content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it

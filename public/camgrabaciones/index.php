@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- <script src="camvideo.js"></script> -->
 
+<script src="camvideo.js" type="text/javascript"></script>
 
 <!-- boostrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -253,7 +254,30 @@ if ($_GET) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+
                 document.getElementById("respuesta").innerHTML = this.responseText;
+                if (Hls.isSupported()) {
+                    console.log('entramos al hls index');
+                    document.getElementById("videoCont").innerHTML = "";
+                    var x = document.getElementById('temp');
+                    var y = new Hls();
+                    y.loadSource(x.getAttribute("value"));
+                    y.attachMedia(x);
+                    y.on(Hls.Events.MANIFEST_PARSED, function() {
+
+                    });
+                    x.addEventListener('loadedmetadata', function() {
+                        progress.setAttribute('max', x.duration);
+                    });
+
+                    // As the video is playing, update the progress bar
+                    x.addEventListener('timeupdate', function() {
+                        // For mobile browsers, ensure that the progress element's max attribute is set
+                        if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
+                        progress.value = x.currentTime;
+                        progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
+                    });
+                }
                 document.getElementById("loader").style = "display: none;";
                 //console.log('respuesta');
             }
@@ -261,7 +285,7 @@ if ($_GET) {
         xmlhttp.open("GET", direccion + '?id=' + id + '&startdate=' + fechaI + '&finishdate=' + fechaF + '&starttime=' + horaI + '&finishfime=' + horaF, true);
         xmlhttp.send();
 
-        console.log(xmlhttp);
+        //console.log(xmlhttp);
     }
 </script>
 <?php

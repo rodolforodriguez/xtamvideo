@@ -7,7 +7,7 @@ include "includes/connection.php";
 @section('content')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<div class="loader"></div>
+<div id="loader" class="loader"></div>
 <style>
     .loader {
         position: fixed;
@@ -212,4 +212,40 @@ if ($userid === null) {
         </div>
     </div>
 </div>
+<script>
+    // Búsqueda por filtros
+    function SubmitFormData() {
+
+        document.getElementById("loader").style = "";
+
+        var videos = document.querySelectorAll('[data-type="video"]');
+        var ids = [];
+        for (var v = 0; v < videos.length; v++) {
+            var video = videos[v];
+            ids.push(video.id);
+        }
+
+        var fechastart = $("#fechastart").val();
+        var fechafinish = $("#fechafinish").val();
+        var horastart = $("#horastart").val();
+        var horafinish = $("#horafinish").val();
+        var array = ids;
+        var URLdomain = window.location.host;
+        $.get(
+            "http://" +
+            URLdomain +
+            "/xtamvideo/resources/views/grabaciones/create_m3u8.blade.php", {
+                startdate: fechastart,
+                finishdate: fechafinish,
+                starttime: horastart,
+                finishfime: horafinish,
+                array: array
+            },
+            function(data) {
+                $("#videoCont").html(data);
+                //$('#myForm')[0].reset();
+            }
+        );
+    }
+</script>
 @endsection

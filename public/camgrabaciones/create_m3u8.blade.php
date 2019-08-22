@@ -60,36 +60,16 @@ if ($_GET) {
 
         $ip = $rowroute['ipserver'];
         $rout = $rowroute['folder_record'];
-        $final = "http://" . $ip . "/listfolder/" . $rout . "/temp.m3u8";
+        $temp = "http://" . $ip . "/listfolder/" . $rout . "/temp.m3u8";
+        //echo $temp;
 
         ?>
 <script>
-    if (Hls.isSupported()) {
-
-        var video = document.getElementById('video');
-        video.setAttribute("data-type", "video");
-        video.setAttribute("value", '<?php echo $final; ?>');
-        video.setAttribute('data-id', '<?php echo $id; ?>');
-
-
-        y.attachMedia(video);
-        y.on(Hls.Events.MANIFEST_PARSED, function() {
-
-        });
-        video.addEventListener('loadedmetadata', function() {
-            progress.setAttribute('max', x.duration);
-        });
-
-        // As the video is playing, update the progress bar
-        video.addEventListener('timeupdate', function() {
-            // For mobile browsers, ensure that the progress element's max attribute is set
-            if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
-            progress.value = x.currentTime;
-            progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
-        });
-    }
+    var videoTemp = '<?php echo $temp; ?>';
 </script>
-<video id='video' name="video"></video>
+<div>
+    <video id='temp' data-type='video' value="<?php echo $temp; ?>"></video>
+</div>
 <?php
 
     } else {

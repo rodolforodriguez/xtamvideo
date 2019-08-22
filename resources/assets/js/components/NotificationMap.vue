@@ -267,9 +267,6 @@ export default {
                   } else {
                     var pointGraphic = new Graphic({
                       geometry: point,
-                      symbol: markerSymbol,
-                      attributes: attributes,
-                      popupTemplate: popupTemplate
                     });
                   }
 
