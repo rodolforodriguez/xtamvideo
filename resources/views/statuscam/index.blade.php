@@ -31,8 +31,8 @@ if ($userid === null) {
                 </div>
                 <div class="col-md-3 col-xs-4 col-sm-4">
                     <select name="cam" id="cam">
-                        <option value="">Selecciónar:</option>
-                        <option value="todos">Todos</option>
+                        <!-- <option value="select">Selecciónar:</option> -->
+                        <!-- <option value="todos">Todos</option> -->
                         <?php
                         foreach ($centro_comercial as $ccomer) {
                             echo "<option value='" . ($ccomer->id) . "'>" . ($ccomer->descripcion) . "</option>";
@@ -102,10 +102,8 @@ if ($userid === null) {
                 </script>
                 <?php
                     }
-
-
                     if (isset($_GET["cam"]) && $_GET["cam"] == "todos") {
-                        $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial;");
+                        // $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial;");
                     } else {
                         //DB_SERVER,DB_USER, DB_PASS,DB_NAME
                         $consulta = mysqli_query($con, "SELECT id,descripcion,iptunelgre,ipsimcard,ipserver FROM centro_comercial where id = " . $_GET["cam"] . ";");
