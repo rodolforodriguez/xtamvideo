@@ -83,7 +83,7 @@ class AlamState {
 	function updateAlamState($params) {
 		require __DIR__.'/../../vendor/autoload.php';
     	$data = array();
-		$sql = "Update `cms_notifications` set `estado` = '" . $params["estado"] . "' WHERE `id` = '".$params["id"]."'";
+		$sql = "Update `cms_notifications` set `estado` = '" . $params["estado"] . "' WHERE `numllamada` = '".$params["numllamada"]."'";
 		///Evento de notificacion de alarma
 		$app_id = '549538';
 		$app_key = '14b51ac8b3104243bfac';
