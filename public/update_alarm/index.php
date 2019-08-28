@@ -31,9 +31,9 @@
                 <th searchable="false" sortable="false" data-column-id="codcaso">Código</th>
                 <th searchable="false" sortable="false" data-column-id="numllamada">Número llamada</th>
                 <th searchable="false" sortable="false" data-column-id="estado">Estado</th>
-                <th searchable="false" sortable="false" data-column-id="descripcion_caso">Descripción</th>
-                <th searchable="false" sortable="false" data-column-id="longitud">Descripción</th>
-                <th searchable="false" sortable="false" data-column-id="latitud">Descripción</th>
+                <th searchable="false" sortable="false" data-column-id="descripcion_caso">Descripción</th>                
+                <th searchable="false" sortable="false" data-column-id="longitud">Longitud</th>
+                <th searchable="false" sortable="false" data-column-id="latitud">Latitud</th>
                 <th searchable="false" sortable="false" data-column-id="commands" data-formatter="commands" data-sortable="false">Actualizar</th>
               </tr>
             </thead>
@@ -149,8 +149,8 @@
             $('#numllamada').val(ele.siblings(':nth-of-type(6)').html());
             $('#estado').val(ele.siblings(':nth-of-type(7)').html());
             $('#descripcion_caso').val(ele.siblings(':nth-of-type(8)').html());
-            $('#longitud').val(ele.siblings(':nth-of-type(8)').html());
-            $('#latitud').val(ele.siblings(':nth-of-type(8)').html());
+            $('#longitud').val(ele.siblings(':nth-of-type(9)').html());
+            $('#latitud').val(ele.siblings(':nth-of-type(10)').html());
         } else {
           alert('No hay una fila seleccionada.');
         }
