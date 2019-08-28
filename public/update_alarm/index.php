@@ -147,9 +147,12 @@
   function ajaxAction() {
     data = $("#frm_edit").serializeArray();
     console.log(JSON.stringify(data));
+    
+
     $.ajax({
-      type: "GET",
-      url: `<?php echo getenv("API_REST_ALARM") ?>UpdateAlarmSinap?estado=${$("#estado").val()}&numllamada=${$("#numllamada").val()}`,
+      type: "POST",
+      url: "../update_alarm/response.php",
+      data: data,
       dataType: "json",
       success: function(response) {
         console.log("OK");
@@ -164,17 +167,6 @@
         $("#notification_grid").bootgrid('reload');
       },
     });
-
-    /*$.ajax({
-      type: "POST",
-      url: "../update_alarm/response.php",
-      data: data,
-      dataType: "json",
-      success: function(response) {
-        $('#edit_model').modal('hide');
-        $("#notification_grid").bootgrid('reload');
-      }
-    });*/
   }
   $("#btn_edit").click(function() {
     ajaxAction();

@@ -3,6 +3,9 @@
 	$params = $_REQUEST;
     $action = isset($params['action']) != '' ? $params['action'] : '';
 	include_once("../includes/connection.php");
+	
+	
+	
     mysqli_set_charset($con, 'utf8');
     $empCls = new AlamState($con);
 
@@ -13,7 +16,9 @@
         default:
             $empCls->getAlamStates($params);
         return;
-    }
+	}
+	
+
 class AlamState {
 	protected $conn;
 	protected $data = array();
@@ -73,10 +78,34 @@ class AlamState {
 
 		return $json_data;
 	}
+
+	
 	function updateAlamState($params) {
+		require __DIR__.'/../../vendor/autoload.php';
     	$data = array();
 		$sql = "Update `cms_notifications` set `estado` = '" . $params["estado"] . "' WHERE `id` = '".$params["id"]."'";
+		///Evento de notificacion de alarma
+		$app_id = '549538';
+		$app_key = '14b51ac8b3104243bfac';
+		$app_secret = '0feece4c505377396bc9';
+		$app_cluster = 'us2';
+
+		$pusher = new Pusher\Pusher( $app_key, $app_secret, $app_id, array( 'cluster' => $app_cluster, 'encrypted' => true ) );
+
+		$array['codigo'] = $params["numllamada"];
+		$array['estado'] = $params["estado"];
+		$array['municipio'] = $params["municipio"];
+		$array['direccion'] = $params["direccion"];
+		$array['barrio'] = $params["barrio"];
+		$array['descripcion_caso'] = $params["descripcion_caso"];
+
+		$pusher->trigger('channelDemoEvent', 'App\Events\eventTrigger', $array);
+
+		///Fin Evento de notificacion de alarma
+
 		echo $result = mysqli_query($this->conn, $sql) or die("Error al actualizar el estado de la alarma.");
+
+		
 	}
 }
 ?>
