@@ -100,6 +100,7 @@ class AlamState {
 		$array['longitud'] = $params["longitud"];
 		$array['latitud'] = $params["latitud"];
 		$array['descripcion_caso'] = $params["descripcion_caso"];
+		$array['fecha'] = "";
 
 		$pusher->trigger('channelDemoEvent', 'App\Events\eventTrigger', $array);
 
