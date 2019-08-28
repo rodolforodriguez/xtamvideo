@@ -97,6 +97,8 @@ class AlamState {
 		$array['municipio'] = $params["municipio"];
 		$array['direccion'] = $params["direccion"];
 		$array['barrio'] = $params["barrio"];
+		$array['longitud'] = $params["longitud"];
+		$array['latitud'] = $params["latitud"];
 		$array['descripcion_caso'] = $params["descripcion_caso"];
 
 		$pusher->trigger('channelDemoEvent', 'App\Events\eventTrigger', $array);

@@ -32,6 +32,8 @@
                 <th searchable="false" sortable="false" data-column-id="numllamada">Número llamada</th>
                 <th searchable="false" sortable="false" data-column-id="estado">Estado</th>
                 <th searchable="false" sortable="false" data-column-id="descripcion_caso">Descripción</th>
+                <th searchable="false" sortable="false" data-column-id="longitud">Descripción</th>
+                <th searchable="false" sortable="false" data-column-id="latitud">Descripción</th>
                 <th searchable="false" sortable="false" data-column-id="commands" data-formatter="commands" data-sortable="false">Actualizar</th>
               </tr>
             </thead>
@@ -81,6 +83,14 @@
                   <div class="form-group">
                     <label for="descripcion_caso" class="control-label">Descripción:</label>
                     <input type="text" class="form-control" id="descripcion_caso" name="descripcion_caso" readonly/>
+                  </div>
+                  <div class="form-group">
+                    <label for="longitud" class="control-label">Longitud:</label>
+                    <input type="text" class="form-control" id="longitud" name="longitud" readonly/>
+                  </div>
+                  <div class="form-group">
+                    <label for="latitud" class="control-label">Latitud:</label>
+                    <input type="text" class="form-control" id="latitud" name="latitud" readonly/>
                   </div>
             </div>
             <div class="modal-footer">
@@ -139,6 +149,8 @@
             $('#numllamada').val(ele.siblings(':nth-of-type(6)').html());
             $('#estado').val(ele.siblings(':nth-of-type(7)').html());
             $('#descripcion_caso').val(ele.siblings(':nth-of-type(8)').html());
+            $('#longitud').val(ele.siblings(':nth-of-type(8)').html());
+            $('#latitud').val(ele.siblings(':nth-of-type(8)').html());
         } else {
           alert('No hay una fila seleccionada.');
         }
