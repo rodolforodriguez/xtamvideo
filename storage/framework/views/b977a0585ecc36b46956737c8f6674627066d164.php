@@ -22,7 +22,7 @@ $mapsxtamvideo = '/xtam/public/admin/maps';
 
 if ($url === $mapsxtamvideo || $url === $mapsxtam) {
     ?>
-    <script src="<?php echo e(asset ('js/app.js')); ?>"></script>
+<script src="<?php echo e(asset ('js/app.js')); ?>"></script>
 <?php
 }
 ?>
@@ -73,6 +73,7 @@ if ($url === $mapsxtamvideo || $url === $mapsxtam) {
 </script>
 <script src="<?php echo e(asset('vendor/crudbooster/assets/js/main.js').'?r='.time()); ?>"></script>
 
+<!-- Grabaciones -->
 <?php
 $url = $_SERVER["REQUEST_URI"];
 $xtamvideo = '/xtamvideo/public/admin/recording';
@@ -82,13 +83,26 @@ $vdGrab = '/xtamvideo/public/camgrabaciones';
 if ($url === $xtamvideo || $url === $xtam || $url === $vdGrab) {
     header("Access-Control-Allow-Origin: *");
     ?>
-    <script src="<?php echo e(asset('js/video.js')); ?>" type="text/javascript"></script>
-    <script src="<?php echo e(asset('js/drag_drop.js')); ?>" type="text/javascript"></script>
-    <script src="<?php echo e(asset('js/grabaciones.js')); ?>" type="text/javascript"></script>
-    <link rel="stylesheet" href="../css/video.css" media="all" />
-    <link rel="stylesheet" href="../css/grabaciones.css" media="all" />
-    <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="<?php echo e(asset('js/video.js')); ?>" type="text/javascript"></script>
+<script src="<?php echo e(asset('js/drag_drop.js')); ?>" type="text/javascript"></script>
+<script src="<?php echo e(asset('js/grabaciones.js')); ?>" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/video.css" media="all" />
+<link rel="stylesheet" href="../css/grabaciones.css" media="all" />
+<script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<?php
+}
+?>
+
+<!-- cam grabaciones -->
+
+<?php
+$url = $_SERVER["REQUEST_URI"];
+$camgrabaciones = '/xtamvideo/public/admin/camgrabaciones';
+if ($url = $camgrabaciones) {
+    ?>
+<script src="<?php echo e(asset('js/camgrab.js')); ?>" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/camgrab.css" media="all" />
 <?php
 }
 ?>

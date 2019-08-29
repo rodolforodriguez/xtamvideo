@@ -48,8 +48,8 @@ if ($userid === null) {
                 <div class="content">
                     <div class="sidenav" id="nav" style="min-height: 50vh;">
                         <div class="panel panel-default" style="border-color: #000;">
-                            <div class="panel-heading" style="background-color: #c7c7c7;">
-                                <h3 class="panel-title">Cámaras</h3>
+                            <div class="panel-heading" style="background-color: #331e4bb8;">
+                                <h3 class="panel-title" style="color: #ffffff;">Cámaras</h3>
                             </div>
                             <div class="panel-body" style="background-color: #efefef;">
                                 <?php
@@ -92,8 +92,8 @@ if ($userid === null) {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default" style="border-color: #000;">
-                            <div class="panel-heading" style="background-color: #c7c7c7;">
-                                <h3 class="panel-title">Visualización de cámaras</h3>
+                            <div class="panel-heading" style="background-color: #331e4bb8;">
+                                <h3 class="panel-title" style="color: #ffffff;">Visualización de cámaras</h3>
                             </div>
                             <div class="VideoCont row" id="videoCont" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height: 50vh; ">
 

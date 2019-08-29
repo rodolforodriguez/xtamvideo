@@ -36039,19 +36039,6 @@ module.exports.default = axios;
  * @license  MIT
  */
 
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 module.exports = function isBuffer (obj) {
   return obj != null && obj.constructor != null &&
     typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
@@ -70183,7 +70170,7 @@ var URLdomain = window.location.host;
         case "1":
           //alert("Xtam video");
           ///// XTAM VIDEO
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+			  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70264,7 +70251,7 @@ var URLdomain = window.location.host;
               /// link a abrir en otra ventana
               var link = "../vs/streaming.php?ip=" + server + "&state=" + cliente + "&userid=" + userid;
 
-              var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+              var grabaciones = "../admin/camgrabaciones?id=" + camara;
 
               // Create attributes
               var attributes = {
@@ -70298,8 +70285,7 @@ var URLdomain = window.location.host;
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
-                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70313,6 +70299,9 @@ var URLdomain = window.location.host;
               } else {
                 var pointGraphic = new Graphic({
                   geometry: point,
+                  symbol: markerSymbol,
+                  attributes: attributes,
+                  popupTemplate: popupTemplate
                 });
               }
 
@@ -70338,7 +70327,7 @@ var URLdomain = window.location.host;
         case "2":
           //alert("Xtam alarmas");
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+			  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70365,10 +70354,12 @@ var URLdomain = window.location.host;
                   break;
                 case "E":
                   caseupdate = "En Proceso";
+                  colorcase = [255, 255, 0];
                   colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
+                  colorcase = [255, 0, 0];
                   colorcaseBorder = [255, 0, 0];
               }
 
@@ -70382,12 +70373,12 @@ var URLdomain = window.location.host;
               // Create a symbol for drawing the point
               var markerSymbol = new SimpleMarkerSymbol({
                 //color: [226, 119, 40],
-                size: "24px",
                 size: "30px",
                 style: "circle",
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
+                  color: colorcaseBorder,
                   width: 0.5
                 }
               });
@@ -70406,7 +70397,7 @@ var URLdomain = window.location.host;
                 Fecha: cameras[i].fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
-              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
+				__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
                 if (Object.keys(response.data).length !== 0) {
                   var abonados = response.data;
                   var AbonadosJson = JSON.parse(abonados[0].abonados);
@@ -70438,7 +70429,7 @@ var URLdomain = window.location.host;
                     };
                     var popupTemplateAbonado = {
                       title: "{Plant}",
-                      content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" + "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" + "</div>"
+                      content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Nombre: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Nombre}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Telefono1: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Telefono1}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Telefono2: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Telefono2}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Telefono3: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Telefono3}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Direccion: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Direccion}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Tipo de Elemento: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Tipo_Elemento}</span>" + "</div>" + "<div>" + "</div>"
                     };
                     var pointGraphicAbonado = new Graphic({
                       geometry: pointAbonado,
@@ -70453,7 +70444,7 @@ var URLdomain = window.location.host;
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div>" + "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" + "<br/>Abonados: {LinkAbonados}" + "</div>"
+                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Nombre: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Barrio: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Barrio}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Caso: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{DesCaso}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Fecha: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Fecha}</span>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{LinkAbonados}</span>" + "</div>" + "</div>"
               };
 
               // Create a graphic and add the geometry and symbol to it
@@ -70567,7 +70558,7 @@ var URLdomain = window.location.host;
         case "3":
           //alert("Xtam premium");
           ///// XTAM VIDEO Y ALARMA
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+			  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70648,7 +70639,7 @@ var URLdomain = window.location.host;
               /// link a abrir en otra ventana
               var link = "../vs/streaming.php?ip=" + server + "&state=" + cliente + "&userid=" + userid;
 
-              var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+              var grabaciones = "../admin/camgrabaciones?id=" + camara;
 
               // Create attributes
               if (estado == "active") {
@@ -70673,7 +70664,6 @@ var URLdomain = window.location.host;
               // Create popup template
               var popupTemplate = {
                 title: "{Plant}",
-                content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "{XCoord}" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
                 content: "<div class='row text-left'>" + "<div class='col-md-3 col-sm-3 col-xs-6 text-left'>" + "<strong> Latitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6 text-left'>" + "<span>{YCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Longitud: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{XCoord}</span>" + "</div>" + "<div class='col-md-3 col-sm-3 col-xs-6'>" + "<strong> Dirección: </strong>" + "</div>" + "<div class='col-md-9 col-sm-9 col-xs-6'>" + "<span>{Adresss}</span><br>" + "</div>" + "</div>" + "<div class='row'>" + "<div class='col-md-12 col-sm-12 col-xs-6'>" + "<span>{Link}</span> | " + "<span>{grabaciones}</span>" + "</div>" + "</div>"
               };
 
@@ -70714,7 +70704,7 @@ var URLdomain = window.location.host;
 
           /// alarmas no gestionadas XTAM ALARMAS
 
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+			  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70741,10 +70731,12 @@ var URLdomain = window.location.host;
                   break;
                 case "E":
                   caseupdate = "En Proceso";
+                  colorcase = [255, 255, 0];
                   colorcaseBorder = [255, 255, 0];
                   break;
                 default:
                   caseupdate = "Pendiente";
+                  colorcase = [255, 0, 0];
                   colorcaseBorder = [255, 0, 0];
               }
 
@@ -70764,6 +70756,7 @@ var URLdomain = window.location.host;
                 //color: [255,0,0,0.5],
                 color: colorcase,
                 outline: {
+                  color: colorcaseBorder,
                   width: 0.5
                 }
               });
@@ -70873,7 +70866,6 @@ var URLdomain = window.location.host;
             if (e.estado == "P") {
               var markerSymbol = new SimpleMarkerSymbol({
                 color: [255, 0, 0],
-                size: "24px",
                 size: "30px",
                 outline: {
                   color: [255, 255, 255],

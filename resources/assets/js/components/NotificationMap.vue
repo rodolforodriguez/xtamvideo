@@ -174,7 +174,7 @@ export default {
                     "&userid=" +
                     userid;
 
-                  var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+                  var grabaciones = "../admin/camgrabaciones?id=" + camara;
 
                   // Create attributes
                   var attributes = {
@@ -229,10 +229,10 @@ export default {
                     title: "{Plant}",
                     content:
                       "<div class='row text-left'>" +
-                      "<div class='col-md-3 col-sm-3 col-xs-6>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
                       "<strong> Latitud: </strong>" +
                       "</div>" +
-                      "<div class='col-md-9 col-sm-9 col-xs-6>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
                       "<span>{YCoord}</span>" +
                       "</div>" +
                       "<div class='col-md-3 col-sm-3 col-xs-6'>" +
@@ -267,6 +267,9 @@ export default {
                   } else {
                     var pointGraphic = new Graphic({
                       geometry: point,
+                      symbol: markerSymbol,
+                      attributes: attributes,
+                      popupTemplate: popupTemplate
                     });
                   }
 
@@ -408,9 +411,56 @@ export default {
                           var popupTemplateAbonado = {
                             title: "{Plant}",
                             content:
+                              "<div class='row text-left'>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Latitud: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{YCoord}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Longitud: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{XCoord}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Nombre: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Nombre}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Telefono1: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Telefono1}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Telefono2: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Telefono2}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Telefono3: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Telefono3}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Direccion: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Direccion}</span>" +
+                              "</div>" +
+                              "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                              "<strong> Tipo de Elemento: </strong>" +
+                              "</div>" +
+                              "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                              "<span>{Tipo_Elemento}</span>" +
+                              "</div>" +
                               "<div>" +
-                              "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Nombre}<br/>Telefono1:  {Telefono1}<br/>Telefono2 Caso:  {Telefono2}<br/>Telefono3:  {Telefono3}<br/>Direccion:  {Direccion}" +
-                              "{Fecha}<br/>Tipo de Elemento: {Tipo_Elemento}" +
                               "</div>"
                           };
                           var pointGraphicAbonado = new Graphic({
@@ -427,9 +477,48 @@ export default {
                   var popupTemplate = {
                     title: "{Plant}",
                     content:
-                      "<div>" +
-                      "Latitud: {YCoord}<br/>Longitud: {XCoord}<br/>Nombre:{Adresss}<br/>Barrio:  {Barrio}<br/>Descripción Caso:  {DesCaso}<br/>Fecha:  {Fecha}" +
-                      "<br/>Abonados: {LinkAbonados}" +
+                      "<div class='row text-left'>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Latitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{YCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Longitud: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{XCoord}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Nombre: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{Adresss}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Barrio: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{Barrio}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Caso: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{DesCaso}</span>" +
+                      "</div>" +
+                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                      "<strong> Fecha: </strong>" +
+                      "</div>" +
+                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                      "<span>{Fecha}</span>" +
+                      "</div>" +
+                      "</div>" +
+                      "<div class='row'>" +
+                      "<div class='col-md-12 col-sm-12 col-xs-6'>" +
+                      "<span>{LinkAbonados}</span>" +
+                      "</div>" +
                       "</div>"
                   };
 
@@ -654,7 +743,7 @@ export default {
                     "&userid=" +
                     userid;
 
-                  var grabaciones = "../camgrabaciones/index.php?id=" + camara;
+                  var grabaciones = "../admin/camgrabaciones?id=" + camara;
 
                   // Create attributes
                   if (estado == "active") {

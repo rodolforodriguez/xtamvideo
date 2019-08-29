@@ -23,3 +23,4 @@ Route::get('/admin/recording', 'GrabacionesController@index');
 Route::get('/admin/searchadvanced', 'AdminCameras35Controller@index');
 Route::get('/admin/statuscam', 'StatuscamController@index');
 Route::get('/admin/alarmstate', 'AdminAlarmStateController@index');
+Route::get('/admin/camgrabaciones', 'CamgrabacionesController@index');

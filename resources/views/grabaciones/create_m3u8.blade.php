@@ -22,7 +22,7 @@ if ($_GET) {
 
     if (count($array) > 0) {
         foreach ($array as $campo => $valor) {
-            $con = mysqli_connect("18.217.79.142", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
+            $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
             mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
 
             $querynginx = mysqli_query($con, "SELECT filename,format(timediff(timefinish,timestart),4) as timeduration, rt.route 
@@ -68,7 +68,7 @@ if ($_GET) {
         if (count($arraycam) > 0) {
             // mostramos los valores del array
             foreach ($arraycam as $col => $cont) {
-                $con = mysqli_connect("18.217.79.142", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
+                $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
                 mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
 
                 $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
@@ -93,6 +93,7 @@ if ($_GET) {
         x.setAttribute("data-type", "video");
         x.setAttribute("value", '<?php echo $final; ?>');
         x.setAttribute("style", "width: 37%");
+        x.setAttribute("controls", "");
         x.setAttribute("name", txt);
         x.setAttribute("ondragover", "noAllowDrop(event)");
         y.attachMedia(x);
@@ -154,7 +155,7 @@ if ($_GET) {
 
             // mostramos los valores del array
             foreach ($array as $col => $cont) {
-                $con = mysqli_connect("18.217.79.142", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
+                $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
                 mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
 
                 $queryroute = mysqli_query($con, "SELECT re.route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
@@ -182,6 +183,7 @@ if ($_GET) {
         x.setAttribute("value", '<?php echo $final; ?>');
         x.setAttribute("style", "width: 37%");
         x.setAttribute("name", txt);
+        x.setAttribute("controls", "");
         x.setAttribute("ondragover", "noAllowDrop(event)");
         y.attachMedia(x);
         y.on(Hls.Events.MANIFEST_PARSED, function() {

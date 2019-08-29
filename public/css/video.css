@@ -127,23 +127,24 @@ video {
 }
 
 .controls progress {
-	display:block;
-	width:100%;
-	height:20px;
-	height:1.25rem;
-	margin-top:2px;
-	margin-top:0.125rem;
-	border:1px solid #aaa;
-	overflow:hidden;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
+    display: block;
+    width: 100%;
+    height: 20px;
+    height: 1.25rem;
+    margin-top: 2px;
+    margin-top: 0.125rem;
+    border: 1px solid #aaa;
+    overflow: hidden;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
+
 .controls progress span {
-	width:0%;
-	height:100%;
-	display:inline-block;
-	background-color:#2a84cd;	
+    width: 0%;
+    height: 100%;
+    display: inline-block;
+    background-color: #2a84cd;
 }
 
 .controls progress[data-state="fake"] {
