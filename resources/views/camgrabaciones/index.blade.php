@@ -12,85 +12,83 @@ include "includes/connection.php";
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <div class="loader" id="loader"></div>
-<div class="box">
-    <div class="box-body">
-        <div class="row" style="margin-left: 0%;">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default" style="border-color: #000;">
-                            <div class="panel-heading" style="background-color: #331e4bb8;">
-                                <h3 class="panel-title" style="color: #ffffff;">Cámaras</h3>
-                            </div>
+<div class="box-body">
+    <div class="row" style="margin-left: 0%;">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="border-color: #000;">
+                        <div class="panel-heading" style="background-color: #331e4bb8;">
+                            <h3 class="panel-title" style="color: #ffffff;">Cámaras</h3>
+                        </div>
 
-                            <?php
+                        <?php
 
-                            //error_reporting(0);
-                            if ($_GET) {
-                                $id = $_GET['id'];
+                        //error_reporting(0);
+                        if ($_GET) {
+                            $id = $_GET['id'];
 
-                                $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-                                mysqli_select_db($con, "xtamdb") or die("No hay conexion en la base de datos");
+                            $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
+                            mysqli_select_db($con, "xtamdb") or die("No hay conexion en la base de datos");
 
-                                $idcam = mysqli_query($con, "SELECT cameraid , idcamara , route , folder_record , ipserver
+                            $idcam = mysqli_query($con, "SELECT cameraid , idcamara , route , folder_record , ipserver
                                         FROM xtamdb.cameras
                                         inner join routerecord ON routerecord.idcamara = cameras.cameraid
                                         inner join centro_comercial ON centro_comercial.id = cameras.id_centrocomercial
                                         where cameras.cameraid =" . $id);
-                                $dato = mysqli_fetch_assoc($idcam);
+                            $dato = mysqli_fetch_assoc($idcam);
 
-                                if ($dato === NULL) {
-                                    ?>
-                            <h3 style="text-align: center;">No se han encontrado grabaciones para esta cámara</h3>
-                            <?php
-                                }
-                                //$url = $dato['route'];
-                                $ip = $dato['ipserver'];
-                                $rout = $dato['folder_record'];
-                                //$rout = substr($url, 31);
-                                $final = "http://" . $ip . "/listfolder/" . $rout . "/index.m3u8";
+                            if ($dato === NULL) {
                                 ?>
-                            <div class="VideoCont row" id="videoCont">
-                                <video id="video" controls></video>
-                            </div>
-                            <div id="respuesta">
-                            </div>
-                            <div id="found">
-                            </div>
+                        <h3 style="text-align: center;">No se han encontrado grabaciones para esta cámara</h3>
+                        <?php
+                            }
+                            //$url = $dato['route'];
+                            $ip = $dato['ipserver'];
+                            $rout = $dato['folder_record'];
+                            //$rout = substr($url, 31);
+                            $final = "http://" . $ip . "/listfolder/" . $rout . "/index.m3u8";
+                            ?>
+                        <div class="VideoCont row" id="videoCont">
+                            <video id="video" controls></video>
+                        </div>
+                        <div id="respuesta">
+                        </div>
+                        <div id="found">
+                        </div>
 
-                            <div class=" panel-footer" id="Controls" style="min-height: 5vh;">
-                                <div class="row">
-                                    <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
-                                        <div class="input-group date">
-                                            <label class="control-label">Fecha inicial: </label>
-                                            <input class="form-control" type="date" name="fechastart" id="fechastart" value="2019-08-15" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
-                                        <div class="input-group date">
-                                            <label class="control-label">Hora inicial: </label>
-                                            <input class="form-control" type="time" name="horastart" id="horastart" value="12:06" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
-                                        <div class="input-group date">
-                                            <label class="control-label">Fecha final: </label>
-                                            <input class="form-control" type="date" name="fechafinish" id="fechafinish" value="2019-08-15" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
-                                        <div class="input-group date">
-                                            <label class="control-label">Hora final: </label>
-                                            <input class="form-control" type="time" name="horafinish" id="horafinish" value="13:29" required>
-                                        </div>
+                        <div class=" panel-footer" id="Controls">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6 col-lg-2">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 col-lg-2">
+                                    <div class="input-group date">
+                                        <label class="control-label">Fecha inicial: </label>
+                                        <input class="form-control" type="date" name="fechastart" id="fechastart" value="2019-08-15" required>
                                     </div>
                                 </div>
-
-                                <hr>
-                                <div class="row text-right">
-                                    <div class="col-md-5 col-md-offset-7">
-                                        <button type="button" class="btn btn-warning btn-sm" onclick="SubmitFormData();">Buscar</button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#export" onclick="selectvideos();">Exportar</button>
+                                <div class="col-md-2 col-sm-3 col-xs-6 col-lg-2">
+                                    <div class="input-group date">
+                                        <label class="control-label">Hora inicial: </label>
+                                        <input class="form-control" type="time" name="horastart" id="horastart" value="12:06" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 col-lg-2">
+                                    <div class="input-group date">
+                                        <label class="control-label">Fecha final: </label>
+                                        <input class="form-control" type="date" name="fechafinish" id="fechafinish" value="2019-08-15" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-xs-6 col-lg-2">
+                                    <div class="input-group date">
+                                        <label class="control-label">Hora final: </label>
+                                        <input class="form-control" type="time" name="horafinish" id="horafinish" value="13:29" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
+                                    <div class="input-group date">
+                                        <label class="control-label"> &nbsp; </label>
+                                        <button type="button" class="form-control" onclick="SubmitFormData();"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -101,13 +99,14 @@ include "includes/connection.php";
         </div>
     </div>
 </div>
+
 </div>
 </div>
 
 <script type="text/javascript">
     document.body.className = "skin-red sidebar-collapse";
     document.getElementById("loader").style = "";
-    document.getElementsByClassName("sidebar-toggle".style = "display: none;")
+    //document.body.className = "sidebar-toggle style='display: none;'";
 </script>
 
 <script>

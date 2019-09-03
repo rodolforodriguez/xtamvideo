@@ -1,4 +1,3 @@
-
 /* Fixed sidenav, full height */
 
 .sidenav {
@@ -44,12 +43,12 @@
     padding: 0px 10px;
 }
 
-/* Add an active class to the active dropdown button */
+/* Add an active class to the active dropdown button 
 
 .active {
     background-color: #ecf0f5;
     color: #000;
-}
+}*/
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 
@@ -76,4 +75,3 @@
         font-size: 18px;
     }
 }
-

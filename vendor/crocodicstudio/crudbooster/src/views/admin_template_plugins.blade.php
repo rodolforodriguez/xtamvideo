@@ -13,14 +13,9 @@
 
 <!-- Bootstrap 3.3.2 JS -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-
 <?php
 $url = $_SERVER["REQUEST_URI"];
-
-$mapsxtam = '/xtamvideo/public/admin/maps';
-$mapsxtamvideo = '/xtam/public/admin/maps';
-
-if ($url === $mapsxtamvideo || $url === $mapsxtam) {
+if (strpos($url, 'maps') !== false) {
     ?>
 <script src="{{ asset ('js/app.js')}}"></script>
 <?php
@@ -42,9 +37,10 @@ if ($url === $mapsxtamvideo || $url === $mapsxtam) {
 <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
 
+<!--
 <link rel='stylesheet' href='{{ asset("vendor/crudbooster/assets/lightbox/dist/css/lightbox.min.css") }}' />
 <script src="{{ asset('vendor/crudbooster/assets/lightbox/dist/js/lightbox.min.js') }}"></script>
-
+-->
 <!--SWEET ALERT-->
 <script src="{{asset('vendor/crudbooster/assets/sweetalert/dist/sweetalert.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/crudbooster/assets/sweetalert/dist/sweetalert.css')}}">
@@ -75,13 +71,7 @@ if ($url === $mapsxtamvideo || $url === $mapsxtam) {
 
 <!-- Grabaciones -->
 <?php
-$url = $_SERVER["REQUEST_URI"];
-$xtamvideo = '/xtamvideo/public/admin/recording';
-$xtam = '/xtam/public/admin/recording';
-$vdGrab = '/xtamvideo/public/camgrabaciones';
-
-if ($url === $xtamvideo || $url === $xtam || $url === $vdGrab) {
-    header("Access-Control-Allow-Origin: *");
+if (strpos($url, 'recording') !== false) {
     ?>
 <script src="{{asset('js/video.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/drag_drop.js')}}" type="text/javascript"></script>
@@ -93,13 +83,9 @@ if ($url === $xtamvideo || $url === $xtam || $url === $vdGrab) {
 <?php
 }
 ?>
-
 <!-- cam grabaciones -->
-
 <?php
-$url = $_SERVER["REQUEST_URI"];
-$camgrabaciones = '/xtamvideo/public/admin/camgrabaciones';
-if ($url = $camgrabaciones) {
+if (strpos($url, 'camgrabaciones') !== false) {
     ?>
 <script src="{{asset('js/camgrab.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="../css/camgrab.css" media="all" />
