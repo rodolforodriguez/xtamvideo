@@ -5,17 +5,17 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminCamerasController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminAbonadosController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-			$this->title_field = "id";
+			$this->title_field = "firstname";
 			$this->limit = "20";
-			$this->orderby = "id_centrocomercial,dcamara";
+			$this->orderby = "celular,desc";
 			$this->global_privilege = false;
 			$this->button_table_action = true;
-			$this->button_bulk_action = true;
+			$this->button_bulk_action = false;
 			$this->button_action_style = "button_icon";
 			$this->button_add = true;
 			$this->button_edit = true;
@@ -25,49 +25,61 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "cameras";
+			$this->table = "abonados";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Centro Comercial","name"=>"id_centrocomercial","join"=>"centro_comercial,descripcion"];
-			$this->col[] = ["label"=>"Dirección","name"=>"direccion"];
-			$this->col[] = ["label"=>"Longitud","name"=>"longitud"];
-			$this->col[] = ["label"=>"Latitud","name"=>"latitud"];
-			$this->col[] = ["label"=>"Descripción","name"=>"dcamara"];
-			$this->col[] = ["label"=>"Estado","name"=>"estado"];
-			$this->col[] = ["label"=>"Ver cámara","name"=>"vercam"];
+			$this->col[] = ["label"=>"Primer nombre","name"=>"firstname"];
+			$this->col[] = ["label"=>"Primer apellido","name"=>"lastname1"];
+			$this->col[] = ["label"=>"Tipo Identificación","name"=>"tipo_iden"];
+			$this->col[] = ["label"=>"Identificación","name"=>"ident"];
+			$this->col[] = ["label"=>"Celular","name"=>"celular"];
+			$this->col[] = ["label"=>"Dirección","name"=>"direreccion"];
+			$this->col[] = ["label"=>"Email","name"=>"email"];
+			$this->col[] = ["label"=>"Barrio","name"=>"barrio"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Sitio central','name'=>'id_centralsites','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
-			$this->form[] = ['label'=>'Centro Comercial','name'=>'id_centrocomercial','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centro_comercial,descripcion'];
-			$this->form[] = ['label'=>'Dirección','name'=>'direccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Descripción','name'=>'dcamara','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'channel1;channel2;channel3;channel4'];
-			$this->form[] = ['label'=>'Estado','name'=>'estado','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'inactive|Inactiva;active|Activa'];
-			$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
-			$this->form[] = ['label'=>'Servidor de streaming local','name'=>'id_streamserver','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataquery'=>'select id as value,concat(server," - ",port) as label from streamserver'];
-			$this->form[] = ['label'=>'Canal servidor de streaming local','name'=>'channelstreamserver','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
-			$this->form[] = ['label'=>'IP de la cámara','name'=>'ipcam','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Celular','name'=>'celular','type'=>'text','validation'=>'required|integer','width'=>'col-sm-10','placeholder'=>'Solo numeros'];
+			$this->form[] = ['label'=>'Primer nombre','name'=>'firstname','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Segundo nombre','name'=>'secundname','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Primer apellido','name'=>'lastname1','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Segundo Apellido','name'=>'lastname2','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Fecha de nacimiento','name'=>'date_nac','type'=>'date','validation'=>'required|date','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Direrección','name'=>'direreccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Teléfono 1','name'=>'tel1','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Teléfono 2','name'=>'tel2','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Femenino;Masculino;No definido'];
+			$this->form[] = ['label'=>'Tipo Identificación','name'=>'tipo_iden','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Cédula de Ciudadanía;Cédula de extranjería;Pasaporte'];
+			$this->form[] = ['label'=>'Identificación','name'=>'ident','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Departamento','name'=>'departamento','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Municipio','name'=>'municipio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Barrio','name'=>'barrio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:abonados','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Soltero(a);Casado(a);Unión libre'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Sitio central','name'=>'id_centralsites','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
-			//$this->form[] = ['label'=>'Centro Comercial','name'=>'id_centrocomercial','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centro_comercial,descripcion'];
-			//$this->form[] = ['label'=>'Dirección','name'=>'direccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Descripción','name'=>'dcamara','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Estado','name'=>'estado','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'inactive|Inactiva;active|Activa'];
-			//$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
-			//$this->form[] = ['label'=>'Servidor de streaming local','name'=>'id_streamserver','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataquery'=>'select id as value,concat(server," - ",port) as label from streamserver'];
-			//$this->form[] = ['label'=>'Canal servidor de streaming local','name'=>'channelstreamserver','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
+			//$this->form[] = ['label'=>'Celular','name'=>'celular','type'=>'text','validation'=>'required|integer','width'=>'col-sm-10','placeholder'=>'Solo numeros'];
+			//$this->form[] = ['label'=>'Primer nombre','name'=>'firstname','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Segundo nombre','name'=>'secundname','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Primer apellido','name'=>'lastname1','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Segundo Apellido','name'=>'lastname2','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Fecha de nacimiento','name'=>'date_nac','type'=>'date','validation'=>'required|date','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Direrección','name'=>'direreccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Teléfono 1','name'=>'tel1','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Teléfono 2','name'=>'tel2','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Femenino;Masculino;No definido'];
+			//$this->form[] = ['label'=>'Tipo Identificación','name'=>'tipo_iden','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Cédula de Ciudadanía;Cédula de extranjería;Pasaporte'];
+			//$this->form[] = ['label'=>'Identificación','name'=>'ident','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Departamento','name'=>'departamento','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Municipio','name'=>'municipio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Barrio','name'=>'barrio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
+			//$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:abonados','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Soltero(a);Casado(a);No definido'];
 			# OLD END FORM
 
 			/* 
@@ -276,78 +288,7 @@
 	    |
 	    */
 	    public function hook_before_add(&$postdata) {        
-			//Your code here
-			//Your code here
-			//Your code here
-			$cameras= DB::table('centro_comercial')
-			->select('ipserver')
-			->where('id', '=', $postdata['id_centrocomercial'])
-			->first();
-			$rtspurl="rtsp://".$cameras->ipserver.":8554/".$postdata['dcamara'];
-			$postdata['rtsp_url']=$rtspurl;
-			//// funcionalidad ejecutar .bat desde php
-			function execInBackground($cmd) { 
-				if (substr(php_uname(), 0, 7) == "Windows"){ 
-					pclose(popen("start ". $cmd, "r"));
-					//echo("entro1");  
-				} 
-				else { 
-					exec($cmd . " > /dev/null &");   
-					//echo("entro2");
-				} 
-			}
-			//// fin funcionalidad .bat
-			
-			///// generacion y ejecucion cmd para convertir rtmp to rtsp
-			
-			$texto="cd C:/ffmpeg/bin 
-			ffmpeg -i rtmp://localhost:1935/".$postdata['dcamara']." -acodec libmp3lame -ar 11025 -f rtsp rtsp://localhost:8554/".$postdata['dcamara'].
-			"
-			pause";
-			$fileconf="ftp://xtam:xtam123456@".$cameras->ipserver."/".$postdata['dcamara'].".bat";
-
-			$fh=fopen($fileconf, 'w') or die("Ocurrio un error al abrir el archivo");
-			fwrite($fh, $texto) or die("No se puede escribir en el archivo");
-			fclose($fh);
-			$BS="\\\\";
-			$userxtam=getenv("USER_XTAM");
-			$pwdxtam=getenv("PWD_XTAM");
-			//// generamos .bat que ejecuta psexec 
-			$texto="C:/laragon/www/xtamvideo/public/psexec/psexec ".$BS.$cameras->ipserver." -u ".$userxtam." -p ".$pwdxtam." C:/ffmpeg/bin/".$postdata['dcamara'].".bat";
-			mkdir("C:/laragon/www/xtamvideo/public/ISSSecurOS/".$cameras->ipserver, 0700);
-			$fileconf="C:/laragon/www/xtamvideo/public/ISSSecurOS/".$cameras->ipserver."/".$postdata['dcamara']."_ps.bat";
-
-			$fh=fopen($fileconf, 'w') or die("Ocurrio un error al abrir el archivo");
-			fwrite($fh, $texto) or die("No se puede escribir en el archivo");
-			fclose($fh);
-			execInBackground($fileconf);
-			//$cmd2="C:\laragon\www\xtamvideo\public\psexec\psexec \\192.168.2.7 -u verytel\avallejo -p Colombia2017* C:\ffmpeg\bin\channel1.bat";
-			//$cmd2="ftp://xtam:xtam123456@".$cameras->ipserver."/".$postdata['dcamara'].".bat";
-
-			
-			//// finalizacion reestructuracion streaming RTSP
-
-
-			////////////////////
-
-			$streamserver=$postdata['id_streamserver'];
-			$counts=DB::table("cameras")->where('id_streamserver',$streamserver);
-			$ncam=$counts->count();
-			/*if($ncam>=8){
-				//$this->alert[] = ["message"=>"Lo siento este servidor de streaming tiene los canales ocupados","type"=>"danger"];
-				//CRUDBooster::redirectBack('este servidor tienes sus canales ocupados')->withInput(Input::all());
-				echo('unavailable');
-
-				CRUDBooster::redirect(CRUDBooster::mainpath("add"),"Los canales de este Servidor estan ocupados, por favor intenta con otro servidor","danger")->withInput();
-				//return redirect()->back()->withInput();
-				//redirect()->back()->with(['message' => implode('<br/>', $message), 'message_type' => 'warning'])->withInput();
-				//\Session::driver()->save();
-				//CRUDBooster::redirect(back(),'Process is successfully done!');
-				
-			}*/
-				
-			
-			
+	        //Your code here
 
 	    }
 
@@ -359,12 +300,7 @@
 	    | 
 	    */
 	    public function hook_after_add($id) {        
-			//Your code here
-			
-			
-		/*	$data = array();
-			 $data['desc_cam'] = 'testing';
-			 DB::table("type_cam")->insert($data);*/
+	        //Your code here
 
 	    }
 
@@ -377,15 +313,7 @@
 	    | 
 	    */
 	    public function hook_before_edit(&$postdata,$id) {        
-			//Your code here
-			
-			$postdata['vercam']='<a href="http://localhost/xtamvideo/public/vs/streaming.php?ip='.$id.'&state=1&userid=2"><img src="../includes/img/icons8-eye-24.png" /></a>';
-			$cameras= DB::table('centro_comercial')
-			->select('ipserver')
-			->where('id', '=', $postdata['id_centrocomercial'])
-			->first();
-			$rtspurl="rtsp://".$cameras->ipserver.":8554/".$postdata['dcamara'];
-			$postdata['rtsp_url']=$rtspurl;
+	        //Your code here
 
 	    }
 
