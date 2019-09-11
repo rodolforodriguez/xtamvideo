@@ -13,9 +13,9 @@
 </head>
 <body>
 <style>
-.background-green { background-color: #00800078 !important; }
-.background-yellow { background-color: #ffff0063 !important; }
-.background-red { background-color: #ff5e0070 !important; }
+.background-green { background-color: #35FF23 !important; }
+.background-yellow { background-color: #FFED24 !important; }
+.background-red { background-color: #FF251D !important; }
 </style>
     <div class="container_fluid">
       <div>
@@ -25,16 +25,17 @@
             <thead>
               <tr>
                 <th searchable="false" sortable="false" data-column-id="id" data-type="numeric" data-identifier="true">N°</th>
+                <th searchable="false" sortable="false" data-column-id="nombre">Nombre</th>
+                <th searchable="false" sortable="false" data-column-id="iden">Identificación</th>
                 <th searchable="false" sortable="false" data-column-id="municipio">Municipio</th>
                 <th searchable="false" sortable="false" data-column-id="barrio">Barrio</th>
-                <th searchable="false" sortable="false" data-column-id="direccion">Dirección</th>
-                <th searchable="false" sortable="false" data-column-id="codcaso">Código</th>
-                <th searchable="false" sortable="false" data-column-id="numllamada">Número llamada</th>
-                <th searchable="false" sortable="false" data-column-id="estado">Estado</th>
+                <th searchable="false" sortable="false" data-column-id="direreccion">Dirección</th>
+                <th searchable="false" sortable="false" data-column-id="name">Dispositivo</th>
+                <th searchable="false" sortable="false" data-column-id="celular">Número Dispositivo</th>
                 <th searchable="false" sortable="false" data-column-id="descripcion_caso">Descripción</th>                
-                <th searchable="false" sortable="false" data-column-id="longitud">Longitud</th>
-                <th searchable="false" sortable="false" data-column-id="latitud">Latitud</th>
+                <th searchable="false" sortable="false" data-column-id="estado">Estado</th>
                 <th searchable="false" sortable="false" data-column-id="commands" data-formatter="commands" data-sortable="false">Actualizar</th>
+                
               </tr>
             </thead>
           </table>
@@ -46,13 +47,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Actualizar alerta</h4>
+                <h4 class="modal-title">Actualizar alarma</h4>
             </div>
             <div class="modal-body">
                 <form method="post" id="frm_edit">
                 <input type="hidden" value="edit" name="action" id="action">
                 <input type="hidden" name="id" id="id">
-                  <div class="form-group">
+                 <div class="form-group">
                     <label for="estado" class="control-label">Estado:</label>
                     <select name="estado" id="estado" class="form-control">
                                 <option value="P">Pendiente</option>
@@ -60,38 +61,12 @@
                                 <option value="C">Cerrado</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label for="codcaso" class="control-label">Código:</label>
-                    <input type="text" class="form-control" id="codcaso" name="codcaso" readonly/>
-                  </div>
-                   <div class="form-group">
-                    <label for="municipio" class="control-label">Municipio:</label>
-                    <input type="text" class="form-control" id="municipio" name="municipio" readonly />
-                  </div>
-                  <div class="form-group">
-                    <label for="barrio" class="control-label">Barrio:</label>
-                    <input type="text" class="form-control" id="barrio" name="barrio" readonly/>
-                  </div>
-                  <div class="form-group">
-                    <label for="direccion" class="control-label">Dirección:</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" readonly/>
-                  </div>
-				          <div class="form-group">
-                    <label for="numllamada" class="control-label">Número llamada:</label>
-                    <input type="text" class="form-control" id="numllamada" name="numllamada" readonly/>
-                  </div>
+                  
                   <div class="form-group">
                     <label for="descripcion_caso" class="control-label">Descripción:</label>
-                    <input type="text" class="form-control" id="descripcion_caso" name="descripcion_caso" readonly/>
+                    <input type="text" class="form-control" id="descripcion_caso" name="descripcion_caso" />
                   </div>
-                  <div class="form-group">
-                    <label for="longitud" class="control-label">Longitud:</label>
-                    <input type="text" class="form-control" id="longitud" name="longitud" readonly/>
-                  </div>
-                  <div class="form-group">
-                    <label for="latitud" class="control-label">Latitud:</label>
-                    <input type="text" class="form-control" id="latitud" name="latitud" readonly/>
-                  </div>
+                  
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -142,15 +117,15 @@
         $('#edit_model').modal('show');
         if($(this).data("row-id") >0) {
             $('#id').val(ele.siblings(':first').html());
-            $('#municipio').val(ele.siblings(':nth-of-type(2)').html());
-            $('#barrio').val(ele.siblings(':nth-of-type(3)').html());
-            $('#direccion').val(ele.siblings(':nth-of-type(4)').html());
-            $('#codcaso').val(ele.siblings(':nth-of-type(5)').html());
-            $('#numllamada').val(ele.siblings(':nth-of-type(6)').html());
-            $('#estado').val(ele.siblings(':nth-of-type(7)').html());
-            $('#descripcion_caso').val(ele.siblings(':nth-of-type(8)').html());
-            $('#longitud').val(ele.siblings(':nth-of-type(9)').html());
-            $('#latitud').val(ele.siblings(':nth-of-type(10)').html());
+            //$('#municipio').val(ele.siblings(':nth-of-type(2)').html());
+            //$('#barrio').val(ele.siblings(':nth-of-type(3)').html());
+            //$('#direccion').val(ele.siblings(':nth-of-type(4)').html());
+            //$('#codcaso').val(ele.siblings(':nth-of-type(5)').html());
+            //$('#numllamada').val(ele.siblings(':nth-of-type(12)').html());
+            $('#estado').val(ele.siblings(':nth-of-type(10)').html());
+            $('#descripcion_caso').val(ele.siblings(':nth-of-type(9)').html());
+            //$('#longitud').val(ele.siblings(':nth-of-type(9)').html());
+            //$('#latitud').val(ele.siblings(':nth-of-type(10)').html());
         } else {
           alert('No hay una fila seleccionada.');
         }

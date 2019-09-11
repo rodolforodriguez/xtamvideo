@@ -50,7 +50,11 @@ class AlamState {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
         }
 
-		$sql = "SELECT * FROM cms_notifications WHERE estado <> 'C' ";
+		$sql = "SELECT n.id,n.numllamada,a.longitud,a.latitud,concat(a.firstname,' ',a.secundname,' ',a.lastname1,' ',a.lastname2) as nombre,
+					concat(a.tipo_iden,' ',a.ident) as iden, a.municipio,a.barrio,a.direreccion,td.name,a.celular,n.descripcion_caso,n.estado 
+						FROM cms_notifications n inner join abonados a on a.id=n.idabonado
+							inner join tipo_dispositivo td on td.id = a.id_dispositivoalarm
+								WHERE estado <> 'C'";
 		$sqlTot .= $sql;
         $sqlRec .= $sql;
 
@@ -83,7 +87,13 @@ class AlamState {
 	function updateAlamState($params) {
 		require __DIR__.'/../../vendor/autoload.php';
     	$data = array();
-		$sql = "Update `cms_notifications` set `estado` = '" . $params["estado"] . "' WHERE `numllamada` = '".$params["numllamada"]."'";
+		$sql = "Update `cms_notifications` set `estado` = '" . $params["estado"] . "', `descripcion_caso`= '" . $params["descripcion_caso"] . "' WHERE `id` = '".$params["id"]."'";
+		$query="SELECT n.id,n.numllamada,a.longitud,a.latitud,a.municipio,a.barrio,a.direreccion
+		FROM cms_notifications n inner join abonados a on a.id=n.idabonado
+			inner join tipo_dispositivo td on td.id = a.id_dispositivoalarm
+				WHERE n.id =".$params["id"];
+		$queryAbonados = mysqli_query($this->conn, $query) or die("error to fetch prealert data");				
+		$rowAbon = mysqli_fetch_assoc($queryAbonados);
 		///Evento de notificacion de alarma
 		$app_id = '549538';
 		$app_key = '14b51ac8b3104243bfac';
@@ -92,13 +102,13 @@ class AlamState {
 
 		$pusher = new Pusher\Pusher( $app_key, $app_secret, $app_id, array( 'cluster' => $app_cluster, 'encrypted' => true ) );
 
-		$array['codigo'] = $params["numllamada"];
+		$array['codigo'] = $rowAbon["numllamada"];
 		$array['estado'] = $params["estado"];
-		$array['municipio'] = $params["municipio"];
-		$array['direccion'] = $params["direccion"];
-		$array['barrio'] = $params["barrio"];
-		$array['longitud'] = $params["longitud"];
-		$array['latitud'] = $params["latitud"];
+		$array['municipio'] = $rowAbon["municipio"];
+		$array['direccion'] = $rowAbon["direreccion"];
+		$array['barrio'] = $rowAbon["barrio"];
+		$array['longitud'] = $rowAbon["longitud"];
+		$array['latitud'] = $rowAbon["latitud"];
 		$array['descripcion_caso'] = $params["descripcion_caso"];
 		$array['fecha'] = "";
 
