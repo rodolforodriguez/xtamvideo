@@ -627,6 +627,17 @@ body,html{
 <script src="https://apis.google.com/js/platform.js" async defer>
   {lang: 'es-419'}
 </script>
+<?php
+error_reporting(0);
+$ip=$_GET['ip'];
+$cliente=$_GET['state'];
+$userid=$_GET['userid'];
+// Database Constants
+include("../includes/connection.php");
+$query =mysqli_query($con,"select ipserver from centro_comercial cc inner join cameras c on c.id_centrocomercial=cc.id
+where c.cameraid=".$ip);
+$row=mysqli_fetch_assoc($query);
+?>
 <link rel="stylesheet" href="popup/demo.css">
 </head>
 <body>
@@ -649,7 +660,7 @@ body,html{
 						<div class="row" >
 														<div id="capa" style="padding: 5px, 5px, 2px, 2px;">
 								<div id="player-container" class="player-container" >
-							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://18.220.66.20:1935/channel2&amp;streamType=live&amp;scaleMode=letterbox"></object>
+							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://<?php echo $row['ipserver']?>:1935/channel2&amp;streamType=live&amp;scaleMode=letterbox"></object>
 							<div id="player-tip" style="display: none;"></div>
 												
 						
@@ -660,7 +671,7 @@ body,html{
 						<div class="row">
 													<div id="capa" style="padding: 5px, 2px, 5px, 5px;">
 								<div id="player-container" class="player-container" >
-							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://18.220.66.20:1935/channel4&amp;streamType=live&amp;scaleMode=letterbox"></object>
+							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://<?php echo $row['ipserver']?>:1935/channel4&amp;streamType=live&amp;scaleMode=letterbox"></object>
 							<div id="player-tip" style="display: none;"></div>
 												
 						
@@ -673,7 +684,7 @@ body,html{
 						<div class="row">
 							<div id="capa" style="padding: 2px, 5px, 2px, 5px;">
 								<div id="player-container" class="player-container" >
-							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf"  width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://18.220.66.20:1935/channel2&amp;streamType=live&amp;scaleMode=letterbox"></object>
+							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf"  width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://<?php echo $row['ipserver']?>:1935/channel2&amp;streamType=live&amp;scaleMode=letterbox"></object>
 							<div id="player-tip" style="display: none;"></div>
 												
 						
@@ -684,7 +695,7 @@ body,html{
 						<div class="row" >
 													<div id="capa" style="padding: 2px, 2px, 5px, 5px;">
 								<div id="player-container" class="player-container" >
-							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://18.220.66.20:1935/channel4&amp;streamType=live&amp;scaleMode=letterbox"></object>
+							<object type="application/x-shockwave-flash" id="player" data="./RTMP Player - HLSPlayer_files/GrindPlayer.swf" width="250" height="300" style="width: 98%;visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp://<?php echo $row['ipserver']?>:1935/channel4&amp;streamType=live&amp;scaleMode=letterbox"></object>
 							<div id="player-tip" style="display: none;"></div>
 												
 						

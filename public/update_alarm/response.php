@@ -94,6 +94,11 @@ class AlamState {
 				WHERE n.id =".$params["id"];
 		$queryAbonados = mysqli_query($this->conn, $query) or die("error to fetch prealert data");				
 		$rowAbon = mysqli_fetch_assoc($queryAbonados);
+		$sqllog="INSERT INTO `alarm_event` (`id_cmsnotification`, `state`, `detail`) VALUES ('".$params["id"]."','". $params["estado"] ."', '" . $params["descripcion_caso"] . "');";
+		mysqli_query($this->conn, $sqllog) or die("error to fetch prealert data");
+
+
+		
 		///Evento de notificacion de alarma
 		$app_id = '549538';
 		$app_key = '14b51ac8b3104243bfac';
