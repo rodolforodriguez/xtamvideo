@@ -14,7 +14,7 @@
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "install-peers": "^1.0.3",
-        "jquery": "^3.4.0",
+        "jquery": "^3.5.0",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "node-sass": "^4.12.0",
