@@ -22,12 +22,14 @@ function drop(ev) {
     var son = document.getElementById(data);
     var route = son.getAttribute("value");
     var x = document.createElement("VIDEO");
+    var ftp= son.getAttribute("data_route");
     x.setAttribute("id", son.id);
     x.setAttribute("data-type", "video");
     x.setAttribute("controls", "");
     x.setAttribute("ondragover", "noAllowDrop(event)");
     x.setAttribute("class", "video-js vjs-default-skin col-md-3");
     x.setAttribute("name", son.name);
+    x.setAttribute("prop",ftp);
     x.setAttribute("value", route);
 
     x.addEventListener(

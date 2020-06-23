@@ -69743,7 +69743,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(56)(false);
 // imports
-exports.push([module.i, "@import url(http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css);", ""]);
+exports.push([module.i, "@import url(http://localhost/xtamvideo/public/4.10/esri/css/main.css);", ""]);
 
 // module
 exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\r\n  height: 80vh;\r\n  min-height: 250px;\n}\n.title[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\r\n  font-weight: 300;\r\n  color: #9aabb1;\r\n  margin: 0;\r\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\r\n  margin-top: 50px;\n}\r\n", ""]);

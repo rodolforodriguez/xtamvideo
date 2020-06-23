@@ -12,50 +12,44 @@
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
 			$this->title_field = "name";
 			$this->limit = "20";
-			$this->orderby = "fcreated";
+			$this->orderby = "datecreated";
 			$this->global_privilege = false;
-			$this->button_table_action = true;
-			$this->button_bulk_action = true;
-			$this->button_action_style = "button_icon";
-			$this->button_add = true;
-			$this->button_edit = true;
-			$this->button_delete = true;
-			$this->button_detail = true;
+			$this->button_table_action = false;
+			$this->button_bulk_action = false;
+			$this->button_action_style = "button_icon_text";
+			$this->button_add = false;
+			$this->button_edit = false;
+			$this->button_delete = false;
+			$this->button_detail = false;
 			$this->button_show = false;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "record";
+			$this->table = "record_download";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Descripción","name"=>"description"];
 			$this->col[] = ["label"=>"Nombre","name"=>"name"];
-			$this->col[] = ["label"=>"Tipo","name"=>"type"];
-			$this->col[] = ["label"=>"Tamaño","name"=>"size"];
-			$this->col[] = ["label"=>"Fecha de creación","name"=>"fcreated","callback_php"=>'gmdate("Y-m-d H:i:s", $row->fcreated);'];
-			$this->col[] = ["label"=>"Vista","name"=>"vista"];
+			$this->col[] = ["label"=>"Tipo","name"=>"format"];
+			$this->col[] = ["label"=>"Video","name"=>"rote","width"=>"50%",];
+			$this->col[] = ["label"=>"Fecha de creación","name"=>"datecreated"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Descripción','name'=>'description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Nombre','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
-			$this->form[] = ['label'=>'Tipo','name'=>'type','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Tamaño','name'=>'size','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Fecha de creación','name'=>'fcreated','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Vista','name'=>'vista','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nombre','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Tipo','name'=>'format','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
+			$this->form[] = ['label'=>'Video','name'=>'rote','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Fecha de creación','name'=>'datecreated','type'=>'datetime','validation'=>'gmdate("Y-m-d H:i:s", $row->datecreated);','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Descripción','name'=>'description','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Nombre','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
-			//$this->form[] = ['label'=>'Tipo','name'=>'type','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Tamaño','name'=>'size','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Fecha de creación','name'=>'fcreated','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Vista','name'=>'vista','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Nombre','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Tipo','name'=>'format','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
+			//$this->form[] = ['label'=>'Ruta','name'=>'rote','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Fecha de creación','name'=>'datecreated','type'=>'datetime','validation'=>'gmdate("Y-m-d H:i:s", $row->datecreated);','width'=>'col-sm-10'];
 			# OLD END FORM
 
 			/* 
@@ -253,7 +247,11 @@
 	    |
 	    */    
 	    public function hook_row_index($column_index,&$column_value) {	        
-	    	//Your code here
+			//Your code here
+			if( $column_index == 2) {
+                $get_the_category_info = '';//
+                $column_value =  '<div style="text-align: center;"><video src="'.$column_value.'" controls width="25%"></video></div>';
+            }
 	    }
 
 	    /*
@@ -288,7 +286,8 @@
 	    | @id       = current id 
 	    | 
 	    */
-	    public function hook_before_edit(&$postdata,$id) {        
+	    public function hook_before_edit(&$postdata,$id) {    
+			$posdata['rote']="ok";    
 	        //Your code here
 
 	    }

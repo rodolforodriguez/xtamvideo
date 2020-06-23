@@ -1,7 +1,7 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 header("Access-Control-Allow-Origin: *");
-include "includes/connection.php";
+require_once($_SERVER['DOCUMENT_ROOT'].'/xtamvideo/public/includes/connection.php');
 ?>
 <script>
     var videos = document.querySelectorAll('[data-type="video"]');
@@ -14,16 +14,16 @@ include "includes/connection.php";
 <?php
 //// END DE LA CONEXION Y QUERYS
 if ($_GET) {
+   
     $startdate = $_GET['startdate'];
     $finishdate = $_GET['finishdate'];
     $starttime = $_GET['starttime'];
     $finishtime = $_GET['finishfime'];
     $array = $_GET['array'];
-
+    
     if (count($array) > 0) {
         foreach ($array as $campo => $valor) {
-            $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-            mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+            
 
             $querynginx = mysqli_query($con, "SELECT filename,format(timediff(timefinish,timestart),4) as timeduration, rt.route 
                                             from recordings as r
@@ -32,7 +32,6 @@ if ($_GET) {
                                             where r.idcamara=" . $valor . " and (datetimestart between '$startdate $starttime'
                                                 and '$finishdate $finishtime')
                                                 order by datestart asc,timestart;");
-
 
             $numrowsnginx = mysqli_num_rows($querynginx);
 
@@ -60,6 +59,7 @@ if ($_GET) {
             }
         }
     }
+    
     if ($numrowsnginx != 0) {
         sleep(3);
         $array_cam = serialize($video_cam);
@@ -68,64 +68,68 @@ if ($_GET) {
         if (count($arraycam) > 0) {
             // mostramos los valores del array
             foreach ($arraycam as $col => $cont) {
-                $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-                mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+                
 
-                $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
+                $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara , folder_record , ipserver from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
+                                                 
                 $rowroute = mysqli_fetch_assoc($queryroute);
                 $url = $rowroute['route'];
                 $cc = $rowroute['descripcion'];
                 $cam = $rowroute['dcamara'];
-                $ip = substr($url, 18, -8);
-                $rout = substr($url, 31);
-                $final = "http://" . $ip . "/listfolder" . $rout . "/temp.m3u8";
+                //$ip = substr($url, 18, -8);
+                $ip = $rowroute['ipserver'];
+                //$rout = substr($url, 31);
+                $rout = $rowroute['folder_record'];
+                $final = "http://" . $ip . "/listfolder/" . $rout . "/temp.m3u8";
+                $ftp = $rowroute['route']. "/temp.m3u8";
                 $a = $cc . $cam;
                 $nombre = $a;
                 ?>
-<script>
-    if (Hls.isSupported()) {
-        var txt = '<?php echo $nombre; ?>';
-        txt = txt.replace(/ /g, "");
-        var x = document.getElementById(<?php echo $cont; ?>);
-        var y = new Hls();
-        //x.setAttribute("id", $cont);
-        y.loadSource('<?php echo $final; ?>');
-        x.setAttribute("data-type", "video");
-        x.setAttribute("value", '<?php echo $final; ?>');
-        //x.setAttribute("style", "width: 37%");
-        x.setAttribute("controls", "");
-        x.setAttribute("name", txt);
-        x.setAttribute("ondragover", "noAllowDrop(event)");
-        y.attachMedia(x);
-        y.on(Hls.Events.MANIFEST_PARSED, function() {
+    <script>
+        if (Hls.isSupported()) {
+            var txt = '<?php echo $nombre; ?>';
+            txt = txt.replace(/ /g, "");
+            var x = document.getElementById(<?php echo $cont; ?>);
+            var y = new Hls();
+            //x.setAttribute("id", $cont);
+            y.loadSource('<?php echo $final; ?>');
+            x.setAttribute("data-type", "video");
+            x.setAttribute("value", '<?php echo $final; ?>');
+            x.setAttribute("prop", '<?php echo $ftp; ?>');
+            //x.setAttribute("style", "width: 37%");
+            x.setAttribute("controls", "");
+            x.setAttribute("name", txt);
+            x.setAttribute("ondragover", "noAllowDrop(event)");
+            y.attachMedia(x);
+            y.on(Hls.Events.MANIFEST_PARSED, function() {
 
-        });
-        x.addEventListener('loadedmetadata', function() {
-            progress.setAttribute('max', x.duration);
-        });
+            });
+            x.addEventListener('loadedmetadata', function() {
+                progress.setAttribute('max', x.duration);
+            });
 
-        // As the video is playing, update the progress bar
-        x.addEventListener('timeupdate', function() {
-            // For mobile browsers, ensure that the progress element's max attribute is set
-            if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
-            progress.value = x.currentTime;
-            progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
-        });
-        var divs = document.getElementsByTagName("VIDEO").length;
-        if (divs <= 1) {
-            x.setAttribute("style", "width: 80%");
-        } else if (divs > 1) {
-            var videos = document.querySelectorAll("video");
-            for (var v = 0; v < videos.length; v++) {
-                console.log(v);
-                document
-                    .getElementsByTagName("video")[0]
-                    .setAttribute("style", "width: 43%");
-                x.setAttribute("style", "width: 43%");
+            // As the video is playing, update the progress bar
+            x.addEventListener('timeupdate', function() {
+                // For mobile browsers, ensure that the progress element's max attribute is set
+                if (!progress.getAttribute('max')) progress.setAttribute('max', x.duration);
+                progress.value = x.currentTime;
+                progressBar.style.width = Math.floor((x.currentTime / x.duration) * 100) + '%';
+            });
+            var divs = document.getElementsByTagName("VIDEO").length;
+            if (divs <= 1) {
+                x.setAttribute("style", "width: 80%");
+            } else if (divs > 1) {
+                var videos = document.querySelectorAll("video");
+                for (var v = 0; v < videos.length; v++) {
+                    console.log(v);
+                    document
+                        .getElementsByTagName("video")[0]
+                        .setAttribute("style", "width: 43%");
+                    x.setAttribute("style", "width: 43%");
+                }
             }
         }
-    }
-</script>
+    </script>
 <video id=<?php echo $cont; ?> data-type="video" class="video-js vjs-default-skin col-md-3">
 </video>
 <?php
@@ -168,19 +172,20 @@ if ($_GET) {
 
             // mostramos los valores del array
             foreach ($array as $col => $cont) {
-                $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-                mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
-
-                $queryroute = mysqli_query($con, "SELECT re.route , cc.descripcion , c.dcamara from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
+                
+                $queryroute = mysqli_query($con, "SELECT re.route , cc.descripcion , c.dcamara ,folder_record , ipserver from routerecord re inner join cameras c on c.cameraid = re.idcamara and c.cameraid=" . $cont . " inner join centro_comercial cc on cc.id = c.id_centrocomercial");
+                
                 $rowroute = mysqli_fetch_assoc($queryroute);
 
                 $url = $rowroute['route'];
                 $cc = $rowroute['descripcion'];
                 $cam = $rowroute['dcamara'];
-                $ip = substr($url, 18, -8);
-                $rout = substr($url, 31);
-
-                $final = "http://" . $ip . "/listfolder" . $rout . "/index.m3u8";
+                //$ip = substr($url, 18, -8);
+                //$rout = substr($url, 31);
+                $ip = $rowroute['ipserver'];
+                $rout = $rowroute['folder_record'];
+                $ftp = $rowroute['route']. "/temp.m3u8";
+                $final = "http://" . $ip . "/listfolder/" . $rout . "/index.m3u8";
                 $a = $cc . $cam;
                 $nombre = $a;
                 ?>
@@ -194,13 +199,14 @@ if ($_GET) {
         y.loadSource('<?php echo $final; ?>');
         x.setAttribute("data-type", "video");
         x.setAttribute("value", '<?php echo $final; ?>');
-        //x.setAttribute("style", "width: 37%");
+        x.setAttribute("prop", '<?php echo $ftp; ?>');
+        //x.setAttribute("style", "width : 37%");
         x.setAttribute("name", txt);
         x.setAttribute("controls", "");
         x.setAttribute("ondragover", "noAllowDrop(event)");
         y.attachMedia(x);
         y.on(Hls.Events.MANIFEST_PARSED, function() {
-
+l
         });
         x.addEventListener('loadedmetadata', function() {
             progress.setAttribute('max', x.duration);

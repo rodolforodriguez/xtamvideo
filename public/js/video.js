@@ -100,7 +100,8 @@ function selectvideos() {
         var video = videos[v];
         var name = video.getAttribute("name");
         var route = video.getAttribute("src");
-        var value = video.getAttribute("value");
+        //var value = video.getAttribute("value");
+        var value = video.getAttribute("prop");
         ids.push(video.id);
         var x = document.createElement("option");
         x.setAttribute("name", value);
@@ -163,8 +164,25 @@ function descargas() {
             formato
     );
     xmlhttp.send();
+    var video='../format/output/'+name+'.'+formato;
+ 
+    setTimeout(function(){ alert("El video " + name + " ha sido descargado en la ruta "+video+" en el formato de video " + formato); }, 3000);
+    //setTimeout(saludo(),30000);
+    if(xmlhttp.readyState==1){
+        
+        //sleep(2000000);
+       
+        setTimeout(function(){ window.open(video, "", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=600,width=1000,height=800,titlebar=no,location=no,menubar=no"); }, 10000);
+            
+    }else{
+        alert("Hubo un problema al descargar, favor intente nuevo");
+    }
 }
 
 function eliminarElemento() {
     location.reload();
 }
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  

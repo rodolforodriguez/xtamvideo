@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 header("Access-Control-Allow-Origin: *");
 include "includes/connection.php";
 ?>
@@ -68,7 +68,7 @@ if ($userid === null) {
                                 $temp = '';
                                 foreach ($camaras as $camara) {
                                     if ($type->desc_cam == $camara->desc_cam) {
-                                        if ($temp <> $camara->descripcion) {
+                                        if ($temp <> $camara->descripcion) { 
                                             if ($temp <> '') {
                                                 echo "</div>";
                                             }
@@ -88,7 +88,7 @@ if ($userid === null) {
                                         $final = "http://" . $ipserver . "/listfolder/" . $carpeta . "/index.m3u8";
                                         echo "<ul class='treeview-menu'>";
                                         echo "<li class='treeview'>";
-                                        echo "<a href='#' id='" . ($camara->cameraid) . "' name='" . ($camara->descripcion . "-" . $camara->dcamara) . "' value='" . ($final) . "' draggable='true' ondragstart='drag(event)'  ><i class='fa fa-circle-o'></i>" . $camara->dcamara;
+                                        echo "<a href='#' data_route='" . ($camara->route) . "/index.m3u8'  id='" . ($camara->cameraid) . "' name='" . ($camara->descripcion . "-" . $camara->dcamara) . "' value='" . ($final) . "' draggable='true' ondragstart='drag(event)'  ><i class='fa fa-circle-o'></i>" . $camara->dcamara;
                                         echo "<span class='pull-right-container'>";
                                         echo "<i class='fa fa-angle-left pull-right'></i>";
                                         echo "</span>";
@@ -138,25 +138,25 @@ if ($userid === null) {
                                     <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                         <div class="input-group date">
                                             <label class="control-label">Fecha inicial</label>
-                                            <input type="date" class="form-control" name="fechastart" id="fechastart" value="2019-08-15" required>
+                                            <input type="date" class="form-control" name="fechastart" id="fechastart" value="2019-11-25" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
                                         <div class="input-group date">
                                             <label class="control-label">Hora inicial</label>
-                                            <input type="time" class="form-control" name="horastart" id="horastart" value="12:06" required>
+                                            <input type="time" class="form-control" name="horastart" id="horastart" value="02:06" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                         <div class="input-group date">
                                             <label class="control-label">Fecha final</label>
-                                            <input type="date" class="form-control" name="fechafinish" id="fechafinish" value="2019-08-15" required>
+                                            <input type="date" class="form-control" name="fechafinish" id="fechafinish" value="2019-11-25" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
                                         <div class="input-group date">
                                             <label class="control-label">Hora final</label>
-                                            <input type="time" class="form-control" name="horafinish" id="horafinish" value="13:29" required>
+                                            <input type="time" class="form-control" name="horafinish" id="horafinish" value="20:29" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">

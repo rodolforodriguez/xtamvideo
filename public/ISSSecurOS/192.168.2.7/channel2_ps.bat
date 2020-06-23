@@ -1,0 +1,1 @@
+C:/laragon/www/xtamvideo/public/psexec/psexec \\192.168.2.7 -u xtam -p nXBUpT3]4YmvM$]vK&A$Dw# C:/ffmpeg/bin/channel2.bat

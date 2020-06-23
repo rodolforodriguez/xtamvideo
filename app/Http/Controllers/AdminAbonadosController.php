@@ -46,18 +46,19 @@
 			$this->form[] = ['label'=>'Segundo nombre','name'=>'secundname','type'=>'text','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Primer apellido','name'=>'lastname1','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Segundo Apellido','name'=>'lastname2','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Celular','name'=>'celular','type'=>'number','validation'=>'required','width'=>'col-sm-9'];
 			$this->form[] = ['label'=>'Fecha de nacimiento','name'=>'date_nac','type'=>'date','validation'=>'required|date','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Direrección','name'=>'direreccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Teléfono 1','name'=>'tel1','type'=>'text','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Teléfono 2','name'=>'tel2','type'=>'text','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Masculino;Femenino;No definido'];
+			$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Masculino; Femenino; No Definido'];
 			$this->form[] = ['label'=>'Tipo Identificación','name'=>'tipo_iden','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Cedula de ciudadanía;Cedula de extranjería;Pasaporte'];
 			$this->form[] = ['label'=>'Identificación','name'=>'ident','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Departamento','name'=>'departamento','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Municipio','name'=>'municipio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Barrio','name'=>'barrio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:abonados','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
-			$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Casado;Soltero;Unión Libre'];
+			$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Soltero(a); Casado(a;Unión Libre; Separado(a); Viudo(a)'];
 			$this->form[] = ['label'=>'Dispositivo Alarma','name'=>'id_dispositivoalarm','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'tipo_dispositivo,name'];
 			$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
@@ -69,19 +70,22 @@
 			//$this->form[] = ['label'=>'Segundo nombre','name'=>'secundname','type'=>'text','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Primer apellido','name'=>'lastname1','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Segundo Apellido','name'=>'lastname2','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Celular','name'=>'celular','type'=>'number','validation'=>'required','width'=>'col-sm-9'];
 			//$this->form[] = ['label'=>'Fecha de nacimiento','name'=>'date_nac','type'=>'date','validation'=>'required|date','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Direrección','name'=>'direreccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Teléfono 1','name'=>'tel1','type'=>'text','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Teléfono 2','name'=>'tel2','type'=>'text','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Masculino;Femenino;No definido'];
+			//$this->form[] = ['label'=>'Sexo','name'=>'sexo','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Masculino, Femenino, No Definido'];
 			//$this->form[] = ['label'=>'Tipo Identificación','name'=>'tipo_iden','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Cedula de ciudadanía;Cedula de extranjería;Pasaporte'];
 			//$this->form[] = ['label'=>'Identificación','name'=>'ident','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Departamento','name'=>'departamento','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Municipio','name'=>'municipio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Barrio','name'=>'barrio','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:abonados','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
-			//$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Casado;Soltero;Unión Libre'];
-			//$this->form[] = ['label'=>'Dispositivo Alarma','name'=>'id_dispositivoalarm','type'=>'select','validation'=>'required','width'=>'col-sm-9','datatable'=>'tipo_dispositivo,name'];
+			//$this->form[] = ['label'=>'Estado Civil','name'=>'estado_civil','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Soltero(a); Casado(a;Unión Libre; Separado(a); Viudo(a)'];
+			//$this->form[] = ['label'=>'Dispositivo Alarma','name'=>'id_dispositivoalarm','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'tipo_dispositivo,name'];
+			//$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			# OLD END FORM
 
 			/* 

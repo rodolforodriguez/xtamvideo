@@ -1202,7 +1202,7 @@ export default {
 };
 </script>
 <style scoped>
-@import url("http://192.168.2.7/xtamvideo/public/4.10/esri/css/main.css");
+@import url("http://localhost/xtamvideo/public/4.10/esri/css/main.css");
 #viewDiv {
   height: 80vh;
   min-height: 250px;

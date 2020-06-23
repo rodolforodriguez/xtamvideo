@@ -1,4 +1,6 @@
-
+<?php
+$video=$_GET['vid'];
+?>
 <!DOCTYPE html>
 <!-- saved from url=(0037)https://www.hlsplayer.net/rtmp-player -->
 <html lang="en">
@@ -9,6 +11,8 @@
        /* height: 600px;*/		
       }
 	</style>	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +28,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 	<script>
 		  $(window).ready(function (){		
 		  	 var player = $("#player");
@@ -43,7 +49,7 @@
 			<div class="text-center">
 				<div id="capa">
 					<div id="player-container" class="player-container" style="background-color: black; width: 100%; height: 100%; position: relative;">
-                    <video src="2018-06-29_14-53-32.mp4#t=45" autoplay controls></video>
+                    <video src="<?php echo $video; ?>" autoplay controls></video>
 							
 					</div>	
 				</div>

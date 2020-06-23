@@ -28,11 +28,10 @@ include "includes/connection.php";
                         if ($_GET) {
                             $id = $_GET['id'];
 
-                            $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-                            mysqli_select_db($con, "xtamdb") or die("No hay conexion en la base de datos");
+                            
 
                             $idcam = mysqli_query($con, "SELECT cameraid , idcamara , route , folder_record , ipserver
-                                        FROM xtamdb.cameras
+                                        FROM cameras
                                         inner join routerecord ON routerecord.idcamara = cameras.cameraid
                                         inner join centro_comercial ON centro_comercial.id = cameras.id_centrocomercial
                                         where cameras.cameraid =" . $id);
@@ -46,8 +45,10 @@ include "includes/connection.php";
                             //$url = $dato['route'];
                             $ip = $dato['ipserver'];
                             $rout = $dato['folder_record'];
+                            //$rout = $dato['route'];
                             //$rout = substr($url, 31);
                             $final = "http://" . $ip . "/listfolder/" . $rout . "/index.m3u8";
+                             // $final = $rout."/index.m3u8";
                             ?>
                         <div class="VideoCont row" id="videoCont">
                             <video id="video" controls></video>
@@ -140,7 +141,7 @@ include "includes/connection.php";
         var horaI = document.getElementById("horastart").value;
         var horaF = document.getElementById("horafinish").value;
         var direccion =
-            "http://192.168.2.7/xtamvideo/resources/views/camgrabaciones/create_m3u8.blade.php";
+            "http://localhost/xtamvideo/resources/views/camgrabaciones/create_m3u8.blade.php";
 
         var xmlhttp;
         if (window.XMLHttpRequest) {

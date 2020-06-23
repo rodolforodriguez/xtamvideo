@@ -1,8 +1,8 @@
 <?php
 
 // Database Constants
-define("DB_SERVER", "192.168.2.7");
-define("DB_USER", "administrator");
-define("DB_PASS", "Pruebas123$");
+define("DB_SERVER", "127.0.0.1");
+define("DB_USER", "root");
+define("DB_PASS", '123456');
 define("DB_NAME", "xtamdb");
 define("HOST", "http://" . $_SERVER['SERVER_ADDR'] . "/xtamvideo");

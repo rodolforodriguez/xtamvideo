@@ -6,11 +6,10 @@ if ($_GET) {
     $starttime = $_GET['starttime'];
     $finishtime = $_GET['finishfime'];
     $id = $_GET['id'];
-
+    require_once($_SERVER['DOCUMENT_ROOT'].'/xtamvideo/public/includes/connection.php');
     if ($id > 0) {
 
-        $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-        mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+        
 
         $querynginx = mysqli_query($con, "SELECT filename,format(timediff(timefinish,timestart),4) as timeduration, rt.route 
                                             from recordings as r
@@ -19,9 +18,9 @@ if ($_GET) {
                                             where r.idcamara=" . $id . " and (datetimestart between '$startdate $starttime'
                                                 and '$finishdate $finishtime')
                                                 order by datestart asc,timestart;");
-
-
+            
         $numrowsnginx = mysqli_num_rows($querynginx);
+    //echo $numrowsnginx;
 
         if ($numrowsnginx != 0) {
 
@@ -48,8 +47,7 @@ if ($_GET) {
     }
     if ($numrowsnginx != 0) {
         sleep(3);
-        $con = mysqli_connect("18.217.10.249", "administrator", "0kOZh0B1GBskiRWg", "xtamdb") or die(mysql_error());
-        mysqli_select_db($con, "xtamdb") or die("Cannot select DB");
+        
 
         $queryroute = mysqli_query($con, "SELECT route , cc.descripcion , c.dcamara , folder_record , ipserver
             from routerecord re 

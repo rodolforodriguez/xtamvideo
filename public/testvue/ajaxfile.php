@@ -1,6 +1,6 @@
 <?php
 
-include "config.php";
+include "../includes/connection.php";
 $n=$_GET['n'];
 mysqli_set_charset($con, 'utf8');
 if($n==1){

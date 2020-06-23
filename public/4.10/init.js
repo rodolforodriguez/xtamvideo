@@ -426,7 +426,7 @@
         [/^esri-hydra/, function() { return "esri" }]
     ],
     async: 1,
-    baseUrl: `http://192.168.2.7/xtamvideo/public/4.10/dojo`,
+    baseUrl: `http://localhost/xtamvideo/public/4.10/dojo`,
     hasCache: { "config-deferredInstrumentation": 0, "config-selectorEngine": "lite", "config-tlmSiblingOfDojo": 1, "dojo-built": 1, "dojo-has-api": 1, "dojo-loader": 1, "dojo-undef-api": 0, dom: 1, "esri-built": 1, "host-browser": 1 },
     map: { globalize: { cldr: "cldrjs/dist/cldr", "cldr/event": "cldrjs/dist/cldr/event", "cldr/supplemental": "cldrjs/dist/cldr/supplemental", "cldr/unresolved": "cldrjs/dist/cldr/unresolved" } },
     packages: [{ location: ".", name: "dojo" }, { location: "../dijit", name: "dijit" }, { location: "../dojox", name: "dojox" }, {
