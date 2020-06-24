@@ -15,3 +15,4 @@ Route::get('/admin/statuscam', 'StatuscamController@index');
 Route::get('/admin/alarmstate', 'AdminAlarmStateController@index');
 Route::get('/admin/camgrabaciones', 'CamgrabacionesController@index');
 Route::get('/admin/apiconsumo', 'ApiConsumoController@index');
+Route::get('/admin/dashboard', 'DashboardController@index');

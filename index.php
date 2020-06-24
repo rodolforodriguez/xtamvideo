@@ -2,7 +2,7 @@
 session_start();
 
 $key = "";
-$time = new DateTime("2020-01-26");
+$time = new DateTime("2020-12-26");
 $_SESSION["licencia"] = $time;
 $date = new DateTime("now", new DateTimeZone('America/Bogota'));
 $date = new DateTime($date->format('Y-m-d'));
