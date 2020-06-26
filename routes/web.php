@@ -16,3 +16,6 @@ Route::get('/admin/alarmstate', 'AdminAlarmStateController@index');
 Route::get('/admin/camgrabaciones', 'CamgrabacionesController@index');
 Route::get('/admin/apiconsumo', 'ApiConsumoController@index');
 Route::get('/admin/dashboard', 'DashboardController@index');
+//Route::get('/admin/histogram', 'HistogramController@index');
+//Route::get('/admin/histogram/{id}/{time?}', 'HistogramController@show');
+Route::get('/admin/dashboard/{id}/{time?}', 'DashboardController@show');

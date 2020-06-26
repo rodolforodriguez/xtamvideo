@@ -1,6 +1,17 @@
 @extends('crudbooster::admin_template')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 @section('content')
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Version 2.0</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
 
 <div class="content">
     <div class="row">
@@ -61,28 +72,88 @@
         </div>
         <!-- /.col -->
     </div>
-
+    <!-- /.row -->
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Monthly Recap Report</h3>
-
+                    <h3 class="box-title">Filtros</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
-                        </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-wrench"></i></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
+                        </button>                      
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">  
+                        <div class="col-md-6 col-xs-6 col-sm-6">
+                            <label  for="camera">Centros Comerciales :</label>
+                            <select class='selectpicker  form-control' style="height:30px; font-size:15px" name="cam" id="ddlCamera" onchange="GetHistograma()">
+                                 <option value="select">Selecciónar</option> 
+                                <?php
+                                foreach ($centro_comercial as $cc) {
+                                    echo "<option class='form-control' value='" . ($cc->id) . "'>" . ($cc->descripcion) . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>                  
+                        
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Histogramas</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                      
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">                                        
+                        <div class="col-md-4 col-xs-6 col-sm-6">
+                            <label  for="time">Rango de tiempo:</label>
+                            <select class='form-control' style="height:25px; font-size:10px" name="time" id="ddlTime" onchange="GetHistograma()">
+                                 <option value="MONTH" style="font-size:15px" selected>Mensual</option> 
+                                 <option value="WEEK" style="font-size:15px">Semanal</option> 
+                                 <option value="DAY" style="font-size:15px" >Diario</option> 
+                            </select>
+                        </div>                                        
+                    </div>
+                    <br>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">                      
+                                <canvas id="myChart" width="400" height="350"></canvas>                          
                         </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- ./box-body -->   
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Memoria</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                      
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i
                                 class="fa fa-times"></i></button>
                     </div>
@@ -90,169 +161,335 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-8">
-                            <p class="text-center">
-                                <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                            </p>
-
-                            <div class="chart">
-                                <!-- Sales Chart Canvas -->
-                                <canvas id="salesChart" style="height: 94px; width: 565px;" height="94"
-                                    width="565"></canvas>
+                        <div class="col-md-6">
+                            <div class="chart-responsive">
+                              <canvas id="pieChart" width="400" height="350"></canvas>
                             </div>
-                            <!-- /.chart-responsive -->
+                            <!-- ./chart-responsive -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-md-4">
-                            <p class="text-center">
-                                <strong>Goal Completion</strong>
-                            </p>
-
-                            <div class="progress-group">
-                                <span class="progress-text">Add Products to Cart</span>
-                                <span class="progress-number"><b>160</b>/200</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="chart-responsive">
+                              <canvas id="pieChart2" width="400" height="350"></canvas>
                             </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Complete Purchase</span>
-                                <span class="progress-number"><b>310</b>/400</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Visit Premium Page</span>
-                                <span class="progress-number"><b>480</b>/800</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Send Inquiries</span>
-                                <span class="progress-number"><b>250</b>/500</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
+                            <!-- ./chart-responsive -->
                         </div>
-                        <!-- /.col -->
-                    </div>
+                        <!-- /.col -->                                                                      
+                    </div>          
                     <!-- /.row -->
                 </div>
-                <!-- ./box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>
-                                    17%</span>
-                                <h5 class="description-header">$35,210.43</h5>
-                                <span class="description-text">TOTAL REVENUE</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i>
-                                    0%</span>
-                                <h5 class="description-header">$10,390.90</h5>
-                                <span class="description-text">TOTAL COST</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>
-                                    20%</span>
-                                <h5 class="description-header">$24,813.53</h5>
-                                <span class="description-text">TOTAL PROFIT</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block">
-                                <span class="description-percentage text-red"><i class="fa fa-caret-down"></i>
-                                    18%</span>
-                                <h5 class="description-header">1200</h5>
-                                <span class="description-text">GOAL COMPLETIONS</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.box-footer -->
+                <!-- ./box-body -->   
             </div>
             <!-- /.box -->
+
+            <!-- TABLE: LATEST ORDERS -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Servicios</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+       
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                  <tr>            
+                    <th>Nombre</th>
+                    <th>Estado</th>                   
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>EasyDarwing</td>
+                    <td><span class="label label-success">ON</span></td>           
+                  </tr>
+                  <tr>
+                   
+                    <td>Nginx</td>
+                    <td><span class="label label-danger">OFF</span></td>
+                   
+                  </tr>
+                  <tr>
+                   
+                    <td>Ffmpeg</td>
+                    <td><span class="label label-danger">OFF</span></td>
+                   
+                  </tr>
+                  <tr>
+                   
+                    <td>Ffmpeg</td>
+                    <td><span class="label label-success">ON</span></td>
+                   
+                  </tr>
+                  
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+        </div>
         </div>
         <!-- /.col -->
     </div>
+    <!-- /.row -->
 
-    <div class="col-md-6">
-        <div class="box box-default">
-            <div class="box-header with-border">
-                <h3 class="box-title">Browser Usage</h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                            class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="chart-responsive">
-                            <canvas id="pieChart" height="160" width="159"
-                                style="width: 159px; height: 160px;"></canvas>
-                        </div>
-                        <!-- ./chart-responsive -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4">
-                        <ul class="chart-legend clearfix">
-                            <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                            <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                            <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                            <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                            <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                            <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
-                        </ul>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">United States of America
-                            <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-                    <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i>
-                                4%</span></a>
-                    </li>
-                    <li><a href="#">China
-                            <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
-                </ul>
-            </div>
-            <!-- /.footer -->
-        </div>
-    </div>
-</div>
+
+<script type="text/javascript">
+
+function GetHistograma(){
+
+    var camId  = document.getElementById("ddlCamera").value; 
+    var time  = document.getElementById("ddlTime").value;
+    $.ajax({
+        type: "GET",
+        url: '../admin/dashboard/'+camId+'/'+time,
+        data: {}
+    }).done(function( msg ) {     
+        addData(msg)
+    });
+
+ 
+
+}
+</script>
+
+<script>
+
+  var pieChartCanvasSpace = document.getElementById('pieChart').getContext('2d');
+  var pieChartSpace       = new Chart(pieChartCanvasSpace,{
+
+    type: 'pie',
+    data: {
+      labels: ["Usada", "Libre"],
+      datasets: [{
+        label: "Population (millions)",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [2478,5267]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Espacio en disco Unidad C:'
+      },
+      responsive: true
+    }
+});
+
+var pieChartCanvas = document.getElementById('pieChart2').getContext('2d');
+var pieChart       = new Chart(pieChartCanvas,{
+
+  type: 'pie',
+  data: {
+    labels: ["Usada", "Libre"],
+    datasets: [{
+      label: "Population (millions)",
+      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+      data: [2478,1550]
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Espacio en disco Unidad D:'
+    },
+    responsive: true
+  }
+});
+
+
+  
+
+</script>
+
+
+<script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red'],
+            datasets: [{
+                label: 'Camara 1',
+                data: [],
+                backgroundColor: 'rgba(132, 157, 242, 1)',   
+                borderWidth: 1
+            },
+            {
+                label: 'Camara2',
+                data: [],
+                backgroundColor: 'rgba(253, 44, 79, 350)',   
+                borderWidth: 1
+            },
+            {
+                label: 'Camara3',
+                data: [],
+                backgroundColor: 'rgba(147, 225, 179, 145)',   
+                borderWidth: 1
+            },
+            {
+                label: 'Camara4',
+                data: [],
+                backgroundColor: 'rgba(239, 235, 34, 59)',   
+                borderWidth: 1
+            }           
+            ]
+        },
+        options: {
+            
+            scales: {
+                xAxes: [{
+                    
+                    ticks: {
+                        beginAtZero: true                      
+                    },
+                    barPercentage: 1,
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        steps: 4,
+                        stepValue: 5,
+                        max: 24
+                    }
+                }]
+            },
+            responsive: true
+        }
+    });
+
+    function addData(jsonfile)
+    {
+        ResetCanvas();
+        //Inicia el proceso de graficar
+        console.log(jsonfile)
+
+        //Array eje X
+        var label = [];
+        //array eje y
+        var value = [];
+
+        //se obtiene el nombre de la camara
+        var camara = jsonfile[0].map(function(e) {
+            return e.camara;
+         });
+         console.log(camara)
+         
+         //se obtiene el array de segundos grabados ordenado por fecha
+         var data = jsonfile[0].map(function(e) {       
+            return e.data;          
+         });
+         console.log(data)
+         
+      //Por cada camara se procesa el respectivo array de segundos grabados   
+     for(var i=0 ; i < camara.length ; i++)
+     {
+            //se obtiene las fechas de cada  camara
+            var date = data[i].map(function(e) {       
+                return e.datestart;          
+             });
+
+             //Si la fecha no existe en el array "label" se agrega
+            if(date.length!=0)
+            {
+                date.forEach( element => {
+
+                    if(!label.includes(element))
+                    {
+                        label.push(element);   
+                       
+                    }
+
+                });
+                // Se actualiza el eje X con el array "label"
+                label.sort(function(a,b){
+                    return new Date(a) - new Date(b)
+                  })
+                myChart.data.labels = label; 
+            }
+
+            myChart.data.datasets[i].label = camara[i];
+
+     }
+
+    //Por cada camara se procesa el respectivo array de segundos grabados   
+    for(var i=0 ; i < camara.length ; i++)
+    {
+        
+        // se obtienen los tiempos de grabacion en horas de cada camara
+        var time = data[i].map(function(e) {       
+            var hour = (e.recorded_second/60)/60;
+            var hour3decimales = hour.toFixed(3);
+            return hour3decimales;         
+        });
+
+        //se obtiene las fechas de cada  camara
+        var date = data[i].map(function(e) {       
+            return e.datestart;          
+         });
+
+        console.log(time);
+
+        if(time.length!=0)
+        {
+            //se identifica la posicion de la fecha para graficar su respectivo valor
+            //Esto se hace debido a que los array de "data" vienen de diferente longitud
+            
+                //se hace una copia del eje X para obtener la longitud 
+                value = label.slice();
+                // se rellena de ceros el array "Value"
+                value.fill(0);
+
+                var position = 0 ;
+                //Se reemplaza el valor de la fecha en la poscion correspondiente
+                date.forEach( element => {
+                        
+                        var index = label.indexOf(element);
+                        value.splice(index, 1, time[position]);
+                        position++;
+    
+                });
+
+                
+            // se actualiza el eje y con el array "value"
+            myChart.data.datasets[i].data = value; 
+        }
+
+    }
+
+     myChart.update();
+  
+    }
+       
+    function ResetCanvas()
+    {
+          //camara1
+          myChart.data.datasets[0].data = [];
+     
+          //camara2
+          myChart.data.datasets[1].data =  [];
+       
+          //camara3
+          myChart.data.datasets[2].data =  [];
+    
+          //camara4
+          myChart.data.datasets[3].data =  [];
+      
+          myChart.update();
+    }
+    
+
+    </script>
 
 @endsection
