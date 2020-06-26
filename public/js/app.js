@@ -70197,7 +70197,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(55)(false);
 // imports
-exports.push([module.i, "@import url(http://localhost/xtamvideo/xtamvideo/public/4.10/esri/css/main.css);", ""]);
+exports.push([module.i, "@import url(http://localhost/xtamvideo/public/4.10/esri/css/main.css);", ""]);
 
 // module
 exports.push([module.i, "\n#viewDiv[data-v-3231e30a] {\n  height: 80vh;\n  min-height: 250px;\n}\n.title[data-v-3231e30a] {\n  margin-top: 50px;\n}\n.info[data-v-3231e30a] {\n  font-weight: 300;\n  color: #9aabb1;\n  margin: 0;\n  margin-top: 10px;\n}\n.button[data-v-3231e30a] {\n  margin-top: 50px;\n}\n", ""]);
@@ -70582,7 +70582,7 @@ var URLdomain = window.location.host;
 
     Object(__WEBPACK_IMPORTED_MODULE_1_esri_loader__["loadModules"])(["esri/tasks/Locator", "esri/widgets/Sketch", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/Color", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol", "esri/geometry/Polyline", "esri/geometry/Circle", "esri/symbols/PictureMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/geometry/Polygon", "esri/symbols/SimpleFillSymbol", "dojo/domReady!"], {
       // use a specific version instead of latest 4.x
-      url: "http://" + URLdomain + "/xtamvideo/xtamvideo/public/4.10/init.js"
+      url: "http://" + URLdomain + "/xtamvideo/public/4.10/init.js"
     }).then(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 15),
           Locator = _ref2[0],
@@ -70631,7 +70631,7 @@ var URLdomain = window.location.host;
         case "1":
           //alert("Xtam video");
           ///// XTAM VIDEO
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
             var cameras = response.data;
             var value = cameras.length;
@@ -70773,11 +70773,11 @@ var URLdomain = window.location.host;
 
           _this.interval = setInterval(function () {
             var countupdates;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfileupdate.php").then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfileupdate.php").then(function (response) {
               countupdates = parseInt(response.data[0].count);
               console.log(countupdates);
               if (countupdates && countupdates > 0) {
-                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
                   var cameras = response.data;
                   if (cameras.length > 0) {
                     view = new MapView({
@@ -70921,7 +70921,7 @@ var URLdomain = window.location.host;
         case "2":
           //alert("Xtam alarmas");
           /// alarmas no gestionadas XTAM ALARMAS
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -70991,7 +70991,7 @@ var URLdomain = window.location.host;
                 Fecha: cameras[i].fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
-              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
+              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
                 if (Object.keys(response.data).length !== 0) {
                   var abonados = response.data;
                   var AbonadosJson = JSON.parse(abonados[0].abonados);
@@ -71152,7 +71152,7 @@ var URLdomain = window.location.host;
         case "3":
           //alert("Xtam premium");
           ///// XTAM VIDEO Y ALARMA
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=1").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -71298,7 +71298,7 @@ var URLdomain = window.location.host;
 
           /// alarmas no gestionadas XTAM ALARMAS
 
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/ajaxfile.php?n=2").then(function (response) {
             console.log(response);
 
             var cameras = response.data;
@@ -71372,7 +71372,7 @@ var URLdomain = window.location.host;
                 Fecha: cameras[i].fecha
                 //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
               };
-              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
+              __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + cameras[i].id).then(function (response) {
                 if (Object.keys(response.data).length !== 0) {
                   var abonados = response.data;
                   var AbonadosJson = JSON.parse(abonados[0].abonados);
@@ -71502,7 +71502,7 @@ var URLdomain = window.location.host;
               Fecha: e.fecha
               //Embebed:'<iframe style="position: relative;" src="../vs/streaming.php?ip='+server+'&state='+cliente+'&userid='+'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
             };
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/xtamvideo/public/testvue/abonados.php?n=" + e.codigo).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://" + URLdomain + "/xtamvideo/public/testvue/abonados.php?n=" + e.codigo).then(function (response) {
               if (Object.keys(response.data).length !== 0) {
                 var abonados = response.data;
                 var AbonadosJson = JSON.parse(abonados[0].abonados);
