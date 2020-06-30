@@ -1,7 +1,6 @@
 @extends('crudbooster::admin_template')
 
 <?php
-
 //Dashboard por perfil de instancia 
 $dash=db::table('xtam_profile_inst')
 ->select('idProfile_inst')

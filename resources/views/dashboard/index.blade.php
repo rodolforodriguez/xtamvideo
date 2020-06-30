@@ -1,5 +1,5 @@
 @extends('crudbooster::admin_template')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 @section('content')
 <!-- Content Header (Page header) -->
     <section class="content-header">
