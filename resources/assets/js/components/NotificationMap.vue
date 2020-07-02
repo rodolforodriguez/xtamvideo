@@ -9,7 +9,12 @@ import axios from "axios";
 import { loadModules } from "esri-loader";
 export default {
   props: [],
-
+  data: function(){
+  	return{
+        timer:"",
+        interval: ""    
+    };
+  },
   mounted() {
     loadModules(
       [
@@ -84,203 +89,190 @@ export default {
             //alert("Xtam video");
             ///// XTAM VIDEO
             axios
-              .get(
+            .get(
                 `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=1`
-              )
-              .then(function(response) {
+            )
+            .then(function(response) {
                 console.log(response);
-
                 var cameras = response.data;
                 var value = cameras.length;
                 console.log(value);
                 //cameras = response.data;
                 ///// cameras recording data base
-
                 for (let i = 0; i < value; i++) {
-                  //// estados de las camaras
-
-                  var tipocamara = "";
-                  var n = cameras[i].typecam;
-                  switch (n) {
+                //// estados de las camaras
+                var tipocamara = "";
+                var n = cameras[i].typecam;
+                switch (n) {
                     case 1:
-                      tipocamara += "publica";
-                      break;
+                    tipocamara += "publica";
+                    break;
                     case 2:
-                      tipocamara += "privada";
-                      break;
+                    tipocamara += "privada";
+                    break;
                     case 3:
-                      tipocamara += "lpr";
-                      break;
+                    tipocamara += "lpr";
+                    break;
                     default:
-                      tipocamara += "privada";
-                  }
-                  var estado = cameras[i].estado;
-                  switch (estado) {
+                    tipocamara += "privada";
+                }
+                var estado = cameras[i].estado;
+                switch (estado) {
                     case "active":
-                      tipocamara += "a";
-                      break;
+                    tipocamara += "a";
+                    break;
                     case "inactive":
-                      tipocamara += "i";
-                      break;
+                    tipocamara += "i";
+                    break;
                     default:
-                      tipocamara += "i";
-                  }
-                  //// iconografia alarma y camaras
-                  var iconBase = "../includes/img/";
-                  var icon = "";
-                  if (tipocamara == "publicaa") {
+                    tipocamara += "i";
+                }
+                //// iconografia alarma y camaras
+                var iconBase = "../includes/img/";
+                var icon = "";
+                if (tipocamara == "publicaa") {
                     icon = iconBase + "cam-green.png";
-                  } else if (tipocamara == "publicai") {
+                } else if (tipocamara == "publicai") {
                     icon = iconBase + "cam-red.png";
-                  } else if (tipocamara == "privadaa") {
+                } else if (tipocamara == "privadaa") {
                     icon = iconBase + "cam-green.png";
-                  } else if (tipocamara == "privadai") {
+                } else if (tipocamara == "privadai") {
                     icon = iconBase + "cam-red.png";
-                  } else if (tipocamara == "lpra") {
+                } else if (tipocamara == "lpra") {
                     icon = iconBase + "dome-green.png";
-                  } else if (tipocamara == "lpri") {
+                } else if (tipocamara == "lpri") {
                     icon = iconBase + "dome-red.png";
-                  } else if (tipocamara == "alarm") {
+                } else if (tipocamara == "alarm") {
                     icon = iconBase + "alert50_marker.gif";
-                  }
-
-                  var server = cameras[i].cameraid;
-                  var camara = cameras[i].cameraid;
-                  if (cliente == 1) {
+                }
+                var server = cameras[i].cameraid;
+                var camara = cameras[i].cameraid;
+                if (cliente == 1) {
                     var channel = cameras[i].dcamara;
-                  } else {
+                } else {
                     var channel = cameras[i].channelstreamserver;
-                  }
-                  ///// end estados de las camras
-                  /// puntos de las camaras ene el mapa
-                  var point = new Point({
+                }
+                ///// end estados de las camras
+                /// puntos de las camaras ene el mapa
+                var point = new Point({
                     longitude: cameras[i].longitud,
                     latitude: cameras[i].latitud
-                  });
-
-                  var markerSymbol = new PictureMarkerSymbol({
+                });
+                var markerSymbol = new PictureMarkerSymbol({
                     // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
                     url: icon,
                     width: "24px",
                     height: "24px"
-                  });
-
-                  /// link a abrir en otra ventana
-                  var link =
+                });
+                /// link a abrir en otra ventana
+                var link =
                     "../vs/streaming.php?ip=" +
                     server +
                     "&state=" +
                     cliente +
                     "&userid=" +
                     userid;
-
-                  var grabaciones = "../admin/camgrabaciones?id=" + camara;
-
-                  // Create attributes
-                  var attributes = {
+                var grabaciones = "../admin/camgrabaciones?id=" + camara;
+                // Create attributes
+                var attributes = {
                     XCoord: cameras[i].longitud,
                     YCoord: cameras[i].latitud,
                     Plant: cameras[i].descripcion,
                     Link:
-                      "<A class='btn btn-success btn-sm' onclick=myFunction('" +
-                      link +
-                      "')>Ver Cámara</A>",
+                    "<A class='btn btn-success btn-sm' onclick=myFunction('" +
+                    link +
+                    "')>Ver Cámara</A>",
                     Adresss: cameras[i].direccion,
                     Embebed:
-                      '<iframe style="position: relative;" src="../vs/streaming.php?ip=' +
-                      server +
-                      "&state=" +
-                      cliente +
-                      "&userid=" +
-                      'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
-                  };
-                  if (estado == "active") {
+                    '<iframe style="position: relative;" src="../vs/streaming.php?ip=' +
+                    server +
+                    "&state=" +
+                    cliente +
+                    "&userid=" +
+                    'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+                };
+                if (estado == "active") {
                     var attributes = {
-                      XCoord: cameras[i].longitud,
-                      YCoord: cameras[i].latitud,
-                      Plant: cameras[i].descripcion,
-                      Link:
+                    XCoord: cameras[i].longitud,
+                    YCoord: cameras[i].latitud,
+                    Plant: cameras[i].descripcion,
+                    Link:
                         "<button class='btn btn-success btn-sm' onclick=myFunction('" +
                         link +
                         "')> Ver Cámara </button>",
-                      grabaciones:
+                    grabaciones:
                         "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
                         grabaciones +
                         "')> Ver grabación </button>",
-                      Adresss: cameras[i].direccion
+                    Adresss: cameras[i].direccion
                     };
-                  } else {
+                } else {
                     var attributes = {
-                      XCoord: cameras[i].longitud,
-                      YCoord: cameras[i].latitud,
-                      Plant: cameras[i].descripcion,
-                      grabaciones:
+                    XCoord: cameras[i].longitud,
+                    YCoord: cameras[i].latitud,
+                    Plant: cameras[i].descripcion,
+                    grabaciones:
                         "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
                         grabaciones +
                         "')> Ver grabación </button>",
-                      Adresss: cameras[i].direccion
+                    Adresss: cameras[i].direccion
                     };
-                  }
-
-                  if (estado == "active") {
-                  }
-                  // Create popup template
-                  var popupTemplate = {
+                }
+                // Create popup template
+                var popupTemplate = {
                     title: "{Plant}",
                     content:
-                      "<div class='row text-left'>" +
-                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
-                      "<strong> Latitud: </strong>" +
-                      "</div>" +
-                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
-                      "<span>{YCoord}</span>" +
-                      "</div>" +
-                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
-                      "<strong> Longitud: </strong>" +
-                      "</div>" +
-                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
-                      "<span>{XCoord}</span>" +
-                      "</div>" +
-                      "<div class='col-md-3 col-sm-3 col-xs-6'>" +
-                      "<strong> Dirección: </strong>" +
-                      "</div>" +
-                      "<div class='col-md-9 col-sm-9 col-xs-6'>" +
-                      "<span>{Adresss}</span><br>" +
-                      "</div>" +
-                      "</div>" +
-                      "<div class='row'>" +
-                      "<div class='col-md-12 col-sm-12 col-xs-6'>" +
-                      "<span>{Link}</span> | " +
-                      "<span>{grabaciones}</span>" +
-                      "</div>" +
-                      "</div>"
-                  };
-
-                  // Create a graphic and add the geometry and symbol to it
-                  if (estado == "active") {
+                    "<div class='row text-left'>" +
+                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                    "<strong> Latitud: </strong>" +
+                    "</div>" +
+                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                    "<span>{YCoord}</span>" +
+                    "</div>" +
+                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                    "<strong> Longitud: </strong>" +
+                    "</div>" +
+                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                    "<span>{XCoord}</span>" +
+                    "</div>" +
+                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                    "<strong> Dirección: </strong>" +
+                    "</div>" +
+                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                    "<span>{Adresss}</span><br>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-md-12 col-sm-12 col-xs-6'>" +
+                    "<span>{Link}</span> | " +
+                    "<span>{grabaciones}</span>" +
+                    "</div>" +
+                    "</div>"
+                };
+                // Create a graphic and add the geometry and symbol to it
+                if (estado == "active") {
                     var pointGraphic = new Graphic({
-                      geometry: point,
-                      symbol: markerSymbol,
-                      attributes: attributes,
-                      popupTemplate: popupTemplate
+                    geometry: point,
+                    symbol: markerSymbol,
+                    attributes: attributes,
+                    popupTemplate: popupTemplate
                     });
-                  } else {
+                } else {
                     var pointGraphic = new Graphic({
-                      geometry: point,
-                      symbol: markerSymbol,
-                      attributes: attributes,
-                      popupTemplate: popupTemplate
+                    geometry: point,
+                    symbol: markerSymbol,
+                    attributes: attributes,
+                    popupTemplate: popupTemplate
                     });
-                  }
-
-                  // Add the graphics to the view's graphics layer
-                  view.graphics.add(pointGraphic);
+                }
+                // Add the graphics to the view's graphics layer
+                view.graphics.add(pointGraphic);
                 }
                 ///// end point cameras
-              })
-              .catch(function(error) {
+            })
+            .catch(function(error) {
                 console.log(error);
-              });
+            });
 
             //XtamVideo creacion de poligono
             view.when(function() {
@@ -288,10 +280,213 @@ export default {
                 layer: layer,
                 view: view
               });
-
               view.ui.add(sketch, "bottom-left");
             });
 
+            this.interval = setInterval(() => {
+                var countupdates;
+                axios.get(
+                    `http://${URLdomain}/xtamvideo/public/testvue/ajaxfileupdate.php`
+                )
+                .then(function(response) {
+                    countupdates = parseInt(response.data[0].count);
+                    console.log(countupdates);
+                    if (countupdates && countupdates > 0) {
+                    axios.get(
+                        `http://${URLdomain}/xtamvideo/public/testvue/ajaxfile.php?n=1`
+                    )
+                    .then(function(response) {
+                        var cameras = response.data;
+                        if (cameras.length > 0)
+                        {
+                            view = new MapView({
+                                    container: "viewDiv", // Reference to the scene div created in step 5
+                                    map: map, // Reference to the map object created before the scene
+                                    zoom: 15, // Sets zoom level based on level of detail (LOD)
+                                    center: [lastselectLongitud, lastselectLatitud] // Sets center point of view using longitude,latitude
+                                });
+
+                            var value = cameras.length;
+                            console.log(value);
+                            //cameras = response.data;
+                            ///// cameras recording data base
+                            for (let i = 0; i < value; i++) {
+                                //// estados de las camaras
+                                var tipocamara = "";
+                                var n = cameras[i].typecam;
+                                switch (n) {
+                                    case 1:
+                                    tipocamara += "publica";
+                                    break;
+                                    case 2:
+                                    tipocamara += "privada";
+                                    break;
+                                    case 3:
+                                    tipocamara += "lpr";
+                                    break;
+                                    default:
+                                    tipocamara += "privada";
+                                }
+                                var estado = cameras[i].estado;
+                                switch (estado) {
+                                    case "active":
+                                    tipocamara += "a";
+                                    break;
+                                    case "inactive":
+                                    tipocamara += "i";
+                                    break;
+                                    default:
+                                    tipocamara += "i";
+                                }
+                                //// iconografia alarma y camaras
+                                var iconBase = "../includes/img/";
+                                var icon = "";
+                                if (tipocamara == "publicaa") {
+                                    icon = iconBase + "cam-green.png";
+                                } else if (tipocamara == "publicai") {
+                                    icon = iconBase + "cam-red.png";
+                                } else if (tipocamara == "privadaa") {
+                                    icon = iconBase + "cam-green.png";
+                                } else if (tipocamara == "privadai") {
+                                    icon = iconBase + "cam-red.png";
+                                } else if (tipocamara == "lpra") {
+                                    icon = iconBase + "dome-green.png";
+                                } else if (tipocamara == "lpri") {
+                                    icon = iconBase + "dome-red.png";
+                                } else if (tipocamara == "alarm") {
+                                    icon = iconBase + "alert50_marker.gif";
+                                }
+                                var server = cameras[i].cameraid;
+                                var camara = cameras[i].cameraid;
+                                if (cliente == 1) {
+                                    var channel = cameras[i].dcamara;
+                                } else {
+                                    var channel = cameras[i].channelstreamserver;
+                                }
+                                ///// end estados de las camras
+                                /// puntos de las camaras ene el mapa
+                                var point = new Point({
+                                    longitude: cameras[i].longitud,
+                                    latitude: cameras[i].latitud
+                                });
+                                var markerSymbol = new PictureMarkerSymbol({
+                                    // type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                                    url: icon,
+                                    width: "24px",
+                                    height: "24px"
+                                });
+                                /// link a abrir en otra ventana
+                                var link =
+                                    "../vs/streaming.php?ip=" +
+                                    server +
+                                    "&state=" +
+                                    cliente +
+                                    "&userid=" +
+                                    userid;
+                                var grabaciones = "../admin/camgrabaciones?id=" + camara;
+                                // Create attributes
+                                var attributes = {
+                                    XCoord: cameras[i].longitud,
+                                    YCoord: cameras[i].latitud,
+                                    Plant: cameras[i].descripcion,
+                                    Link:
+                                    "<A class='btn btn-success btn-sm' onclick=myFunction('" +
+                                    link +
+                                    "')>Ver Cámara</A>",
+                                    Adresss: cameras[i].direccion,
+                                    Embebed:
+                                    '<iframe style="position: relative;" src="../vs/streaming.php?ip=' +
+                                    server +
+                                    "&state=" +
+                                    cliente +
+                                    "&userid=" +
+                                    'userid" id="iframe" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+                                };
+                                if (estado == "active") {
+                                    var attributes = {
+                                    XCoord: cameras[i].longitud,
+                                    YCoord: cameras[i].latitud,
+                                    Plant: cameras[i].descripcion,
+                                    Link:
+                                        "<button class='btn btn-success btn-sm' onclick=myFunction('" +
+                                        link +
+                                        "')> Ver Cámara </button>",
+                                    grabaciones:
+                                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                                        grabaciones +
+                                        "')> Ver grabación </button>",
+                                    Adresss: cameras[i].direccion
+                                    };
+                                } else {
+                                    var attributes = {
+                                    XCoord: cameras[i].longitud,
+                                    YCoord: cameras[i].latitud,
+                                    Plant: cameras[i].descripcion,
+                                    grabaciones:
+                                        "<button class='btn btn-primary btn-sm' placeholder='Ver grabación' onclick=Grabaciones('" +
+                                        grabaciones +
+                                        "')> Ver grabación </button>",
+                                    Adresss: cameras[i].direccion
+                                    };
+                                }
+                                // Create popup template
+                                var popupTemplate = {
+                                    title: "{Plant}",
+                                    content:
+                                    "<div class='row text-left'>" +
+                                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                                    "<strong> Latitud: </strong>" +
+                                    "</div>" +
+                                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                                    "<span>{YCoord}</span>" +
+                                    "</div>" +
+                                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                                    "<strong> Longitud: </strong>" +
+                                    "</div>" +
+                                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                                    "<span>{XCoord}</span>" +
+                                    "</div>" +
+                                    "<div class='col-md-3 col-sm-3 col-xs-6'>" +
+                                    "<strong> Dirección: </strong>" +
+                                    "</div>" +
+                                    "<div class='col-md-9 col-sm-9 col-xs-6'>" +
+                                    "<span>{Adresss}</span><br>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "<div class='row'>" +
+                                    "<div class='col-md-12 col-sm-12 col-xs-6'>" +
+                                    "<span>{Link}</span> | " +
+                                    "<span>{grabaciones}</span>" +
+                                    "</div>" +
+                                    "</div>"
+                                };
+                                // Add the graphics to the view's graphics layer
+                                view.graphics.add(new Graphic({
+                                    geometry: point,
+                                    symbol: markerSymbol,
+                                    attributes: attributes,
+                                    popupTemplate: popupTemplate
+                                    }));
+                            }
+                            //XtamVideo creacion de poligono
+                            view.when(function() {                               
+                                const sketch = new Sketch({
+                                    layer: layer,
+                                    view: view
+                                });
+                                view.ui.add(sketch, "bottom-left");
+                            });
+                            // end point cameras
+                        }})
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+                    }
+                 })
+                .catch(function(error) {
+                    console.log(error);
+                });
+                }, 5000);
             break;
           case "2":
             //alert("Xtam alarmas");
@@ -1195,6 +1390,9 @@ export default {
     },
     llamarafuera: function() {
       alert("estoyllamandodesdelavista");
+    },    
+    loadMap: function (){
+       console.log("debug");
     }
   }
 
