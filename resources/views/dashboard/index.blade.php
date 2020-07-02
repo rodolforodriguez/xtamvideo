@@ -91,7 +91,7 @@
                     <div class="row">  
                         <div class="col-md-6 col-xs-6 col-sm-6">
                             <label  for="camera">Centros Comerciales :</label>
-                            <select class='selectpicker  form-control' style="height:30px; font-size:15px" name="cam" id="ddlCamera" onchange="GetHistograma()">
+                            <select class='selectpicker  form-control' style="height:30px; font-size:15px" name="cam" id="ddlCComercial" onchange="GetHistograma()">
                                  <option value="select">Selecciónar</option> 
                                 <?php
                                 foreach ($centro_comercial as $cc) {
@@ -247,17 +247,34 @@
 
 function GetHistograma(){
 
-    var camId  = document.getElementById("ddlCamera").value; 
+    var camId  = document.getElementById("ddlCComercial").value; 
     var time  = document.getElementById("ddlTime").value;
     $.ajax({
         type: "GET",
-        url: '../admin/dashboard/'+camId+'/'+time,
+        url: '../admin/histogram/'+camId+'/'+time,
         data: {}
     }).done(function( msg ) {     
         addData(msg)
     });
 
+    GetNocSystem();
+
  
+}
+
+function GetNocSystem(){
+
+    var camId  = document.getElementById("ddlCComercial").value; 
+  
+    $.ajax({
+        type: "GET",
+        url: '../admin/dashboard/'+camId,
+        dataType: 'json',
+        data: {}
+    }).done(function(data) {   
+        //var datax = JSON.parse(data)
+        console.log(data.ipserver);
+    });
 
 }
 </script>
