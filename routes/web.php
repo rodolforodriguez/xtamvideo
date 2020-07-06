@@ -19,4 +19,4 @@ Route::get('/admin/dashboard', 'DashboardController@index');
 Route::get('/admin/dashboard/{id}', 'DashboardController@GetIpCC');
 Route::get('/admin/histogram', 'HistogramController@index');
 Route::get('/admin/histogram/{id}/{time?}', 'HistogramController@show');
-
+Route::post('/admin/noc', 'NocController@update');
