@@ -23,7 +23,7 @@ class NocController extends BaseController
      */
     public function index()
     {
-        //
+              
         return csrf_token();
     }
 
@@ -178,6 +178,7 @@ class NocController extends BaseController
             {
                 //return response([Json_encode($affected)]); 
                  $disk_id =  $request->input("disco." . $i . ".ID");
+                 $disk_type =  $request->input("disco." . $i . ".FSType");
                  $disk_name =  $request->input("disco." . $i . ".Name");
                  $disk_total =  $request->input("disco." . $i . ".Total");
                  $disk_used =  $request->input("disco." . $i . ".Used");
@@ -187,6 +188,7 @@ class NocController extends BaseController
 
                  $affected = DB::table('disk_info')->insert([
                     ['id_centrocomercial' =>$id_cc,
+                    'type' => $disk_type,
                     'letter' => $disk_mountPoint,
                     'free' =>$disk_free,
                     'used' =>$disk_used,
@@ -206,6 +208,7 @@ class NocController extends BaseController
             for($i=1;$i<=$num_disk; $i++)
             {
                  $disk_id =  $request->input("disco." . $i . ".ID");
+                 $disk_type =  $request->input("disco." . $i . ".FSType");
                  $disk_name =  $request->input("disco." . $i . ".Name");
                  $disk_total =  $request->input("disco." . $i . ".Total");
                  $disk_used =  $request->input("disco." . $i . ".Used");
@@ -217,6 +220,7 @@ class NocController extends BaseController
                  ->where('id_centrocomercial',$id_cc)
                  ->where('letter',$disk_mountPoint)
                  ->update(['letter' => $disk_mountPoint,
+                    'type' => $disk_type,
                     'free' =>$disk_free,
                     'used' =>$disk_used,
                     'size' =>$disk_total,
