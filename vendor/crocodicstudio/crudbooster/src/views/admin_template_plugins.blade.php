@@ -33,6 +33,11 @@ if (strpos($url, 'maps') !== false) {
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css') }}">
 
+
+<!--FONT MONSTERRAT-->
+<link rel="stylesheet" src="{{ asset ('fonts/font-monsterrat.css') }}" media="all" >
+<link rel="stylesheet" src="{{ asset ('fonts/Montsterrat.css') }}" media="all" >
+
 <!--BOOTSTRAP DATERANGEPICKER-->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>

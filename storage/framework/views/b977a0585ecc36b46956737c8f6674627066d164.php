@@ -33,6 +33,11 @@ if (strpos($url, 'maps') !== false) {
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
 <link rel="stylesheet" href="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css')); ?>">
 
+
+<!--FONT MONSTERRAT-->
+<link rel="stylesheet" src="<?php echo e(asset ('fonts/font-monsterrat.css')); ?>" media="all" >
+<link rel="stylesheet" src="<?php echo e(asset ('fonts/Montsterrat.css')); ?>" media="all" >
+
 <!--BOOTSTRAP DATERANGEPICKER-->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/moment.min.js')); ?>"></script>
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/daterangepicker.js')); ?>"></script>
