@@ -108,7 +108,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Histogramas</h3>
@@ -135,8 +135,8 @@
                     <br>
                     <!-- /.row -->
                     <div class="row">
-                        <div class="col-md-12 col-xs-12 col-sm-12">                      
-                                <canvas id="myChart" width="400" height="350"></canvas>                          
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                <canvas id="myChart" width="400" height="350"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -240,7 +240,10 @@
     </div>
     <!-- /.row -->
 
+    <script src="{{ asset ('js/Chart.min.js' ) }}"></script>
+    <!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    -->
 
 
 <script type="text/javascript">
@@ -321,10 +324,7 @@ var pieChart       = new Chart(pieChartCanvas,{
     },
     responsive: true
   }
-});
-
-
-  
+}); 
 
 </script>
 

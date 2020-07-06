@@ -23,8 +23,7 @@ if (strpos($url, 'maps') !== false) {
 }
 ?>
 
-<!-- chart js -->
-<script src="<?php echo e(asset ('js/chart.js@2.8.0.js' )); ?>"></script>
+
 
 <!-- AdminLTE App -->
 <script src="<?php echo e(asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js')); ?>" type="text/javascript"></script>
@@ -106,3 +105,7 @@ if (strpos($url, 'camgrabaciones') !== false) {
 <?php
 }
 ?>
+
+<!-- chart js -->
+<script src="<?php echo e(asset ('js/chart.js@2.8.0.js' )); ?>"></script>
+<script src="<?php echo e(asset ('js/Chart.min.js' )); ?>"></script>
