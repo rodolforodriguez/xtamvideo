@@ -154,8 +154,6 @@ class NocController extends BaseController
                 'ram_size' =>$ram_total
                 ]
             ]);
-  
-            
 
         }else
         {
