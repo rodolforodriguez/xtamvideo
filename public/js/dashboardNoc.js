@@ -214,8 +214,14 @@ function DrawProcessTableChart(json) {
 
             if (processName == "nginx.exe") {
                 processName = "RTMP";
-            } else if (processName == "easydarwing.exe") {
+            } else if (processName == "EasyDarwin.exe") {
                 processName = "RTSP";
+            } else if(processName == "FileZillaServer.exe") {
+                processName = "FTP";
+            }else if(processName == "mysqld.exe") {
+                processName = "MySQL";
+            }else if(processName == "httpd.exe") {
+                processName = "Apache";
             }
 
 
