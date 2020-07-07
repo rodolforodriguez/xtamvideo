@@ -82,24 +82,27 @@
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
                         </button>                      
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                class="fa fa-times"></i></button>
+                       
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">  
-                        <div class="col-md-6 col-xs-6 col-sm-6">
+                        <div class="col-md-6 col-xs-6 col-sm-6 ">
                             <label  for="camera">Centros Comerciales :</label>
-                            <select class='selectpicker  form-control' style="height:30px; font-size:15px" name="cam" id="ddlCComercial" onchange="GetHistograma()">
+                            <select class='selectpicker  form-control' style="height:30px; font-size:15px" name="cam" id="ddlCComercial" onchange="ApplyFilter()">
                                  <option value="select">Selecciónar</option> 
                                 <?php
                                 foreach ($centro_comercial as $cc) {
                                     echo "<option class='form-control' value='" . ($cc->id) . "'>" . ($cc->descripcion) . "</option>";
                                 }
                                 ?>
-                            </select>
-                        </div>                  
+                            </select>                         
+                        </div>   
+                        <div class="col-md-6 col-xs-6 col-sm-6">     
+                            <br>                 
+                            <button id="btnNocLink" type="button" class="btn btn-info" style="float: right"><i class="fa fa-link"></i>ir al Noc Local</button>
+                        </div>                
                         
                     </div>
                 </div>
@@ -116,8 +119,7 @@
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
                         </button>                      
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                class="fa fa-times"></i></button>
+                        
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -125,7 +127,7 @@
                     <div class="row">                                        
                         <div class="col-md-4 col-xs-6 col-sm-6">
                             <label  for="time">Rango de tiempo:</label>
-                            <select class='form-control' style="height:25px; font-size:10px" name="time" id="ddlTime" onchange="GetHistograma()">
+                            <select class='form-control' style="height:25px; font-size:10px" name="time" id="ddlTime" onchange="ApplyFilter()">
                                  <option value="MONTH" style="font-size:15px" selected>Mensual</option> 
                                  <option value="WEEK" style="font-size:15px">Semanal</option> 
                                  <option value="DAY" style="font-size:15px" >Diario</option> 
@@ -136,7 +138,7 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="myChart" width="400" height="350"></canvas>
+                                <canvas id="myChart" width="1000" height="250"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -146,16 +148,17 @@
             <!-- /.box -->
         </div>
         <!-- /.col -->
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Memoria</h3>
+                    <h3 class="box-title">Discos</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
                         </button>                      
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                class="fa fa-times"></i></button>
+                       
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -181,75 +184,83 @@
                 <!-- ./box-body -->   
             </div>
             <!-- /.box -->
-
-            <!-- TABLE: LATEST ORDERS -->
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Servicios</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-       
-            <div class="box-body">
-              <div class="table-responsive">
-                <table class="table no-margin">
-                  <thead>
-                  <tr>            
-                    <th>Nombre</th>
-                    <th>Estado</th>                   
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>EasyDarwing</td>
-                    <td><span class="label label-success">ON</span></td>           
-                  </tr>
-                  <tr>
-                   
-                    <td>Nginx</td>
-                    <td><span class="label label-danger">OFF</span></td>
-                   
-                  </tr>
-                  <tr>
-                   
-                    <td>Ffmpeg</td>
-                    <td><span class="label label-danger">OFF</span></td>
-                   
-                  </tr>
-                  <tr>
-                   
-                    <td>Ffmpeg</td>
-                    <td><span class="label label-success">ON</span></td>
-                   
-                  </tr>
-                  
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.table-responsive -->
-            </div>
-            <!-- /.box-body -->
         </div>
+        <!-- /.col-md- -->
+
+        <div class="col-md-6">
+            <!-- TABLE: LATEST ORDERS -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                <h3 class="box-title">Servicios</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    
+                </div>
+                </div>
+                <!-- /.box-header -->
+        
+                <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                    <thead>
+                    <tr>            
+                        <th>Nombre</th>
+                        <th>Estado</th>                   
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>EasyDarwing</td>
+                        <td><span class="label label-success">ON</span></td>           
+                    </tr>
+                    <tr>
+                    
+                        <td>Nginx</td>
+                        <td><span class="label label-danger">OFF</span></td>
+                    
+                    </tr>
+                    <tr>
+                    
+                        <td>Ffmpeg</td>
+                        <td><span class="label label-danger">OFF</span></td>
+                    
+                    </tr>
+                    <tr>
+                    
+                        <td>Ffmpeg</td>
+                        <td><span class="label label-success">ON</span></td>
+                    
+                    </tr>
+                    
+                    </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+            </div>
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
+    <script src="{{ asset ('js/jquery.min.js' ) }}"></script>
     <script src="{{ asset ('js/Chart.min.js' ) }}"></script>
-    <!--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    -->
-
-
+    
 <script type="text/javascript">
+    $(document).ready(function() {
+        //Aqui codigo random ddlCComercial
+        var $options = $('#ddlCComercial').find('option');
+        var random = ~~(Math.random() * $options.length);
+        $options.eq(random).prop('selected', true);
+        document.getElementById("ddlCComercial").onchange();
+    });
 
-function GetHistograma(){
 
+function ApplyFilter(){
+
+    //Histogram method
     var camId  = document.getElementById("ddlCComercial").value; 
     var time  = document.getElementById("ddlTime").value;
     $.ajax({
@@ -259,27 +270,48 @@ function GetHistograma(){
     }).done(function( msg ) {     
         addData(msg)
     });
-
-    GetNocSystem();
+    
+    //Get Noc system
+    GetNocInfo(camId);
 
  
 }
 
-function GetNocSystem(){
+function GetNocInfo(camId){
 
-    var camId  = document.getElementById("ddlCComercial").value; 
-  
+//Get IP server CC
     $.ajax({
         type: "GET",
         url: '../admin/dashboard/'+camId,
-        dataType: 'json',
-        data: {}
+        dataType: 'json'
     }).done(function(data) {   
-        //var datax = JSON.parse(data)
-        console.log(data.ipserver);
+        var json = JSON.parse(data);
+        //Add href = btn local link 
+        document.getElementById("btnNocLink").onclick = function() {
+            window.open('http://'+json[0].ipserver+'/phpsysinfo/index.php?disp=bootstrap', '_blank');
+        }
+        
     });
 
+//Get Noc Data
+    $.ajax({
+        type: "GET",
+        url: '../admin/noc/'+camId,
+        dataType: 'json'
+    }).done(function(data) {   
+        var json = JSON.parse(data);
+        
+        console.log(json);
+        //json[0].ipserver
+        
+    });
+
+
+
+
 }
+
+
 </script>
 
 <script>
@@ -293,7 +325,7 @@ function GetNocSystem(){
       datasets: [{
         label: "Population (millions)",
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,5267]
+        data: []
       }]
     },
     options: {
@@ -335,27 +367,27 @@ var pieChart       = new Chart(pieChartCanvas,{
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red'],
+            labels: ['Horas Grabadas'],
             datasets: [{
-                label: 'Camara 1',
+                label: 'C1',
                 data: [],
                 backgroundColor: 'rgba(132, 157, 242, 1)',   
                 borderWidth: 1
             },
             {
-                label: 'Camara2',
+                label: 'C2 Desabilitada',
                 data: [],
                 backgroundColor: 'rgba(253, 44, 79, 350)',   
                 borderWidth: 1
             },
             {
-                label: 'Camara3',
+                label: 'C3 Desabilitada',
                 data: [],
                 backgroundColor: 'rgba(147, 225, 179, 145)',   
                 borderWidth: 1
             },
             {
-                label: 'Camara4',
+                label: 'C4 DEsabilitada',
                 data: [],
                 backgroundColor: 'rgba(239, 235, 34, 59)',   
                 borderWidth: 1
@@ -363,6 +395,10 @@ var pieChart       = new Chart(pieChartCanvas,{
             ]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Cámaras'
+            },
             
             scales: {
                 xAxes: [{
@@ -373,6 +409,10 @@ var pieChart       = new Chart(pieChartCanvas,{
                     barPercentage: 1,
                 }],
                 yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Horas'
+                      },
                     display: true,
                     ticks: {
                         beginAtZero: true,
@@ -390,7 +430,7 @@ var pieChart       = new Chart(pieChartCanvas,{
     {
         ResetCanvas();
         //Inicia el proceso de graficar
-        console.log(jsonfile)
+        //console.log(jsonfile)
 
         //Array eje X
         var label = [];
@@ -401,13 +441,13 @@ var pieChart       = new Chart(pieChartCanvas,{
         var camara = jsonfile[0].map(function(e) {
             return e.camara;
          });
-         console.log(camara)
+         //console.log(camara)
          
          //se obtiene el array de segundos grabados ordenado por fecha
          var data = jsonfile[0].map(function(e) {       
             return e.data;          
          });
-         console.log(data)
+         //console.log(data)
          
       //Por cada camara se procesa el respectivo array de segundos grabados   
      for(var i=0 ; i < camara.length ; i++)
@@ -456,7 +496,7 @@ var pieChart       = new Chart(pieChartCanvas,{
             return e.datestart;          
          });
 
-        console.log(time);
+        //console.log(time);
 
         if(time.length!=0)
         {

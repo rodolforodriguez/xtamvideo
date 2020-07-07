@@ -55,7 +55,24 @@ class NocController extends BaseController
      */
     public function show($id)
     {
-        //
+        
+        //Get General Info
+        
+        $general_info= DB::table('general_info')
+        ->where( 'id_centrocomercial', $id)   
+        ->get();
+
+        $disk_info= DB::table('disk_info')
+        ->where( 'id_centrocomercial', $id)   
+        ->get();
+
+        $process_info= DB::table('process_info')
+        ->where( 'id_centrocomercial', $id)   
+        ->get();
+
+        return response([Json_encode(['general_info' => $general_info , 'disk_info' => $disk_info , 'process_info' => $process_info  ])]); 
+
+
     }
 
     /**
@@ -186,17 +203,20 @@ class NocController extends BaseController
                  $disk_percent =  $request->input("disco." . $i . ".Percent");
                  $disk_mountPoint =  $request->input("disco." . $i . ".MountPoint");
 
-                 $affected = DB::table('disk_info')->insert([
-                    ['id_centrocomercial' =>$id_cc,
-                    'type' => $disk_type,
-                    'letter' => $disk_mountPoint,
-                    'free' =>$disk_free,
-                    'used' =>$disk_used,
-                    'size' =>$disk_total,
-                    'percent' =>$disk_percent,
-                    'name' =>$disk_name
-                    ]
-                ]);
+                 if($disk_total > 81927921664) // 10gb
+                 {
+                    $affected = DB::table('disk_info')->insert([
+                        ['id_centrocomercial' =>$id_cc,
+                        'type' => $disk_type,
+                        'letter' => $disk_mountPoint,
+                        'free' =>$disk_free,
+                        'used' =>$disk_used,
+                        'size' =>$disk_total,
+                        'percent' =>$disk_percent,
+                        'name' =>$disk_name
+                        ]
+                    ]);
+                 }
             
             }
 
