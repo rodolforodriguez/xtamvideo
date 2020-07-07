@@ -262,13 +262,13 @@ class NocController extends BaseController
         {
             for($i=0;$i<$num_process; $i++)
             {
-                $disk_name =  $request->input("plugin." . $i . ".Name");
-                $disk_status =  $request->input("plugin." . $i . ".Status");
+                $process_name =  $request->input("plugin." . $i . ".Name");
+                $process_status =  $request->input("plugin." . $i . ".Status");
 
                 $affected = DB::table('process_info')->insert([
                     ['id_centrocomercial' =>$id_cc,
-                    'process_name' => $disk_name,
-                    'status' =>$disk_status
+                    'process_name' => $process_name,
+                    'status' =>$process_status
                     ]
                 ]);
 
@@ -278,16 +278,38 @@ class NocController extends BaseController
         {
             for($i=0;$i<$num_process; $i++)
             {
-                $disk_name =  $request->input("plugin." . $i . ".Name");
-                $disk_status =  $request->input("plugin." . $i . ".Status");
+                $process_name =  $request->input("plugin." . $i . ".Name");
+                $process_status =  $request->input("plugin." . $i . ".Status");
 
-                $affected = DB::table('process_info')
-                ->where('id_centrocomercial',$id_cc)
-                ->where('process_name',$disk_name)
-                ->update(['id_centrocomercial' =>$id_cc,
-                    'process_name' => $disk_name,
-                    'status' =>$disk_status
+                //Plugins - Process
+                $process = DB::table('process_info')
+                ->select('process_info.id_centrocomercial')
+                ->where( 'id_centrocomercial', $id_cc)  
+                ->where('process_name',$process_name) 
+                ->get();
+
+                if(count($process) == 0)
+                {
+                    $affected = DB::table('process_info')->insert([
+                        ['id_centrocomercial' =>$id_cc,
+                        'process_name' => $process_name,
+                        'status' =>$process_status
+                        ]
                     ]);
+                    
+
+                }else
+                {
+                    $affected = DB::table('process_info')
+                    ->where('id_centrocomercial',$id_cc)
+                    ->where('process_name',$process_name)
+                    ->update(['id_centrocomercial' =>$id_cc,
+                        'process_name' => $process_name,
+                        'status' =>$process_status
+                        ]);
+
+
+                }     
             }
 
         }

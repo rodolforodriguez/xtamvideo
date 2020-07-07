@@ -17,54 +17,52 @@
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span id="spnStateXtam" class="info-box-icon bg-red"><i class="ion ion-power"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">CPU Traffic</span>
-                    <span class="info-box-number">90<small>%</small></span>
+                <div id="boxState" class="info-box-content">
+                    <span class="info-box-text">Estado</span>
+                    <span id="spnStatus" class="info-box-number">OFF</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-        <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-speedometer-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Likes</span>
-                    <span class="info-box-number">41,410</span>
+                    <span  class="info-box-text">uso CPU</span>
+                    <span id="spnCpu" class="info-box-number">Sin datos</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
         <!-- /.col -->
-
         <!-- fix for small devices only -->
         <div class="clearfix visible-sm-block"></div>
-
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                <span class="info-box-icon bg-blue"><i class="ion ion-stats-bars"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">760</span>
+                    <span  class="info-box-text">uso RAM</span>
+                    <span id="spnRam" class="info-box-number">Sin datos</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
+        <!-- /.col -->       
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                <span class="info-box-icon bg-light-blue-active"><i class="fa fa-cogs"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">New Members</span>
-                    <span class="info-box-number">2,000</span>
+                    <span  class="info-box-text">Servicios ON</span>
+                    <span id="spnService" class="info-box-number">0</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -109,6 +107,80 @@
             </div>  
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Discos</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                      
+                       
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-responsive">
+                              <canvas id="diskChart1" width="400" height="350"></canvas>
+                            </div>
+                            <!-- ./chart-responsive -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="chart-responsive">
+                              <canvas id="diskChart2" width="400" height="350"></canvas>
+                            </div>
+                            <!-- ./chart-responsive -->
+                        </div>
+                        <!-- /.col -->                                                                      
+                    </div>          
+                    <!-- /.row -->
+                </div>
+                <!-- ./box-body -->   
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col-md- -->
+
+        <div class="col-md-6">
+            <!-- TABLE: LATEST ORDERS -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                <h3 class="box-title">Servicios</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    
+                </div>
+                </div>
+                <!-- /.box-header -->
+        
+                <div class="box-body">
+                <div class="table-responsive">
+                    <table id="processTable" class="table no-margin">
+                    <thead>
+                    <tr>            
+                        <th>Nombre</th>
+                        <th>Estado</th>                   
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 
     <div class="row">
         <div class="col-md-12">
@@ -149,102 +221,7 @@
         </div>
         <!-- /.col -->
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Discos</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                class="fa fa-minus"></i>
-                        </button>                      
-                       
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="chart-responsive">
-                              <canvas id="pieChart" width="400" height="350"></canvas>
-                            </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="chart-responsive">
-                              <canvas id="pieChart2" width="400" height="350"></canvas>
-                            </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->                                                                      
-                    </div>          
-                    <!-- /.row -->
-                </div>
-                <!-- ./box-body -->   
-            </div>
-            <!-- /.box -->
-        </div>
-        <!-- /.col-md- -->
-
-        <div class="col-md-6">
-            <!-- TABLE: LATEST ORDERS -->
-            <div class="box box-info">
-                <div class="box-header with-border">
-                <h3 class="box-title">Servicios</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    
-                </div>
-                </div>
-                <!-- /.box-header -->
-        
-                <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table no-margin">
-                    <thead>
-                    <tr>            
-                        <th>Nombre</th>
-                        <th>Estado</th>                   
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>EasyDarwing</td>
-                        <td><span class="label label-success">ON</span></td>           
-                    </tr>
-                    <tr>
-                    
-                        <td>Nginx</td>
-                        <td><span class="label label-danger">OFF</span></td>
-                    
-                    </tr>
-                    <tr>
-                    
-                        <td>Ffmpeg</td>
-                        <td><span class="label label-danger">OFF</span></td>
-                    
-                    </tr>
-                    <tr>
-                    
-                        <td>Ffmpeg</td>
-                        <td><span class="label label-success">ON</span></td>
-                    
-                    </tr>
-                    
-                    </tbody>
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
-                </div>
-                <!-- /.box-body -->
-            </div>
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
+   
   
     <script src="{{ asset ('js/dashboardNoc.js' ) }}"></script>
     <script src="{{ asset ('js/jquery.min.js' ) }}"></script>
@@ -260,54 +237,6 @@
     });
 
 </script>
-
-
-<script>
-
-  var pieChartCanvasSpace = document.getElementById('pieChart').getContext('2d');
-  var pieChartSpace       = new Chart(pieChartCanvasSpace,{
-
-    type: 'pie',
-    data: {
-      labels: ["Usada", "Libre"],
-      datasets: [{
-        label: "Population (millions)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,1550]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Espacio en disco Unidad C:'
-      },
-      responsive: true
-    }
-});
-
-var pieChartCanvas = document.getElementById('pieChart2').getContext('2d');
-var pieChart       = new Chart(pieChartCanvas,{
-
-  type: 'pie',
-  data: {
-    labels: ["Usada", "Libre"],
-    datasets: [{
-      label: "Population (millions)",
-      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-      data: [2478,1550]
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'Espacio en disco Unidad D:'
-    },
-    responsive: true
-  }
-});  
-
-</script>
-
 
 <script>
 

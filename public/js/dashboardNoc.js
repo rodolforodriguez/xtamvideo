@@ -60,17 +60,172 @@ function DrawChartData(json) {
 
 function DrawGeneralBoxChart(json) {
     //
+    var countGeneral = Object.keys(json.general_info).length;
+    var status = "ON";
+
+    if (countGeneral > 0) {
+
+        var ram = bytesToSizeWithLabel(json.general_info[0].ram_used);
+        var cpu = json.general_info[0].cpu_used + '%';
+        var countProcess = Object.keys(json.process_info).length;
+        var countProcessOn = 0;
+
+        //Contador de procesos en ON
+        if (countProcess > 0) {
+            for (i = 0; i < countProcess; i++) {
+
+                if (json.process_info[i].status == 1) {
+                    countProcessOn++;
+                }
+            }
+        }
+
+        $("#spnCpu").text(cpu);
+        $("#spnRam").text(ram);
+        $("#spnService").text(countProcessOn);
+    }
+
+    if (status == "ON") {
+        $('#spnStateXtam')
+            .removeClass('info-box-icon bg-red')
+            .addClass('info-box-icon bg-green')
+
+    } else {
+
+        $('#spnStateXtam')
+            .removeClass('info-box-icon bg-green')
+            .addClass('info-box-icon bg-red')
+    }
+
+
+    //Estado
+    $("#spnStatus").text(status);
+
+
 
 }
 
 function DrawDiskPieChart(json) {
     //
+    var countDisk = Object.keys(json.disk_info).length;
+    if (countDisk > 0) {
+        for (i = 0; i <= 1; i++) {
+
+            //numero de Chart 1 o 2
+            var chartNum = i + 1;
+            var pieChartCanvasSpace = document.getElementById('diskChart' + chartNum).getContext('2d');
+            var pieChartSpace = new Chart(pieChartCanvasSpace, {
+
+                type: 'pie',
+                data: {
+                    labels: ["Usado(GB)", "Libre(GB)"],
+                    datasets: [{
+                        label: "Population (millions)",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: [bytesToSize(json.disk_info[i].used), bytesToSize(json.disk_info[i].free)]
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Disco ' + json.disk_info[i].letter
+                    },
+                    responsive: true
+                }
+            });
+        }
+
+    } else {
+        var pieChartCanvasSpace1 = document.getElementById('diskChart1').getContext('2d');
+        var pieChartCanvasSpace2 = document.getElementById('diskChart2').getContext('2d');
+        var pieChartSpace = new Chart(pieChartCanvasSpace1, {
+
+            type: 'pie',
+            data: {
+                labels: ["Usado", "Libre"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [0, 0]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'No hay data disponible '
+                },
+                responsive: true
+            }
+        });
+        var pieChartSpace = new Chart(pieChartCanvasSpace2, {
+
+            type: 'pie',
+            data: {
+                labels: ["Usada", "Libre"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [0, 0]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'No hay data disponible '
+                },
+                responsive: true
+            }
+        });
+
+
+    }
+
+
+
 
 }
 
 function DrawProcessTableChart(json) {
 
     //
+    var countProcess = Object.keys(json.process_info).length;
+    console.log(countProcess);
+    //Contador de procesos en ON
+    if (countProcess > 0) {
+
+        $("#processTable tr").remove();
+
+
+        for (i = 0; i < countProcess; i++) {
+
+            var processStatus = json.process_info[i].status;
+            var labelColor = 'success';
+
+
+            if (processStatus == 0) {
+                processStatus = "OFF"
+                labelColor = 'danger';
+
+            } else {
+                processStatus = "ON";
+                labelColor = 'success';
+            }
+            var processName = json.process_info[i].process_name;
+
+            if (processName == "nginx.exe") {
+                processName = "RTMP";
+            } else if (processName == "easydarwing.exe") {
+                processName = "RTSP";
+            }
+
+
+            var tr = `<tr>
+            <td>` + processName + `</td>
+            <td><span class="label label-` + labelColor + `">` + processStatus + `</span></td>       
+            </tr>`;
+            $("#processTable").append(tr)
+        }
+    }
 
 }
 
@@ -186,4 +341,18 @@ function ResetCanvas() {
     histogramChart.data.datasets[3].data = [];
 
     histogramChart.update();
+}
+
+function bytesToSize(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Byte';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2);
+}
+
+function bytesToSizeWithLabel(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Byte';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
