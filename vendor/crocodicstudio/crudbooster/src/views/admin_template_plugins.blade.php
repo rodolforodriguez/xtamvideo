@@ -7,12 +7,13 @@
 
 <!-- jQuery 2.1.3 -->
 <!-- <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src=" {{ asset ('js/jquery.min.js') }} "></script>
 <!-- DatePicker 
 <link rel="stylesheet" href="datepicker.min.css"> -->
 
 <!-- Bootstrap 3.3.2 JS -->
-<script src="{{ asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset ('vendor/crudbooster/assets/adminlte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript">
+</script>
 <?php
 $url = $_SERVER["REQUEST_URI"];
 if (strpos($url, 'maps') !== false) {
@@ -21,6 +22,9 @@ if (strpos($url, 'maps') !== false) {
 <?php
 }
 ?>
+
+
+
 <!-- AdminLTE App -->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/dist/js/app.js') }}" type="text/javascript"></script>
 
@@ -28,14 +32,22 @@ if (strpos($url, 'maps') !== false) {
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datepicker/datepicker3.css') }}">
 
+
+<!--FONT MONSTERRAT-->
+<link rel="stylesheet" src="{{ asset ('fonts/font-monsterrat.css') }}" media="all" >
+<link rel="stylesheet" src="{{ asset ('fonts/Montsterrat.css') }}" media="all" >
+
 <!--BOOTSTRAP DATERANGEPICKER-->
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/daterangepicker-bs3.css') }}">
+<link rel="stylesheet"
+    href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/daterangepicker/daterangepicker-bs3.css') }}">
 
 <!-- Bootstrap time Picker -->
-<link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
-<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+<link rel="stylesheet"
+    href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
+<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.js') }}">
+</script>
 
 <!--
 <link rel='stylesheet' href='{{ asset("vendor/crudbooster/assets/lightbox/dist/css/lightbox.min.css") }}' />
@@ -49,7 +61,8 @@ if (strpos($url, 'maps') !== false) {
 <script src="{{asset('vendor/crudbooster/jquery.price_format.2.0.min.js')}}"></script>
 
 <!--DATATABLE-->
-<link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/dataTables.bootstrap.css')}}">
+<link rel="stylesheet"
+    href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/dataTables.bootstrap.css')}}">
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 
@@ -79,7 +92,7 @@ if (strpos($url, 'recording') !== false) {
 <link rel="stylesheet" href="../css/video.css" media="all" />
 <link rel="stylesheet" href="../css/grabaciones.css" media="all" />
 <script src="../../resources/assets/js/download2.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="{{ asset('js/hls.js@latest.js') }}"></script>
 <?php
 }
 ?>
@@ -92,3 +105,7 @@ if (strpos($url, 'camgrabaciones') !== false) {
 <?php
 }
 ?>
+
+<!-- chart js -->
+<script src="{{ asset ('js/chart.js@2.8.0.js' ) }}"></script>
+<script src="{{ asset ('js/Chart.min.js' ) }}"></script>

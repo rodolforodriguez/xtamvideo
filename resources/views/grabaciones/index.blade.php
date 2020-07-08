@@ -6,7 +6,7 @@ include "includes/connection.php";
 @extends('crudbooster::admin_template')
 @section('content')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+ <script src="{{ asset('js/jquery.min.2.2.4.js') }}"></script>
 <div id="loader" class="loader"></div>
 <style>
     .loader {
