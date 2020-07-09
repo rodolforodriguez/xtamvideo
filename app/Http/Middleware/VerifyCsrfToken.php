@@ -13,6 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'admin/noc*'
+        'admin/noc*',
+        'admin/notification*'
+
     ];
 }

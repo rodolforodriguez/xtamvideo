@@ -95,10 +95,12 @@
                                     echo "<option class='form-control' value='" . ($cc->id) . "'>" . ($cc->descripcion) . "</option>";
                                 }
                                 ?>
-                            </select>                         
+                            </select>                             
                         </div>   
-                        <div class="col-md-6 col-xs-6 col-sm-6">     
-                            <br>                 
+                        <div class="col-md-6 col-xs-6 col-sm-6">    
+                             
+                            <br>     
+                            <a onclick="ApplyFilter()" style="float: left"><i style="padding-top: 10px" class="fa fa-refresh fa-2x"></i></a>              
                             <button id="btnNocLink" type="button" class="btn btn-info" style="float: right"><i class="fa fa-link"></i>ir al Noc Local</button>
                         </div>                
                         

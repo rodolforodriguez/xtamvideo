@@ -96,11 +96,16 @@ class NocController extends BaseController
         //identificacion del Xtam remoto
         $ip = $request->input("xtam.Ip");
         $id_cc = "";
+        $cc_name = "";
         //buscar ip en tabla 
         $centro_comercial = DB::table('centro_comercial')
-        ->select( 'centro_comercial.id')
+        ->select( 'centro_comercial.id','centro_comercial.descripcion')
         ->where( 'ipserver', $ip)   
         ->get();
+
+        $dtime = new DateTime();
+        $dtime->modify('-5 hours');
+        $dtime->format('Y-m-d H:i:s');
 
         if(count($centro_comercial) == 0)
         {
@@ -112,6 +117,7 @@ class NocController extends BaseController
         //General Info
         foreach ($centro_comercial as $cc) {
             $id_cc = $cc->id;
+            $cc_name = $cc->descripcion;
         }
 
         $Host = $request->input("xtam.Host");
@@ -154,12 +160,25 @@ class NocController extends BaseController
                 'ram_size' =>$ram_total
                 ]
             ]);
+            //Notifications
+            if($average_cpu_used > 90)
+            {
+                $affected = DB::table('cms_notifications')->insert([
+                    ['id_cms_users' =>'3',
+                    'content' => 'Xtam Remoto : ' .$cc_name. ' supera 90% de uso en CPU',
+                    'url' =>'/admin/dashboard',
+                    'is_read' =>'0',
+                    'created_at' =>$dtime
+                    ]
+                ]);
+
+            }
+
+            
 
         }else
         {
-            $dtime = new DateTime();
-            $dtime->modify('-5 hours');
-            $dtime->format('Y-m-d H:i:s');
+            
             $affected = DB::table('general_info')->where('id_centrocomercial',$id_cc)
                 ->update(['server_name' => $Host,
                 'cpu_core' =>$cpu_core,
@@ -168,8 +187,22 @@ class NocController extends BaseController
                 'ram_free' =>$ram_free,
                 'ram_used' =>$ram_used,
                 'ram_size' =>$ram_total,
-                'last_update' => $dtime,
+                'last_update' => $dtime
                 ]);
+
+                //Notifications
+            if($average_cpu_used > 90)
+            {
+                $affected = DB::table('cms_notifications')->insert([
+                    ['id_cms_users' =>'3',
+                    'content' => 'Xtam Remoto : ' .$cc_name. ' supera 90% de uso en CPU',
+                    'url' =>'/admin/dashboard',
+                    'is_read' =>'0',
+                    'created_at' =>$dtime
+                    ]
+                ]);
+
+            }
 
                 
         }
@@ -215,6 +248,19 @@ class NocController extends BaseController
                         ]
                     ]);
                  }
+
+                 //Notifications
+                if($disk_percent > 85)
+                {
+                    $affected = DB::table('cms_notifications')->insert([
+                        ['id_cms_users' =>'3',
+                        'content' => 'Xtam Remoto : ' .$cc_name. ' supera 85% en espacio en disco ' .$disk_mountPoint . '',
+                        'url' =>'/admin/dashboard',
+                        'is_read' =>'0',
+                        'created_at' =>$dtime
+                        ]
+                    ]);
+                }
             
             }
 
@@ -244,7 +290,22 @@ class NocController extends BaseController
                     'size' =>$disk_total,
                     'percent' =>$disk_percent,
                     'name' =>$disk_name,
-                    'last_update' =>$dtime]);     
+                    'last_update' =>$dtime]);   
+
+
+                    
+                      //Notifications
+                if($disk_percent > 85)
+                {
+                    $affected = DB::table('cms_notifications')->insert([
+                        ['id_cms_users' =>'3',
+                        'content' => 'Xtam Remoto : ' .$cc_name. ' supera 85% en espacio en disco ' .$disk_mountPoint . '',
+                        'url' =>'/admin/dashboard',
+                        'is_read' =>'0',
+                        'created_at' =>$dtime
+                        ]
+                    ]);
+                }
             
             }
          

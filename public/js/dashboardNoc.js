@@ -101,6 +101,11 @@ function DrawGeneralBoxChart(json) {
 
     if (countGeneral > 0) {
 
+
+        if (XtamDisconnect(json.general_info[0].last_update)) {
+            status = "OFF";
+
+        }
         var ram = bytesToSizeWithLabel(json.general_info[0].ram_used);
         var cpu = json.general_info[0].cpu_used + '%';
         var countProcess = Object.keys(json.process_info).length;
@@ -122,7 +127,7 @@ function DrawGeneralBoxChart(json) {
         //Estado
         $("#spnStatus").text(status);
     } else {
-        var status = "OFF";
+        status = "OFF";
         $("#spnStatus").text("OFF");
         $("#spnCpu").text("Sin datos");
         $("#spnCpu").text("Sin datos");
@@ -612,3 +617,19 @@ function bytesToSizeWithLabel(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 ////////////////////////////////////////////////////////////
+
+function XtamDisconnect(last_date) {
+    var today = new Date();
+    console.log(today);
+    var lastUpdate = new Date(last_date);
+    console.log(lastUpdate);
+    var diffMs = (today - lastUpdate); // milliseconds between now & Christmas
+    var diffMins = Math.round(diffMs / 60000); // minutes
+    console.log(diffMins);
+    if (diffMins > 5) {
+        return true;
+    } else {
+
+        return false;
+    }
+}
