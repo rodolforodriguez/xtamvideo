@@ -8,7 +8,7 @@ require("includes/connection.php");
     $channel = $_GET['channel'];
     
 
-        $select="SELECT estado,cameraid FROM cameras c inner join centro_comercial cc on cc.id=c.id_centrocomercial
+        $select="SELECT estado,cameraid,descripcion FROM cameras c inner join centro_comercial cc on cc.id=c.id_centrocomercial
             where dcamara='".$channel."' and ipserver='".$ipserver."'";
             
         $regitro=mysqli_query($con, $select);
@@ -39,6 +39,14 @@ require("includes/connection.php");
                 VALUES ('" . $channel . "','" . $ipserver . "','" . $estado . "')";
                     //echo $consulta;
                 $register = mysqli_query($con, $consulta);
+                if ($register) {
+                    echo "Log Insertado";
+                } else {
+                    echo "intente de nuevo";
+                }
+                $notifications="INSERT INTO `cms_notifications` (`id_cms_users`, `content`, `url`) 
+                VALUES ('3', 'El canal ".$channel." del sitio remoto ".$valor['descripcion']." se encuentra en estado ".$estado."', 'admin');";
+                $register = mysqli_query($con, $notifications);
                 if ($register) {
                     echo "Log Insertado";
                 } else {
