@@ -335,12 +335,10 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
             
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
-                ->where('name_channel', $camara->dcamara) 
-                ->groupBy('datestart','name_channel')
+                ->where('name_channel', '=' , $camara->dcamara) 
+                ->groupBy('datestart','name_channel',  'datefinish')
                 ->get();
-
-                
-
+            
                 $device = [];
                 $device ["camara"] = $camara->direccion;
                 $device ["data"]   = $secondsRecording;
@@ -351,8 +349,8 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
-                ->where('name_channel', $camara->dcamara) 
-                ->groupBy('datestart','name_channel')
+                ->where('name_channel', '=' , $camara->dcamara) 
+                ->groupBy('datestart','name_channel' , 'datefinish')
                 ->get();
 
                 $device = [];
