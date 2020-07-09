@@ -324,7 +324,7 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
        
 
         $camaras = DB::table('cameras')
-        ->select( 'cameras.cameraid',  'cameras.direccion')
+        ->select( 'cameras.cameraid',  'cameras.direccion','cameras.dcamara')
         ->where('id_centrocomercial', $id) 
         ->get();
 
@@ -333,11 +333,10 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
 
             if (!is_null($time)) {
             
-                $secondsRecording = DB::table('recordings')
-                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
-                ->where('idCamara', $camara->cameraid) 
-                ->where('datetimestart', '>', DB::raw('NOW() - INTERVAL 1 '.$time.''))
-                ->groupBy('datestart')
+                $secondsRecording = DB::table('rtsp_log')
+                ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
+                ->where('name_channel', $camara->dcamara) 
+                ->groupBy('datestart','name_channel')
                 ->get();
 
                 
@@ -350,10 +349,10 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
     
             } else {
                 
-                $secondsRecording = DB::table('recordings')
-                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
-                ->where('idCamara', $camara)              
-                ->groupBy('datestart')
+                $secondsRecording = DB::table('rtsp_log')
+                ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
+                ->where('name_channel', $camara->dcamara) 
+                ->groupBy('datestart','name_channel')
                 ->get();
 
                 $device = [];

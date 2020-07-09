@@ -328,6 +328,7 @@ function DrawHistogramRecordsChart(jsonfile) {
 }
 
 function DrawHistogramCamarasChart(jsonfile) {
+
     ResetCanvasCamaras();
     //Inicia el proceso de graficar
     console.log(jsonfile)
