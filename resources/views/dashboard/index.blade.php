@@ -238,7 +238,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="histoCamaraChart" width="400" height="150"></canvas>
+                                <canvas id="histoCamaraChart" width="600" height="300"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -264,7 +264,7 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="histoVideoChart" width="400" height="150"></canvas>
+                                <canvas id="histoVideoChart" width="600" height="300"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->

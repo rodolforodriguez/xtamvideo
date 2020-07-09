@@ -204,8 +204,6 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
 
         $camarasArray = array();
 
-       
-
         $camaras = DB::table('cameras')
         ->select( 'cameras.cameraid',  'cameras.direccion')
         ->where('id_centrocomercial', $id) 

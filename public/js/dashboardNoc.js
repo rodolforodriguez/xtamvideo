@@ -122,6 +122,7 @@ function DrawGeneralBoxChart(json) {
         //Estado
         $("#spnStatus").text(status);
     } else {
+        var status = "OFF";
         $("#spnStatus").text("OFF");
         $("#spnCpu").text("Sin datos");
         $("#spnCpu").text("Sin datos");
