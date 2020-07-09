@@ -62,7 +62,7 @@
 
                 <div class="info-box-content">
                     <span  class="info-box-text">Servicios ON</span>
-                    <span id="spnService" class="info-box-number">0</span>
+                    <span id="spnService" class="info-box-number">Sin datos</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -178,7 +178,7 @@
                 <!-- /.box-body -->
             </div>
         </div>
-        <!-- /.col -->
+    <!-- /.col -->   
     </div>
     <!-- /.row -->
 
@@ -221,6 +221,60 @@
         </div>
         <!-- /.col -->
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tiempo de Indisponibiidad x camaras</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                      
+                        
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                <canvas id="histoCamaraChart" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- ./box-body -->   
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tiempo de Indisponibiidad x camaras</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                      
+                        
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">    
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                <canvas id="histoVideoChart" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- ./box-body -->   
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
    
   
     <script src="{{ asset ('js/dashboardNoc.js' ) }}"></script>
@@ -234,6 +288,7 @@
         var random = ~~(Math.random() * $options.length);
         $options.eq(random).prop('selected', true);
         document.getElementById("ddlCComercial").onchange();
+
     });
 
 </script>
@@ -264,7 +319,7 @@
                 borderWidth: 1
             },
             {
-                label: 'C4 DEsabilitada',
+                label: 'C4 Desabilitada',
                 data: [],
                 backgroundColor: 'rgba(239, 235, 34, 59)',   
                 borderWidth: 1
@@ -303,8 +358,186 @@
         }
     });
 
+
+    var ctx = document.getElementById('histoCamaraChart').getContext('2d');
+        var histoCamaraChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Horas Grabadas'],
+                datasets: [{
+                    label: 'Camara 1',
+                    data: [],
+                    backgroundColor: 'rgba(132, 157, 242, 1)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 2',
+                    data: [],
+                    backgroundColor: 'rgba(253, 44, 79, 350)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 3',
+                    data: [],
+                    backgroundColor: 'rgba(147, 225, 179, 145)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 4',
+                    data: [],
+                    backgroundColor: 'rgba(239, 235, 34, 59)',   
+                    borderWidth: 1
+                }           
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Cámaras'
+                },
+                
+                scales: {
+                    xAxes: [{
+                        
+                        ticks: {
+                            beginAtZero: true                      
+                        },
+                        barPercentage: 1,
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Horas'
+                          },
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 4,
+                            stepValue: 5,
+                            max: 24
+                        }
+                    }]
+                },
+                responsive: true
+            }
+        });
+
+        var ctx = document.getElementById('histoVideoChart').getContext('2d');
+        var histoVideoChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Horas Grabadas'],
+                datasets: [{
+                    label: 'Camara 1',
+                    data: [],
+                    backgroundColor: 'rgba(132, 157, 242, 1)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 2',
+                    data: [],
+                    backgroundColor: 'rgba(253, 44, 79, 350)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 3',
+                    data: [],
+                    backgroundColor: 'rgba(147, 225, 179, 145)',   
+                    borderWidth: 1
+                },
+                {
+                    label: 'Camara 4',
+                    data: [],
+                    backgroundColor: 'rgba(239, 235, 34, 59)',   
+                    borderWidth: 1
+                }           
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Cámaras'
+                },
+                
+                scales: {
+                    xAxes: [{
+                        
+                        ticks: {
+                            beginAtZero: true                      
+                        },
+                        barPercentage: 1,
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Horas'
+                          },
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 4,
+                            stepValue: 5,
+                            max: 24
+                        }
+                    }]
+                },
+                responsive: true
+            }
+        });
+    
+
     </script>
 
+    <script>
+
+    
+        var pieChartCanvasSpace1 = document.getElementById('diskChart1').getContext('2d');
+        var pieChartCanvasSpace2 = document.getElementById('diskChart2').getContext('2d');
+        var pieChartSpace1 = new Chart(pieChartCanvasSpace1, {
+
+            type: 'pie',
+            data: {
+                labels: ["Usado", "Libre"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [0, 0]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'No hay data disponible '
+                },
+                responsive: true
+            }
+        });
+        var pieChartSpace2 = new Chart(pieChartCanvasSpace2, {
+
+            type: 'pie',
+            data: {
+                labels: ["Usada", "Libre"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [0, 0]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'No hay data disponible '
+                },
+                responsive: true
+            }
+        });
+
+
+    
+    
+    </script>
+
+  
     
 
 @endsection

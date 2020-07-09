@@ -238,6 +238,70 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 ->where('idCamara', $camara)              
                 ->groupBy('datestart')
                 ->get();
+
+                $device = [];
+                $device ["camara"] = $camara->direccion;
+                $device ["data"]   = $secondsRecording;
+
+                array_push($camarasArray,$device);
+    
+            }
+        }
+    
+            return response([$camarasArray]);    
+       
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showByVideo($id , $time)
+    {
+
+        $camarasArray = array();
+
+       
+
+        $camaras = DB::table('cameras')
+        ->select( 'cameras.cameraid',  'cameras.direccion')
+        ->where('id_centrocomercial', $id) 
+        ->get();
+
+
+        foreach ($camaras as $camara) {
+
+            if (!is_null($time)) {
+            
+                $secondsRecording = DB::table('recordings')
+                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
+                ->where('idCamara', $camara->cameraid) 
+                ->where('datetimestart', '>', DB::raw('NOW() - INTERVAL 1 '.$time.''))
+                ->groupBy('datestart')
+                ->get();
+
+                
+
+                $device = [];
+                $device ["camara"] = $camara->direccion;
+                $device ["data"]   = $secondsRecording;
+
+                array_push($camarasArray,$device);
+    
+            } else {
+                
+                $secondsRecording = DB::table('recordings')
+                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
+                ->where('idCamara', $camara)              
+                ->groupBy('datestart')
+                ->get();
+
+                $device = [];
+                $device ["camara"] = $camara->direccion;
+                $device ["data"]   = $secondsRecording;
+
+                array_push($camarasArray,$device);
     
             }
         }
@@ -246,6 +310,64 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
        
     }
 
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showByCamaras($id , $time)
+    {
+
+        $camarasArray = array();
+
+       
+
+        $camaras = DB::table('cameras')
+        ->select( 'cameras.cameraid',  'cameras.direccion')
+        ->where('id_centrocomercial', $id) 
+        ->get();
+
+
+        foreach ($camaras as $camara) {
+
+            if (!is_null($time)) {
+            
+                $secondsRecording = DB::table('recordings')
+                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
+                ->where('idCamara', $camara->cameraid) 
+                ->where('datetimestart', '>', DB::raw('NOW() - INTERVAL 1 '.$time.''))
+                ->groupBy('datestart')
+                ->get();
+
+                
+
+                $device = [];
+                $device ["camara"] = $camara->direccion;
+                $device ["data"]   = $secondsRecording;
+
+                array_push($camarasArray,$device);
+    
+            } else {
+                
+                $secondsRecording = DB::table('recordings')
+                ->select( 'datestart' , DB::raw( 'SUM(TIMESTAMPDIFF(SECOND, datetimestart ,datetimefinish)) AS recorded_second'))
+                ->where('idCamara', $camara)              
+                ->groupBy('datestart')
+                ->get();
+
+                $device = [];
+                $device ["camara"] = $camara->direccion;
+                $device ["data"]   = $secondsRecording;
+
+                array_push($camarasArray,$device);
+    
+            }
+        }
+    
+            return response([$camarasArray]);    
+       
+    }
   
 
 

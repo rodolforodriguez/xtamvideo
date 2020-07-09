@@ -19,5 +19,7 @@ Route::get('/admin/dashboard', 'DashboardController@index');
 Route::get('/admin/dashboard/{id}', 'DashboardController@GetIpCC');
 Route::get('/admin/histogram', 'HistogramController@index');
 Route::get('/admin/histogram/{id}/{time?}', 'HistogramController@show');
+Route::get('/admin/histogram/camaras/{id}/{time?}', 'HistogramController@showByCamaras');
+Route::get('/admin/histogram/video/{id}/{time?}', 'HistogramController@showByVideo');
 Route::get('/admin/noc/{id}', 'NocController@show');
 Route::post('/admin/noc', 'NocController@update');
