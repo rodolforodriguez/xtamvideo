@@ -23,7 +23,7 @@ function GetNocInfo(camId) {
         var json = JSON.parse(data);
         //Add href = btn local link 
         document.getElementById("btnNocLink").onclick = function() {
-            window.open('http://' + json[0].ipserver + '/phpsysinfo/index.php?disp=bootstrap', '_blank');
+            window.open('http://' + json[0].ipserver + '/NOC/index.php?disp=bootstrap', '_blank');
         }
 
     });

@@ -226,7 +226,7 @@
         <div class="col-md-6">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tiempo de Indisponibiidad x camaras</h3>
+                    <h3 class="box-title">Indisponibilidad Grabaciones</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
@@ -251,7 +251,7 @@
         <div class="col-md-6">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tiempo de Indisponibiidad x camaras</h3>
+                    <h3 class="box-title">Indisponibiidad Streaming</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
@@ -365,25 +365,25 @@
             data: {
                 labels: ['Horas Grabadas'],
                 datasets: [{
-                    label: 'Camara 1',
+                    label: 'Chanel 1',
                     data: [],
                     backgroundColor: 'rgba(132, 157, 242, 1)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 2',
+                    label: 'Chanel 2',
                     data: [],
                     backgroundColor: 'rgba(253, 44, 79, 350)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 3',
+                    label: 'Chanel 3',
                     data: [],
                     backgroundColor: 'rgba(147, 225, 179, 145)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 4',
+                    label: 'Chanel 4',
                     data: [],
                     backgroundColor: 'rgba(239, 235, 34, 59)',   
                     borderWidth: 1
@@ -428,25 +428,25 @@
             data: {
                 labels: ['Horas Grabadas'],
                 datasets: [{
-                    label: 'Camara 1',
+                    label: 'Chanel 1',
                     data: [],
                     backgroundColor: 'rgba(132, 157, 242, 1)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 2',
+                    label: 'Chanel 2',
                     data: [],
                     backgroundColor: 'rgba(253, 44, 79, 350)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 3',
+                    label: 'Chanel 3',
                     data: [],
                     backgroundColor: 'rgba(147, 225, 179, 145)',   
                     borderWidth: 1
                 },
                 {
-                    label: 'Camara 4',
+                    label: 'Chanel 4',
                     data: [],
                     backgroundColor: 'rgba(239, 235, 34, 59)',   
                     borderWidth: 1
