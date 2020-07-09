@@ -27,6 +27,14 @@ require("includes/connection.php");
                     echo "intente de nuevo";
                 }
 
+                $update_df_log="UPDATE rtsp_log set datefinish=now()
+                where name_channel='".$channel."' and ip_remote='".$ipserver."' order by id_log desc limit 1;";
+                $registerup= mysqli_query($con, $update_df_log);
+                if ($registerup) {
+                    echo "estado actualizado";
+                } else {
+                    echo "intente de nuevo";
+                }
                 $consulta = "INSERT INTO rtsp_log(`name_channel`, `ip_remote`, `status`) 
                 VALUES ('" . $channel . "','" . $ipserver . "','" . $estado . "')";
                     //echo $consulta;
