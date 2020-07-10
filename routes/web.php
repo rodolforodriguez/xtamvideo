@@ -23,3 +23,4 @@ Route::get('/admin/histogram/camaras/{id}/{time?}', 'HistogramController@showByC
 Route::get('/admin/histogram/video/{id}/{time?}', 'HistogramController@showByVideo');
 Route::get('/admin/noc/{id}', 'NocController@show');
 Route::post('/admin/noc', 'NocController@update');
+

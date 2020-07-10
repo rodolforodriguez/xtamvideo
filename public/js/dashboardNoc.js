@@ -536,15 +536,19 @@ function ResetCanvasRecords() {
 
     //camara1
     histogramChart.data.datasets[0].data = [];
+    histogramChart.data.datasets[0].label = ['C1 No Habilitado'];
 
     //camara2
     histogramChart.data.datasets[1].data = [];
+    histogramChart.data.datasets[1].label = ['C2 No Habilitado'];
 
     //camara3
     histogramChart.data.datasets[2].data = [];
+    histogramChart.data.datasets[2].label = ['C3 No Habilitado'];
 
     //camara4
     histogramChart.data.datasets[3].data = [];
+    histogramChart.data.datasets[3].label = ['C4 No Habilitado'];
 
     histogramChart.update();
 
@@ -559,15 +563,19 @@ function ResetCanvasCamaras() {
 
     //camara1
     histoCamaraChart.data.datasets[0].data = [];
+    histoCamaraChart.data.datasets[0].label = ['C1 No Habilitado'];
 
     //camara2
     histoCamaraChart.data.datasets[1].data = [];
+    histoCamaraChart.data.datasets[1].label = ['C2 No Habilitado'];
 
     //camara3
     histoCamaraChart.data.datasets[2].data = [];
+    histoCamaraChart.data.datasets[2].label = ['C3 No Habilitado'];
 
     //camara4
     histoCamaraChart.data.datasets[3].data = [];
+    histoCamaraChart.data.datasets[3].label = ['C4 No Habilitado'];
 
     histoCamaraChart.update();
 
@@ -582,15 +590,19 @@ function ResetCanvasVideo() {
 
     //camara1
     histoVideoChart.data.datasets[0].data = [];
+    histoVideoChart.data.datasets[0].label = ['C1 No Habilitado'];
 
     //camara2
     histoVideoChart.data.datasets[1].data = [];
+    histoVideoChart.data.datasets[1].label = ['C2 No Habilitado'];
 
     //camara3
     histoVideoChart.data.datasets[2].data = [];
+    histoVideoChart.data.datasets[2].label = ['C3 No Habilitado'];
 
     //camara4
     histoVideoChart.data.datasets[3].data = [];
+    histoVideoChart.data.datasets[3].label = ['C4 No Habilitado'];
 
     histoVideoChart.update();
 

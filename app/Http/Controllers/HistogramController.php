@@ -265,14 +265,28 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
         ->where('id_centrocomercial', $id) 
         ->get();
 
+        $centro_comercial = DB::table('centro_comercial')
+        ->select( 'centro_comercial.id',  'centro_comercial.descripcion','centro_comercial.ipserver')
+        ->where('id' , $id) 
+        ->get();
+
+        foreach ($centro_comercial as $cc) {
+            $ip_remote = $cc->ipserver;
+        
+        }
 
         foreach ($camaras as $camara) {
+
+           
+
 
             if (!is_null($time)) {
             
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
                 ->where('name_channel', '=' , $camara->dcamara) 
+                ->where('ip_remote', '=' , $ip_remote) 
+                ->where('status', '=' , 'inactive') 
                 ->groupBy('datestart','name_channel',  'datefinish')
                 ->get();
             
@@ -287,6 +301,8 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
                 ->where('name_channel', '=' , $camara->dcamara) 
+                ->where('ip_remote', '=' , $ip_remote) 
+                ->where('status', '=' , 'inactive') 
                 ->groupBy('datestart','name_channel' , 'datefinish')
                 ->get();
 
@@ -321,6 +337,15 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
         ->where('id_centrocomercial', $id) 
         ->get();
 
+        $centro_comercial = DB::table('centro_comercial')
+        ->select( 'centro_comercial.id',  'centro_comercial.descripcion','centro_comercial.ipserver')
+        ->where('id' , $id) 
+        ->get();
+
+        foreach ($centro_comercial as $cc) {
+            $ip_remote = $cc->ipserver;
+        }
+
 
         foreach ($camaras as $camara) {
 
@@ -329,6 +354,8 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
                 ->where('name_channel', '=' , $camara->dcamara) 
+                ->where('ip_remote', '=' , $ip_remote) 
+                ->where('status', '=' , 'inactive') 
                 ->groupBy('datestart','name_channel',  'datefinish')
                 ->get();
             
@@ -343,6 +370,8 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 $secondsRecording = DB::table('rtsp_log')
                 ->select( 'name_channel',DB::raw("date_format(datecreated, '%Y-%m-%d') as datestart") , DB::raw( 'if(datefinish <> null,SUM(TIMESTAMPDIFF(SECOND, datecreated ,datefinish)),SUM(TIMESTAMPDIFF(SECOND, datecreated ,now()))) AS recorded_second '))
                 ->where('name_channel', '=' , $camara->dcamara) 
+                ->where('ip_remote', '=' , $ip_remote) 
+                ->where('status', '=' , 'inactive') 
                 ->groupBy('datestart','name_channel' , 'datefinish')
                 ->get();
 
