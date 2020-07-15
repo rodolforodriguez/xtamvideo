@@ -8,7 +8,7 @@
         <title><?php echo $__env->yieldContent('title'); ?></title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/font_family.css')}}" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>

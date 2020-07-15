@@ -14,7 +14,8 @@ $ProfileDashboard = substr($dash,19,-2);
         switch(home)
             {
                 case 1:
-                window.location.href = "./admin/statistic_builder/show/xtam-video";
+                window.location.href = "./admin/dashboard";
+                //window.location.href = "./admin/statistic_builder/show/xtam-video";
                 break;
 
                 case 2:

@@ -70,7 +70,7 @@ if ($userid === null) {
                                     if ($type->desc_cam == $camara->desc_cam) {
                                         if ($temp <> $camara->descripcion) { 
                                             if ($temp <> '') {
-                                                echo "</div>";
+                                                echo "</ul>";
                                             }
                                             $temp = $camara->descripcion;
                                             echo "<ul class='treeview-menu'>";
@@ -138,7 +138,7 @@ if ($userid === null) {
                                     <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                         <div class="input-group date">
                                             <label class="control-label">Fecha inicial</label>
-                                            <input type="date" class="form-control" name="fechastart" id="fechastart" value="2019-11-25" required>
+                                            <input type="date" class="form-control" name="fechastart" id="fechastart" value="2020-07-15" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
@@ -150,7 +150,7 @@ if ($userid === null) {
                                     <div class="col-md-3 col-sm-3 col-xs-6 col-lg-3">
                                         <div class="input-group date">
                                             <label class="control-label">Fecha final</label>
-                                            <input type="date" class="form-control" name="fechafinish" id="fechafinish" value="2019-11-25" required>
+                                            <input type="date" class="form-control" name="fechafinish" id="fechafinish" value="2020-07-15" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6 col-lg-2">
