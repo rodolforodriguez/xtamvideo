@@ -16,7 +16,7 @@
         "install-peers": "^1.0.3",
         "jquery": "^3.4.0",
         "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.19",
         "node-sass": "^4.12.0",
         "popper.js": "^1.15.0"
     },
