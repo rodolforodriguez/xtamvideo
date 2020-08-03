@@ -23,4 +23,11 @@ Route::get('/admin/histogram/camaras/{id}/{time?}', 'HistogramController@showByC
 Route::get('/admin/histogram/video/{id}/{time?}', 'HistogramController@showByVideo');
 Route::get('/admin/noc/{id}', 'NocController@show');
 Route::post('/admin/noc', 'NocController@update');
-
+// Dashboard reports consolidated
+Route::get('/admin/consolidated', 'ConsolidatedController@index');
+Route::get('/admin/consolidated/GetLogChannels', 'ConsolidatedController@GetLogChannels');
+Route::get('/admin/consolidated/GetLogChannelsByDates/{start}/{end}', 'ConsolidatedController@GetLogChannelsByDates');
+// Dashboard reports use of app
+Route::get('/admin/useofapp', 'UseOfAppController@index');
+Route::get('/admin/useofapp/GetLogUse', 'UseOfAppController@GetLogUse');
+Route::get('/admin/useofapp/GetLogChannelsByDates/{start}/{end}', 'UseOfAppController@GetLogUseByDates');
