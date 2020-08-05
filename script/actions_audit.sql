@@ -1,7 +1,6 @@
 CREATE TABLE `xtamdb`.`actions_audit` (
   `id` BIGINT(20) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
-  `action_id` INT NOT NULL,
   `action_start_date` DATETIME NULL DEFAULT NOW(),
   `action_end_date` DATETIME NULL DEFAULT NOW(),
   `state` VARCHAR(12) NOT NULL,
