@@ -17,17 +17,13 @@ class ConsolidatedController extends BaseController
      */
     public function index()
     {
-        // Params
-        /*
-        $initialDate = $_POST['start'];
-        $endDate = $_POST['end'];
-        $endDate = $_POST['cc_id'];
-        $userid = CRUDBooster::myId();
-        */
-
         // KPIS
         $totalSites = DB::table('centro_comercial')->count();
-        $totalSitesOff = 0; // DB::table('centro_comercial')->count();
+        $totalSitesOff = DB::table('cameras')
+                            ->join('centro_comercial','centro_comercial.id','=','cameras.id_centrocomercial')
+                            ->where("cameras.estado","=", "inactive")
+                            ->select('centro_comercial.ipserver')
+                            ->distinct()->get()->count();
         $totalIntegrated = DB::table('cameras')->count();
         $totalCamerasOff = DB::table('cameras')->where("cameras.estado","=", "inactive")->count();
         $totalRecording = DB::table('cameras')->where("cameras.estado","=", "active")->count();
@@ -52,8 +48,6 @@ class ConsolidatedController extends BaseController
      **/
     public function GetLogChannels()
     {
-        $userid = CRUDBooster::myId();
-
         $rtsp_log = DB::table('rtsp_log')
         ->join('centro_comercial','centro_comercial.ipserver','=','rtsp_log.ip_remote')
         ->select(
@@ -77,8 +71,6 @@ class ConsolidatedController extends BaseController
      **/
     public function GetLogChannelsByDates( $start = null, $end = null)
     {
-        $userid = CRUDBooster::myId();
-
         $rtsp_log = DB::table('rtsp_log')
         ->join('centro_comercial','centro_comercial.ipserver','=','rtsp_log.ip_remote')
         ->select(
@@ -89,8 +81,9 @@ class ConsolidatedController extends BaseController
             'rtsp_log.datecreated',
             'rtsp_log.datefinish',
             'centro_comercial.descripcion')
-        ->whereDate('rtsp_log.datefinish','>=',$start->from)
-        ->whereDate('rtsp_log.datefinish','<=',$end->to)
+        ->whereDate('rtsp_log.datecreated','>=',$start->from)
+        ->whereDate('rtsp_log.datecreated','<=',$end->to)
+        ->orderBy('rtsp_log.datecreated', 'desc')
         ->get();
 
         return response([

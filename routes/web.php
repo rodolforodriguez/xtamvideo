@@ -30,4 +30,5 @@ Route::get('/admin/consolidated/GetLogChannelsByDates/{start}/{end}', 'Consolida
 // Dashboard reports use of app
 Route::get('/admin/useofapp', 'UseOfAppController@index');
 Route::get('/admin/useofapp/GetLogUse', 'UseOfAppController@GetLogUse');
+Route::post('/admin/useofapp/set', 'UseOfAppController@SetLogUse');
 Route::get('/admin/useofapp/GetLogChannelsByDates/{start}/{end}', 'UseOfAppController@GetLogUseByDates');

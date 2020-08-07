@@ -142,7 +142,7 @@
                 targets: -2,
                 render:
                 function (data, type, row, meta) {
-                    var minuts = Math.round((new Date(row.datefinish ?? row.datecreated).getTime() - new Date(row.datecreated ?? row.datefinish).getTime())/(1000 * 60));
+                    var minuts = Math.round((new Date(row.datefinish ?? new Date()).getTime() - new Date(row.datecreated ?? row.datefinish).getTime())/(1000 * 60));
                     return minuts;
                 }}
             ],

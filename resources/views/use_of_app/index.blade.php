@@ -108,17 +108,17 @@
                 {title:"Duración (minutos) ",data:"duration"},
                 {title:"XTAM Remoto",data:"descripcion" },
                 {title:"Cámara",data:"name_channel"},
-                // {title:"IP",data:"ip_remote"},
+                {title:"IP",data:"ipserver"},
                 {title:"Vivo/Grabación/Descarga",data:"module"},
-                {title:"Usuario",data:"user"},
-                {title:"Estado",data:"status"},
+                {title:"Usuario",data:"email"},
+                {title:"Estado",data:"state"},
                 {title:"Detalle",data:"details"}
             ],
             columnDefs: [{
-                targets: -7,
+                targets: -8,
                 render:
                 function (data, type, row, meta) {
-                    var minuts = Math.round((new Date(row.action_end_date ?? row.action_start_date).getTime() - new Date(row.action_start_date ?? row.action_end_date).getTime())/(1000 * 60));
+                    var minuts = Math.round((new Date(row.action_end_date ?? new Date()).getTime() - new Date(row.action_start_date ?? row.action_end_date).getTime())/(1000 * 60));
                     return minuts;
                 }}
             ],

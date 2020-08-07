@@ -32,6 +32,15 @@ function drop(ev) {
     x.setAttribute("prop",ftp);
     x.setAttribute("value", route);
 
+    AuditProvider.addNew(
+        state = 'Exitoso',
+        details = 'Consulta grabaciones: ' + son.name,
+        camid = parseInt( data ),
+        smodule = 'Grabación',
+        ip = data,
+        channel = son.name.split('-')[1]
+    );
+
     x.addEventListener(
         "play",
         function() {
