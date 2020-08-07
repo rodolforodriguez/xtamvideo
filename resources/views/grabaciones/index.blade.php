@@ -7,6 +7,7 @@ include "includes/connection.php";
 @section('content')
 
  <script src="{{ asset('js/jquery.min.2.2.4.js') }}"></script>
+ <script src="{{ asset('js/audit.js') }}"></script>
 <div id="loader" class="loader"></div>
 <style>
     .loader {
@@ -68,7 +69,7 @@ if ($userid === null) {
                                 $temp = '';
                                 foreach ($camaras as $camara) {
                                     if ($type->desc_cam == $camara->desc_cam) {
-                                        if ($temp <> $camara->descripcion) { 
+                                        if ($temp <> $camara->descripcion) {
                                             if ($temp <> '') {
                                                 echo "</ul>";
                                             }
