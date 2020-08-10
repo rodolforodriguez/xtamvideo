@@ -152,9 +152,9 @@
         loadLogs();
     });
     function loadLogs() {
-        var from = $("#dateFrom").val() ? new Date($("#dateFrom").val()) : null;
-        var to   = $("#dateTo").val() ? new Date($("#dateTo").val()) : null;
-        var route = `./useofapp/GetLogUse/${from}/${to}`;
+        // var from = $("#dateFrom").val() ? new Date($("#dateFrom").val()) : null;
+        // var to   = $("#dateTo").val() ? new Date($("#dateTo").val()) : null;
+        var route = `./useofapp/GetLogUse`;
         $.ajax({
             url: route,
             dataType: "json",
