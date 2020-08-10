@@ -38,6 +38,7 @@ class UseOfAppController extends BaseController
     public function GetLogUse()
     {
         try {
+            $lastMonth = date("Y-m-d", strtotime(date("Y-m-d", strtotime(date("Y-m-d")))."-1 month"));
             $actions_audit = DB::table('actions_audit')
             ->join('centro_comercial','centro_comercial.ipserver','=','actions_audit.ipserver')
             ->join('users','users.id','=','actions_audit.user_id')
@@ -52,6 +53,7 @@ class UseOfAppController extends BaseController
                 'centro_comercial.ipserver',
                 'actions_audit.name_channel',
                 'users.email')
+            ->whereDate('actions_audit.action_start_date', '>=', $lastMonth)
             ->orderBy('actions_audit.action_start_date', 'desc')
             ->get();
 
@@ -86,7 +88,7 @@ class UseOfAppController extends BaseController
                 'name_channel' => $request->input("channel")
             ]]);
 
-            $result = (object)array( "success" => true, "message" => $request->input("camid"));
+            $result = (object)array( "success" => true, "message" => "Proceso terminado con éxito");
             return response([Json_encode($result)]);
         } catch (\Throwable $th) {
             $result = (object)array( "success" => false, "message" => $th->getMessage());
@@ -100,7 +102,7 @@ class UseOfAppController extends BaseController
      * @param  datetime  $end
      * @return \Illuminate\Http\Response
      **/
-    public function GetLogUseByDates( $start = null, $end = null)
+    public function GetLogUseByDates($start = null, $end = null)
     {
         $actions_audit = DB::table('actions_audit')
         ->join('centro_comercial','centro_comercial.ipserver','=','actions_audit.ipserver')
@@ -114,8 +116,8 @@ class UseOfAppController extends BaseController
             'actions_audit.state',
             'actions_audit.name_channel',
             'users.email')
-        ->whereDate('actions_audit.action_start_date','>=',$start->from)
-        ->whereDate('actions_audit.action_start_date','<=',$end->to)
+        ->whereDate('actions_audit.action_start_date','>=',$start)
+        ->whereDate('actions_audit.action_start_date','<=',$end)
         ->orderBy('actions_audit.action_start_date', 'desc')
         ->get();
 

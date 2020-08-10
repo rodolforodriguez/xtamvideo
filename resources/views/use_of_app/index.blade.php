@@ -1,5 +1,6 @@
 @extends('crudbooster::admin_template')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.dataTables.min.css') }}">
 <style>
     .textKPI {
         font-size: 3.8em;
@@ -57,8 +58,18 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" class="padding-top: 20px;">
+                                <li onclick="SetPeriod(this)" id="today" class="btn btn-md">Hoy</li>
+                                <li onclick="SetPeriod(this)" id="week" class="btn btn-md">Ésta semana</li>
+                                <li onclick="SetPeriod(this)" id="month" class="btn btn-md">Éste mes</li>
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3 col-sm-3 col-xs-6" id="filter">
-                            <label for="dateFrom">Desde:</label>
+                            <label for="dateFrom">Desde: </label>
                             <input id="dateFrom" type="datetime-local" class="form-control input-sm" placeholder="dd-MMM-yyyy hh:mm" onchange="filterLogs()">
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
@@ -67,7 +78,7 @@
                         </div>
                         <div class="col-sm-2 col-md-2"></div>
                         <div class="col-md-2 col-sm-2 col-xs-3 pull-right">
-                            <button class="btn btn-xs btn-default" onclick="toExcel('processTable', 'data')" style="margin: 15px; padding: 5px;" title="Exportar XLS">
+                            <button class="btn btn-xs btn-default" onclick="toExcel()" style="margin: 15px; padding: 5px;" title="Exportar XLS">
                                 <i class="fa fa-download fa-1x"></i> <label class="hidden-sm hidden-xs">Exportar XLS</label>
                             </button>
                         </div>
@@ -79,8 +90,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <hr>
-                            <div class="table-responsive">
+                           <br>
+                           <div class="table-responsive">
                                 <table id="processTable" class="table no-margin"></table>
                             </div>
                             <hr>
@@ -91,8 +102,13 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="{{ asset('js/jquery-3.5.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/buttons.html5.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/buttons.print.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/json.excel.js') }}"></script>
+<script type="text/javascript" >
     var dataJson = {};
     var datatable = {};
     $(document).ready(function() {
@@ -104,15 +120,15 @@
             orderCellsTop: true,
             fixedHeader: false,
             columns:[
-                {title:"Fecha evento",data:"action_start_date"},
-                {title:"Duración (minutos) ",data:"duration"},
-                {title:"XTAM Remoto",data:"descripcion" },
-                {title:"Cámara",data:"name_channel"},
-                {title:"IP",data:"ipserver"},
-                {title:"Vivo/Grabación/Descarga",data:"module"},
-                {title:"Usuario",data:"email"},
-                {title:"Estado",data:"state"},
-                {title:"Detalle",data:"details"}
+                {title:"Fecha evento", data:"action_start_date"},
+                {title:"Duración (min)", data:"duration"},
+                {title:"XTAM Remoto", data:"descripcion" },
+                {title:"Cámara", data:"name_channel"},
+                {title:"IP", data:"ipserver"},
+                {title:"Módulo", data:"module"},
+                {title:"Usuario", data:"email"},
+                {title:"Estado", data:"state"},
+                {title:"Detalle", data:"details"}
             ],
             columnDefs: [{
                 targets: -8,
@@ -133,20 +149,12 @@
                 "infoFiltered": "(Filtro aplicado en _MAX_ regitros totales)"
             },
         });
-        /*
-        $('#processTable thead tr:eq(0) th').each( function (i) {
-            $(this).html( $(this).text() + '<input type="text" placeholder="Buscar"/>');
-            $('input', this ).on( 'keyup change', function () {
-                if (datatable.column(i).search() !== this.value ) {
-                    datatable.column(i).search(this.value).draw();
-                }
-            });
-        });
-        */
         loadLogs();
     });
     function loadLogs() {
-        var route = `./useofapp/GetLogUse`;
+        var from = $("#dateFrom").val() ? new Date($("#dateFrom").val()) : null;
+        var to   = $("#dateTo").val() ? new Date($("#dateTo").val()) : null;
+        var route = `./useofapp/GetLogUse/${from}/${to}`;
         $.ajax({
             url: route,
             dataType: "json",
@@ -163,39 +171,49 @@
             }
         });
     }
+    function SetPeriod(sender) {
+        var today = new Date();
+        $(".active").removeClass("active");
+        switch (sender.id) {
+            case "today":
+                $("#dateFrom").val(getDateString(today));
+            break;
+            case "week":
+                var lastWeek = getDateString(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7));
+                $("#dateFrom").val(lastWeek);
+            break;
+            case "month":
+                var lastMonth = getDateString(new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()));
+                $("#dateFrom").val(lastMonth);
+            break;
+        }
+        $("#dateTo").val(getDateString(new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)));
+        $("#" + sender.id).addClass("active");
+        filterLogs();
+    }
+    function getDateString(date) {
+       var d = date.getDate();
+       var m = date.getMonth() + 1;
+       var y = date.getFullYear();
+       return `${y}-${(m<=9 ? '0' + m : m)}-${(d <= 9 ? '0' + d : d)}T00:00`;
+    }
     function filterLogs() {
         var temp = [];
-        var from = new Date($("#dateFrom").val()).getTime();
-        var to =  new Date($("#dateTo").val()).getTime();
-        for (let index = 0; index < dataJson.length; index++) {
-            const element = dataJson[index];
-            if ((!from || new Date(element.datecreated).getTime() >= from)
-                && (!to || new Date(element.datecreated).getTime() <= to)) {
-                temp.push(element);
+        var from = $("#dateFrom").val() ? new Date($("#dateFrom").val()) : null;
+        var to   = $("#dateTo").val() ? new Date($("#dateTo").val()) : null;
+        for (let i = 0; i < dataJson.length; i++) {
+            const item = dataJson[i];
+            if ((!from || new Date(item.action_start_date) >= from)
+               && (!to || new Date(item.action_start_date) <= to)) {
+                temp.push(item);
             }
         }
         datatable.clear();
         datatable.rows.add(temp);
         datatable.draw();
     }
-    function toExcel(tableID, filename = ''){
-        var downloadLink;
-        var dataType = 'application/vnd.ms-excel';
-        var tableSelect = document.getElementById(tableID);
-        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        filename = filename?filename+'.xls':'excel_data.xls';
-        downloadLink = document.createElement("a");
-        document.body.appendChild(downloadLink);
-        if(navigator.msSaveOrOpenBlob){
-            var blob = new Blob(['\ufeff', tableHTML], {
-                type: dataType
-            });
-            navigator.msSaveOrOpenBlob( blob, filename);
-        }else{
-            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-            downloadLink.download = filename;
-            downloadLink.click();
-        }
+    function toExcel(){
+        JSONToCSVConvertor(dataJson, "Uso de XTAM", true);
     }
 </script>
 @endsection

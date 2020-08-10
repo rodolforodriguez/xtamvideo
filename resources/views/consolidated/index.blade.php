@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-sm-2 col-md-2"></div>
                         <div class="col-md-2 col-sm-2 col-xs-3 pull-right">
-                            <button class="btn btn-xs btn-default" onclick="toExcel('processTable', 'data')" style="margin: 15px;" title="Exportar XLS">
+                            <button class="btn btn-xs btn-default" onclick="toExcel()" style="margin: 15px;" title="Exportar XLS">
                                 <i class="fa fa-download fa-1x"></i> <label class="hidden-sm hidden-xs">Exportar XLS</label>
                             </button>
                         </div>
@@ -118,8 +118,13 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="{{ asset('js/jquery-3.5.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/buttons.html5.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/buttons.print.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/json.excel.js') }}"></script>
+<script type="text/javascript" >
     var dataJson = {};
     var datatable = {};
     $(document).ready(function() {
@@ -157,16 +162,6 @@
                 "infoFiltered": "(Filtro aplicado en _MAX_ regitros totales)"
             },
         });
-        /*
-        $('#processTable thead tr:eq(0) th').each( function (i) {
-            $(this).html( $(this).text() + '<input type="text" placeholder="Buscar"/>');
-            $('input', this ).on( 'keyup change', function () {
-                if (datatable.column(i).search() !== this.value ) {
-                    datatable.column(i).search(this.value).draw();
-                }
-            });
-        });
-        */
         loadLogs();
     });
     function loadLogs() {
@@ -202,24 +197,8 @@
         datatable.rows.add(temp);
         datatable.draw();
     }
-    function toExcel(tableID, filename = ''){
-        var downloadLink;
-        var dataType = 'application/vnd.ms-excel';
-        var tableSelect = document.getElementById(tableID);
-        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        filename = filename?filename+'.xls':'excel_data.xls';
-        downloadLink = document.createElement("a");
-        document.body.appendChild(downloadLink);
-        if(navigator.msSaveOrOpenBlob){
-            var blob = new Blob(['\ufeff', tableHTML], {
-                type: dataType
-            });
-            navigator.msSaveOrOpenBlob( blob, filename);
-        }else{
-            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-            downloadLink.download = filename;
-            downloadLink.click();
-        }
+    function toExcel(){
+        JSONToCSVConvertor(dataJson, "Uso de XTAM", true);
     }
 </script>
 @endsection
