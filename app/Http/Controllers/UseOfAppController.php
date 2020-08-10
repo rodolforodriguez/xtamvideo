@@ -78,18 +78,25 @@ class UseOfAppController extends BaseController
 
             $sideUp = DB::table('cameras')
                 ->join('centro_comercial','centro_comercial.id','=','cameras.id_centrocomercial')
-                ->where("cameras.estado","=", "inactive")
-                ->where('centro_comercial.ipserver','=', $ip)
+                ->where("cameras.estado","=","inactive")
+                ->where('centro_comercial.ipserver','=',$ip[0])
                 ->select('centro_comercial.ipserver')
                 ->distinct()->get()->count();
+
+            $details = "Consulta: ".$request->input("details");
+            $state = "Exitoso";
+            if ( $sideUp > 0 ) {
+                $details = "Error: El XTAM Remoto se encuentra fuera de linea. ".$request->input("details");
+                $state = "Error";
+            }
 
             DB::table('actions_audit')->insert([[
                 'user_id' => CRUDBooster::myId(),
                 'action_start_date' => $request->input("start"),
                 'action_end_date' => $request->input("end"),
                 'camera_id' =>  $request->input("camid"),
-                'state' => ( $sideUp == 0 ) ? "Exitoso" : "Error",
-                'details' => ( $sideUp == 0 ) ? "Consulta: ".$request->input("details") : " Error: El XTAM Remoto se encuentra fuera de linea.".$request->input("details"),
+                'state' => $state,
+                'details' => $details,
                 'module' => $request->input("module"),
                 'ipserver' => $ip[0],
                 'name_channel' => $request->input("channel")

@@ -253,6 +253,7 @@ var AuditProvider = /** @class */ (function () {
             cache: false,
             data: JSON.stringify(audit),
             success: function (response) {
+                console.log(response);
                 var resp = JSON.parse(response);
                 if (resp.success) {
                     audit.finished = true;
