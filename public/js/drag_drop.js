@@ -33,11 +33,9 @@ function drop(ev) {
     x.setAttribute("value", route);
 
     AuditProvider.addNew(
-        state = 'Exitoso',
-        details = 'Consulta grabaciones: ' + son.name,
+        details = son.name,
         camid = parseInt( data ),
         smodule = 'Grabación',
-        ip = data,
         channel = son.name.split('-')[1]
     );
 

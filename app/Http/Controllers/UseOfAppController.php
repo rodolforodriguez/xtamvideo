@@ -38,7 +38,7 @@ class UseOfAppController extends BaseController
     public function GetLogUse()
     {
         try {
-            $lastMonth = date("Y-m-d", strtotime(date("Y-m-d", strtotime(date("Y-m-d")))."-1 month"));
+            $lastMonth = date("Y-m-d", strtotime(date("Y-m-d", strtotime(date("Y-m-d")))."-3 month"));
             $actions_audit = DB::table('actions_audit')
             ->join('centro_comercial','centro_comercial.ipserver','=','actions_audit.ipserver')
             ->join('users','users.id','=','actions_audit.user_id')
@@ -70,19 +70,26 @@ class UseOfAppController extends BaseController
      **/
     public function SetLogUse(Request $request){
         try {
-           $ip =
+            $ip =
                 DB::table('cameras')
                 ->join('centro_comercial','centro_comercial.id','=','cameras.id_centrocomercial')
                 ->where('cameras.cameraid','=',   $request->input("camid"))
                 ->take(1)->pluck('centro_comercial.ipserver');
+
+            $sideUp = DB::table('cameras')
+                ->join('centro_comercial','centro_comercial.id','=','cameras.id_centrocomercial')
+                ->where("cameras.estado","=", "inactive")
+                ->where('centro_comercial.ipserver','=', $ip)
+                ->select('centro_comercial.ipserver')
+                ->distinct()->get()->count();
 
             DB::table('actions_audit')->insert([[
                 'user_id' => CRUDBooster::myId(),
                 'action_start_date' => $request->input("start"),
                 'action_end_date' => $request->input("end"),
                 'camera_id' =>  $request->input("camid"),
-                'state' => $request->input("state"),
-                'details' => $request->input("details"),
+                'state' => ( $sideUp == 0 ) ? "Exitoso" : "Error",
+                'details' => ( $sideUp == 0 ) ? "Consulta: ".$request->input("details") : " Error: El XTAM Remoto se encuentra fuera de linea.".$request->input("details"),
                 'module' => $request->input("module"),
                 'ipserver' => $ip[0],
                 'name_channel' => $request->input("channel")
