@@ -109,21 +109,21 @@ function DrawGeneralBoxChart(json) {
         var ram = bytesToSizeWithLabel(json.general_info[0].ram_used);
         var cpu = json.general_info[0].cpu_used + '%';
         var countProcess = Object.keys(json.process_info).length;
-        var countProcessOn = 0;
+        var countProcessOff = 0;
 
         //Contador de procesos en ON
         if (countProcess > 0) {
             for (i = 0; i < countProcess; i++) {
 
-                if (json.process_info[i].status == 1) {
-                    countProcessOn++;
+                if (json.process_info[i].status == 0) {
+                    countProcessOff++;
                 }
             }
         }
 
         $("#spnCpu").text(cpu);
         $("#spnRam").text(ram);
-        $("#spnService").text(countProcessOn);
+        $("#spnService").text(countProcessOff);
         //Estado
         $("#spnStatus").text(status);
     } else {
@@ -159,17 +159,34 @@ function DrawGeneralBoxChart(json) {
 function DrawDiskPieChart(json) {
     //
     var countDisk = Object.keys(json.disk_info).length;
+
     if (countDisk > 0) {
-        for (i = 0; i <= 1; i++) {
-            if (i == 0) {
-                pieChartSpace1.data.datasets[0].data = [bytesToSize(json.disk_info[i].used), bytesToSize(json.disk_info[i].free)];
-                pieChartSpace1.options.title.text = 'Disco ' + json.disk_info[i].letter;
-            } else if (i == 1) {
-                pieChartSpace2.data.datasets[0].data = [bytesToSize(json.disk_info[i].used), bytesToSize(json.disk_info[i].free)]
-                pieChartSpace2.options.title.text = 'Disco ' + json.disk_info[i].letter;
+
+        if (countDisk == 1) {
+
+            //Xtam que solo tengan 1 disco duro
+            console.log(countDisk);
+            pieChartSpace1.data.datasets[0].data = [bytesToSize(json.disk_info[0].used), bytesToSize(json.disk_info[0].free)];
+            pieChartSpace1.options.title.text = 'Disco ' + json.disk_info[0].letter;
+
+        } else {
+
+            for (i = 0; i <= 1; i++) { //Solo se muestra 2 discos 
+                if (i == 0) {
+                    pieChartSpace1.data.datasets[0].data = [bytesToSize(json.disk_info[i].used), bytesToSize(json.disk_info[i].free)];
+                    pieChartSpace1.options.title.text = 'Disco ' + json.disk_info[i].letter;
+                } else if (i == 1) {
+                    pieChartSpace2.data.datasets[0].data = [bytesToSize(json.disk_info[i].used), bytesToSize(json.disk_info[i].free)]
+                    pieChartSpace2.options.title.text = 'Disco ' + json.disk_info[i].letter;
+                }
+
             }
 
         }
+
+
+
+
     } else {
 
         pieChartSpace1.data.datasets[0].data = [0, 0];
@@ -184,7 +201,8 @@ function DrawDiskPieChart(json) {
 
 function DrawProcessTableChart(json) {
 
-    //
+
+    //console.log(json.process_info);
     var countProcess = Object.keys(json.process_info).length;
     //console.log(countProcess);
     //Contador de procesos en ON
@@ -209,22 +227,24 @@ function DrawProcessTableChart(json) {
             }
             var processName = json.process_info[i].process_name;
 
-            if (processName == "nginx.exe") {
+            if (processName == "nginx.exe" || processName == "nginx") {
                 processName = "RTMP";
-            } else if (processName == "EasyDarwin.exe") {
+            } else if (processName == "EasyDarwin.exe" || processName == "rtsp-simple-ser") {
                 processName = "RTSP";
             } else if (processName == "FileZillaServer.exe") {
                 processName = "FTP";
             } else if (processName == "mysqld.exe") {
                 processName = "MySQL";
-            } else if (processName == "httpd.exe") {
+            } else if (processName == "httpd.exe" || processName == "apache2") {
                 processName = "Apache";
+            } else if (processName == "ffmpeg.exe" || processName == "ffmpeg") {
+                processName = "ffmpeg";
             }
 
 
             var tr = `<tr>
             <td>` + processName + `</td>
-            <td><span class="label label-` + labelColor + `">` + processStatus + `</span></td>       
+            <td><span class="label label-` + labelColor + `">` + processStatus + `</span></td>     
             </tr>`;
             $("#processTable").append(tr)
         }
@@ -337,7 +357,7 @@ function DrawHistogramCamarasChart(jsonfile) {
 
     ResetCanvasCamaras();
     //Inicia el proceso de graficar
-    console.log(jsonfile)
+    //console.log(jsonfile)
 
     //Array eje X
     var label = [];
@@ -632,12 +652,12 @@ function bytesToSizeWithLabel(bytes) {
 
 function XtamDisconnect(last_date) {
     var today = new Date();
-    console.log(today);
+    //console.log(today);
     var lastUpdate = new Date(last_date);
-    console.log(lastUpdate);
+    //console.log(lastUpdate);
     var diffMs = (today - lastUpdate); // milliseconds between now & Christmas
     var diffMins = Math.round(diffMs / 60000); // minutes
-    console.log(diffMins);
+    //console.log(diffMins);
     if (diffMins > 5) {
         return true;
     } else {

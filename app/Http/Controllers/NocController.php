@@ -234,7 +234,9 @@ class NocController extends BaseController
                  $disk_percent =  $request->input("disco." . $i . ".Percent");
                  $disk_mountPoint =  $request->input("disco." . $i . ".MountPoint");
 
-                 if($disk_total > 81927921664) // 10gb
+                
+
+                 if($disk_total > 81927921664) // si la particion supera las 10gb
                  {
                     $affected = DB::table('disk_info')->insert([
                         ['id_centrocomercial' =>$id_cc,
@@ -280,6 +282,8 @@ class NocController extends BaseController
                  $disk_percent =  $request->input("disco." . $i . ".Percent");
                  $disk_mountPoint =  $request->input("disco." . $i . ".MountPoint");
 
+                 
+
                  $affected = DB::table('disk_info')
                  ->where('id_centrocomercial',$id_cc)
                  ->where('letter',$disk_mountPoint)
@@ -292,6 +296,7 @@ class NocController extends BaseController
                     'name' =>$disk_name,
                     'last_update' =>$dtime]);   
 
+                    echo($affected);
 
                     
                       //Notifications

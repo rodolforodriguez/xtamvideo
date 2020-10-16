@@ -58,10 +58,10 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-light-blue-active"><i class="fa fa-cogs"></i></span>
+                <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-cogs"></i></span>
 
                 <div class="info-box-content">
-                    <span  class="info-box-text">Servicios ON</span>
+                    <span  class="info-box-text">Servicios OFF</span>
                     <span id="spnService" class="info-box-number">Sin datos</span>
                 </div>
                 <!-- /.info-box-content -->
