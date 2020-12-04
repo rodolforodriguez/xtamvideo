@@ -93,7 +93,7 @@ class NocController extends BaseController
      */
     public function update(Request $request)
     {
-        //identificacion del Xtam remoto
+        /////////////identificacion del Xtam remoto//////////////////
         $ip = $request->input("xtam.Ip");
         $id_cc = "";
         $cc_name = "";
@@ -103,10 +103,6 @@ class NocController extends BaseController
         ->where( 'ipserver', $ip)   
         ->get();
 
-        $dtime = new DateTime();
-        $dtime->modify('-5 hours');
-        $dtime->format('Y-m-d H:i:s');
-
         if(count($centro_comercial) == 0)
         {
 
@@ -114,7 +110,18 @@ class NocController extends BaseController
             return response([Json_encode($response)]); 
 
         }
-        //General Info
+
+        /////////////////////////////////////////////////////////////////////
+
+        ///////////////////General_info table////////////////////////////////
+
+        //Fecha de actualización
+        $dtime = new DateTime();
+        $dtime->modify('-5 hours');
+        $dtime->format('Y-m-d H:i:s');
+
+        
+        //Host
         foreach ($centro_comercial as $cc) {
             $id_cc = $cc->id;
             $cc_name = $cc->descripcion;
@@ -123,6 +130,7 @@ class NocController extends BaseController
         $Host = $request->input("xtam.Host");
         $uptime = $request->input("time");
         $cpu_core = $request->input("cpu.0.Model");
+
         //CPU 
         $sum_core_used = 0;
         $average_cpu_used = 0;
@@ -141,7 +149,7 @@ class NocController extends BaseController
         $ram_total= $request->input("memoria.Total");
         $ram_porcent = $request->input("memoria.Porcent");  
         
-        //Insert General Info
+        //existe registros del centro comercial
         $cc_general_info = DB::table('general_info')
         ->select('general_info.id_centrocomercial')
         ->where( 'id_centrocomercial', $id_cc)   
@@ -149,6 +157,7 @@ class NocController extends BaseController
 
         if(count($cc_general_info) == 0)
         {
+            //Se insertan los registros General_info
             $affected = DB::table('general_info')->insert([
                 ['id_centrocomercial' =>$id_cc,
                 'server_name' => $Host,
@@ -160,7 +169,7 @@ class NocController extends BaseController
                 'ram_size' =>$ram_total
                 ]
             ]);
-            //Notifications
+            //Notifications si la memoria supera 90%
             if($average_cpu_used > 90)
             {
                 $affected = DB::table('cms_notifications')->insert([
@@ -174,11 +183,11 @@ class NocController extends BaseController
 
             }
 
-            
+         
 
         }else
         {
-            
+            //Actualizar ultimo registro
             $affected = DB::table('general_info')->where('id_centrocomercial',$id_cc)
                 ->update(['server_name' => $Host,
                 'cpu_core' =>$cpu_core,
@@ -203,8 +212,7 @@ class NocController extends BaseController
                 ]);
 
             }
-
-                
+               
         }
 
         //disk Info
@@ -219,11 +227,29 @@ class NocController extends BaseController
         $dtime->modify('-5 hours');
         $dtime->format('Y-m-d H:i:s');
 
+        $free_disk1 = 0;
+        $used_disk1 = 0;
+        $free_disk2 = 0;
+        $used_disk2 = 0;
+
         if(count($cc_disk_info) == 0)
         {
             
             for($i=1;$i<=$num_disk; $i++)
             {
+
+                //variables que se usan para el remote log
+                if($i==1)
+                {
+                    $free_disk1 = $request->input("disco." . $i . ".Free");
+                    $used_disk1 =  $request->input("disco." . $i . ".Used");
+                }
+                if($i==2)
+                {
+                    $free_disk2 = $request->input("disco." . $i . ".Free");
+                    $used_disk2 =  $request->input("disco." . $i . ".Used");
+                }
+
                 //return response([Json_encode($affected)]); 
                  $disk_id =  $request->input("disco." . $i . ".ID");
                  $disk_type =  $request->input("disco." . $i . ".FSType");
@@ -264,15 +290,25 @@ class NocController extends BaseController
                     ]);
                 }
             
-            }
-
-            
+            }        
 
         }else
         {
             
             for($i=1;$i<=$num_disk; $i++)
             {
+                //variables que se usan para el remote log
+                if($i==1)
+                {
+                    $free_disk1 = $request->input("disco." . $i . ".Free");
+                    $used_disk1 =  $request->input("disco." . $i . ".Used");
+                }
+                if($i==2)
+                {
+                    $free_disk2 = $request->input("disco." . $i . ".Free");
+                    $used_disk2 =  $request->input("disco." . $i . ".Used");
+                }
+
                  $disk_id =  $request->input("disco." . $i . ".ID");
                  $disk_type =  $request->input("disco." . $i . ".FSType");
                  $disk_name =  $request->input("disco." . $i . ".Name");
@@ -296,7 +332,7 @@ class NocController extends BaseController
                     'name' =>$disk_name,
                     'last_update' =>$dtime]);   
 
-                    echo($affected);
+                    
 
                     
                       //Notifications
@@ -380,6 +416,55 @@ class NocController extends BaseController
 
         }
 
+        //Diferencia entre la ultima actualizacion y la actual 
+        $result_lastupdate = DB::table('remote_log')
+        ->select('remote_log.last_update')
+        ->where( 'id_centrocomercial', $id_cc)   
+        ->orderBy('id_log','desc')
+        ->limit(1)
+        ->get();
+
+        foreach ($result_lastupdate as $row) {
+            $last_date = $row->last_update;            
+        }
+
+        if($last_date)
+        {
+            $timeoff =  strtotime($dtime->format('Y-m-d H:i:s')) - strtotime($last_date);
+        }
+        else
+        {
+            $timeoff = 0;
+        }
+     
+             
+        //echo($timedifference);
+
+        if($timeoff < 120 )
+        {
+            $timeoff = 0;
+        }
+
+        
+        //indisponibilidad Xtam - remoto log de registros
+        $affected = DB::table('remote_log')->insert([
+            ['id_centrocomercial' =>$id_cc,
+             'cpu_used' => $average_cpu_used,
+             'uptime'   => $uptime,
+             'ram_free' => $ram_free,
+             'ram_used' => $ram_used,
+             'ram_size' => $ram_total,
+             'free_disk1' => $free_disk1,
+             'used_disk1' => $used_disk1,
+             'free_disk2' => $free_disk2,
+             'used_disk2' => $used_disk2,
+             'time_off' => $timeoff,
+             'last_update' => $dtime,
+             'only_date' => $dtime->format('Y-m-d')
+            ]
+        ]);
+        
+       
         //process info 
         return response([Json_encode("OK")]); 
         
@@ -396,9 +481,8 @@ class NocController extends BaseController
         //
     }
 
+
+
 }
        
-
-
-
 ?>

@@ -387,6 +387,62 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
             return response([$camarasArray]);    
        
     }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showXtamOffline($id , $time)
+    {
+
+      
+        $centro_comercial = DB::table('centro_comercial')
+        ->select( 'centro_comercial.id',  'centro_comercial.descripcion','centro_comercial.ipserver')
+        ->where('id' , $id) 
+        ->get();
+
+        foreach ($centro_comercial as $cc) {
+            $ip_remote = $cc->ipserver;
+        }
+
+            if (!is_null($time)) {
+            
+                $secondsOffline = DB::table('remote_log')
+                ->select(DB::raw( 'SUM(time_off) AS seconds') ,'only_date')
+                ->where('id_centrocomercial' , $id)  
+                ->groupBy('only_date')
+                ->get();
+
+                $device = [];
+                $device ["ipserver"] = $ip_remote;
+                $device ["data"]   = $secondsOffline;
+   
+                array_push($device);
+    
+            } else {
+                
+                $secondsOffline = DB::table('remote_log')
+                ->select(DB::raw( 'SUM(time_off) AS seconds') ,'only_date')
+                ->where('id_centrocomercial' , $id)  
+                ->groupBy('only_date')
+                ->get();
+
+                $device = [];
+                $device ["ipserver"] = $ip_remote;
+                $device ["data"]   = $secondsOffline;
+   
+                array_push($device);
+    
+            }
+        
+    
+            return response([$device]);    
+       
+    }
+
+    
   
 
 

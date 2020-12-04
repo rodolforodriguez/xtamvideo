@@ -188,7 +188,7 @@
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Histogramas</h3>
+                    <h3 class="box-title">Histogramas Disponibilidad de Archivos</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                 class="fa fa-minus"></i>
@@ -240,7 +240,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="histoCamaraChart" width="600" height="300"></canvas>
+                                <canvas id="StreamingChart" width="600" height="400"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -266,7 +266,7 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="histoVideoChart" width="600" height="300"></canvas>
+                                <canvas id="RecordingsChart" width="600" height="400"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -276,6 +276,32 @@
             <!-- /.box -->
         </div>
         <!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tiempo de desconexión Xtam Remoto</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>                                           
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                <canvas id="XtamRemoteChart" width="600" height="300"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- ./box-body -->   
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->        
     </div>
    
   
@@ -301,7 +327,7 @@
     var histogramChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Horas Grabadas'],
+            labels: ['Fecha'],
             datasets: [{
                 label: 'C1',
                 data: [],
@@ -345,7 +371,7 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: 'Horas'
+                        labelString: 'Horas Grabadas'
                       },
                     display: true,
                     ticks: {
@@ -361,11 +387,11 @@
     });
 
 
-    var ctx = document.getElementById('histoCamaraChart').getContext('2d');
+    var ctx = document.getElementById('StreamingChart').getContext('2d');
         var histoCamaraChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Horas Grabadas'],
+                labels: ['Fecha'],
                 datasets: [{
                     label: 'Chanel 1',
                     data: [],
@@ -424,11 +450,11 @@
             }
         });
 
-        var ctx = document.getElementById('histoVideoChart').getContext('2d');
+        var ctx = document.getElementById('RecordingsChart').getContext('2d');
         var histoVideoChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Horas Grabadas'],
+                labels: ['Fecha'],
                 datasets: [{
                     label: 'Chanel 1',
                     data: [],
@@ -459,6 +485,51 @@
                 title: {
                     display: true,
                     text: 'Cámaras'
+                },
+                
+                scales: {
+                    xAxes: [{
+                        
+                        ticks: {
+                            beginAtZero: true                      
+                        },
+                        barPercentage: 1,
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Horas'
+                          },
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 4,
+                            stepValue: 5,
+                            max: 24
+                        }
+                    }]
+                },
+                responsive: true
+            }
+        });
+
+        var ctx = document.getElementById('XtamRemoteChart').getContext('2d');
+        var histoXtamRemoteChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Fecha'],
+                datasets: [{
+                    label: 'IP Xtam Remote',
+                    data: [],
+                    backgroundColor: 'rgba(132, 157, 242, 1)',   
+                    borderWidth: 1
+                }           
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Xtam Remoto'
                 },
                 
                 scales: {

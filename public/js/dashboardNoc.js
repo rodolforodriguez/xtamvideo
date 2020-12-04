@@ -5,8 +5,9 @@ function ApplyFilter() {
     //Get Noc system
     GetNocInfo(camId);
     GetHistogramRecords(camId, time);
-    GetHistogramCamaras(camId, time);
-    GetHistogramVideo(camId, time);
+    GetHistogramStreaming(camId, time);
+    GetHistogramRecordings(camId, time);
+    GetXtamRemoteDisconnection(camId, time)
 
 }
 
@@ -56,26 +57,38 @@ function GetHistogramRecords(camId, time) {
 
 }
 
-function GetHistogramCamaras(camId, time) {
+function GetHistogramStreaming(camId, time) {
 
     $.ajax({
         type: "GET",
         url: '../admin/histogram/camaras/' + camId + '/' + time,
         data: {}
     }).done(function(msg) {
-        DrawHistogramCamarasChart(msg)
+        DrawHistogramStreamingChart(msg)
     });
 
 }
 
-function GetHistogramVideo(camId, time) {
+function GetHistogramRecordings(camId, time) {
 
     $.ajax({
         type: "GET",
         url: '../admin/histogram/video/' + camId + '/' + time,
         data: {}
     }).done(function(msg) {
-        DrawHistogramVideoChart(msg)
+        DrawHistogramRecordingsChart(msg)
+    });
+
+}
+
+function GetXtamRemoteDisconnection(camId, time) {
+
+    $.ajax({
+        type: "GET",
+        url: '../admin/histogram/xtamOffline/' + camId + '/' + time,
+        data: {}
+    }).done(function(msg) {
+        DrawXtamRemoteDisconnection(msg)
     });
 
 }
@@ -353,9 +366,9 @@ function DrawHistogramRecordsChart(jsonfile) {
 
 }
 
-function DrawHistogramCamarasChart(jsonfile) {
+function DrawHistogramStreamingChart(jsonfile) {
 
-    ResetCanvasCamaras();
+    ResetCanvasStreaming();
     //Inicia el proceso de graficar
     //console.log(jsonfile)
 
@@ -451,8 +464,8 @@ function DrawHistogramCamarasChart(jsonfile) {
 
 }
 
-function DrawHistogramVideoChart(jsonfile) {
-    ResetCanvasVideo();
+function DrawHistogramRecordingsChart(jsonfile) {
+    ResetCanvasRecordings();
     //Inicia el proceso de graficar
     //console.log(jsonfile)
 
@@ -548,6 +561,100 @@ function DrawHistogramVideoChart(jsonfile) {
 
 }
 
+function DrawXtamRemoteDisconnection(jsonfile) {
+    ResetCanvasXtamRemote();
+    //Inicia el proceso de graficar
+    console.log(jsonfile)
+
+    //Array eje X
+    var label = [];
+    //array eje y
+    var value = [];
+
+    //se obtiene el nombre de la camara
+    var ipserver = jsonfile.map(function(e) {
+        return e.ipserver;
+    });
+    //console.log(camara)
+
+    //se obtiene el array de segundos grabados ordenado por fecha
+    var data = jsonfile.map(function(e) {
+        return e.data;
+    });
+    //console.log(data)
+
+    //Por cada camara se procesa el respectivo array de segundos grabados   
+
+    //se obtiene las fechas de cada  camara
+    var date = data[0].map(function(e) {
+        return e.only_date;
+    });
+
+    //Si la fecha no existe en el array "label" se agrega
+    if (date.length != 0) {
+        date.forEach(element => {
+
+            if (!label.includes(element)) {
+                label.push(element);
+
+            }
+
+        });
+        // Se actualiza el eje X con el array "label"
+        label.sort(function(a, b) {
+            return new Date(a) - new Date(b)
+        })
+        histoXtamRemoteChart.data.labels = label;
+    }
+
+    histoXtamRemoteChart.data.datasets[0].label = ipserver;
+
+
+    // se obtienen los tiempos de indisponibilidad en horas de cada xtam remoto
+    var time = data[0].map(function(e) {
+        var hour = (e.seconds / 60) / 60;
+        var hour3decimales = hour.toFixed(3);
+        return hour3decimales;
+    });
+
+    //se obtiene las fechas de cada  camara
+    var date = data[0].map(function(e) {
+        return e.only_date;
+    });
+
+    //console.log(time);
+
+    if (time.length != 0) {
+        //se identifica la posicion de la fecha para graficar su respectivo valor
+        //Esto se hace debido a que los array de "data" vienen de diferente longitud
+
+        //se hace una copia del eje X para obtener la longitud 
+        value = label.slice();
+        // se rellena de ceros el array "Value"
+        value.fill(0);
+
+        var position = 0;
+        //Se reemplaza el valor de la fecha en la poscion correspondiente
+        date.forEach(element => {
+
+            var index = label.indexOf(element);
+            value.splice(index, 1, time[position]);
+            position++;
+
+        });
+
+
+        // se actualiza el eje y con el array "value"
+        histoXtamRemoteChart.data.datasets[0].data = value;
+    }
+
+
+
+    histoXtamRemoteChart.update();
+
+
+}
+
 //////////////////////////////////////////////////////////////////
 
 
@@ -576,7 +683,7 @@ function ResetCanvasRecords() {
 
 }
 
-function ResetCanvasCamaras() {
+function ResetCanvasStreaming() {
 
 
     //hist cam
@@ -604,7 +711,7 @@ function ResetCanvasCamaras() {
 
 }
 
-function ResetCanvasVideo() {
+function ResetCanvasRecordings() {
 
     //hist cam
 
@@ -625,6 +732,19 @@ function ResetCanvasVideo() {
     histoVideoChart.data.datasets[3].label = ['C4 No Habilitado'];
 
     histoVideoChart.update();
+
+
+}
+
+function ResetCanvasXtamRemote() {
+
+    //hist cam
+
+    //Remote
+    histoXtamRemoteChart.data.datasets[0].data = [];
+    histoXtamRemoteChart.data.datasets[0].label = ['Xtam Remoto No Habilitado'];
+
+    histoXtamRemoteChart.update();
 
 
 }
