@@ -436,16 +436,10 @@ class HistogramController extends \crocodicstudio\crudbooster\controllers\CBCont
                 array_push($device);
     
             }
-        
-    
+           
             return response([$device]);    
        
     }
-
-    
-  
-
-
 
     
 

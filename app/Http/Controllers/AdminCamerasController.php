@@ -37,38 +37,44 @@
 			$this->col[] = ["label"=>"Descripción","name"=>"dcamara"];
 			$this->col[] = ["label"=>"Estado","name"=>"estado"];
 			$this->col[] = ["label"=>"Ver cámara","name"=>"vercam"];
+			$this->col[] = ["label"=>"Id  Securos","name"=>"id_securos"];
+			$this->col[] = ["label"=>"Nombre Securos","name"=>"name_securos"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Sitio central','name'=>'id_centralsites','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
+			$this->form[] = ['label'=>'Sitio central','name'=>'id_securos','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
 			$this->form[] = ['label'=>'Sitio remoto','name'=>'id_centrocomercial','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centro_comercial,descripcion'];
 			$this->form[] = ['label'=>'Dirección','name'=>'direccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
-			$this->form[] = ['label'=>'Tipo de streaming','name'=>'type_streaming','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'RTMP;RTSP','onclick'=>'flujo();'];
+			$this->form[] = ['label'=>'Tipo de streaming','name'=>'type_streaming','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'RTMP;RTSP'];
 			$this->form[] = ['label'=>'Canal de transmisión','name'=>'dcamara','type'=>'select','validation'=>'min:1|max:255','width'=>'col-sm-10','dataenum'=>'channel1;channel2;channel3;channel4'];
 			$this->form[] = ['label'=>'IP de la cámara','name'=>'ipcam','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Url RTSP','name'=>'rtsp_url','type'=>'text','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
 			$this->form[] = ['label'=>'Estado','name'=>'estado','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'inactive|Inactiva;active|Activa'];
+			$this->form[] = ['label'=>'Id Securos','name'=>'id_securos','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nombre Securos','name'=>'name_securos','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Sitio central','name'=>'id_centralsites','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
+			//$this->form[] = ['label'=>'Sitio central','name'=>'id_securos','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centralsites,name'];
 			//$this->form[] = ['label'=>'Sitio remoto','name'=>'id_centrocomercial','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'centro_comercial,descripcion'];
 			//$this->form[] = ['label'=>'Dirección','name'=>'direccion','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Longitud','name'=>'longitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Latitud','name'=>'latitud','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Tipo de Cámara','name'=>'typecam','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'type_cam,desc_cam'];
 			//$this->form[] = ['label'=>'Tipo de streaming','name'=>'type_streaming','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'RTMP;RTSP'];
-			//$this->form[] = ['label'=>'Canal de transmisión','name'=>'dcamara','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'channel1;channel2;channel3;channel4'];
+			//$this->form[] = ['label'=>'Canal de transmisión','name'=>'dcamara','type'=>'select','validation'=>'min:1|max:255','width'=>'col-sm-10','dataenum'=>'channel1;channel2;channel3;channel4'];
 			//$this->form[] = ['label'=>'IP de la cámara','name'=>'ipcam','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Url RTSP','name'=>'rtsp_url','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Url RTSP','name'=>'rtsp_url','type'=>'text','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Carpeta de grabación','name'=>'folder_record','type'=>'select','validation'=>'required','width'=>'col-sm-10','dataenum'=>'camara1;camara2;camara3;camara4'];
 			//$this->form[] = ['label'=>'Estado','name'=>'estado','type'=>'select','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'inactive|Inactiva;active|Activa'];
+			//$this->form[] = ['label'=>'Id Securos','name'=>'id_securos','type'=>'number','validation'=>'required','width'=>'col-sm-9'];
+			//$this->form[] = ['label'=>'Nombre Securos','name'=>'name_securos','type'=>'text','validation'=>'required','width'=>'col-sm-9'];
 			# OLD END FORM
 
 			/* 

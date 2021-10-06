@@ -418,26 +418,41 @@ class NocController extends BaseController
 
         //Diferencia entre la ultima actualizacion y la actual 
         $result_lastupdate = DB::table('remote_log')
-        ->select('remote_log.last_update')
+        ->select('remote_log.id_log' ,'remote_log.last_update')
         ->where( 'id_centrocomercial', $id_cc)   
         ->orderBy('id_log','desc')
         ->limit(1)
         ->get();
 
         foreach ($result_lastupdate as $row) {
-            $last_date = $row->last_update;            
+            $last_date = $row->last_update;
+                       
         }
 
-        if($last_date)
+       // return response([Json_encode(['general_info' => $result_lastupdate])]);
+
+       // if($dtime->format('Y-m-d') == $last_date->format('Y-m-d'))
+        //{
+            if($last_date)
+            {
+                $timeoff =  strtotime($dtime->format('Y-m-d H:i:s')) - strtotime($last_date);
+            }
+            else
+            {
+                $timeoff = 0;
+            }
+
+        /*}else 
         {
-            $timeoff =  strtotime($dtime->format('Y-m-d H:i:s')) - strtotime($last_date);
-        }
-        else
-        {
-            $timeoff = 0;
-        }
-     
-             
+            
+            if(date("Y-m-d", strtotime($dtime."- 1 days")) == $last_date->format('Y-m-d') )
+            {
+                
+            }
+
+        }*/
+
+              
         //echo($timedifference);
 
         if($timeoff < 120 )

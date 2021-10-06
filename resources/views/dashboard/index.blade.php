@@ -292,7 +292,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                                <canvas id="XtamRemoteChart" width="600" height="300"></canvas>
+                                <canvas id="XtamRemoteChart" width="1000" height="400"></canvas>
                         </div>
                     </div>
                     <!-- /.row -->
